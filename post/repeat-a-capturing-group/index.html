@@ -18,7 +18,7 @@
     <script src="https://yandex.st/highlightjs/8.0/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <title>Angular2 HMR with backend server supported | moo...</title>
+    <title>Repeat a capturing group, pitfall in RegExp | moo...</title>
   </head>
   <body>
     <div id="wrap">
@@ -44,15 +44,15 @@ ga('send', 'pageview');
 <div class="article">
   <header>
     <div class="article-header">
-      <h1>Angular2 HMR with backend server supported</h1>
+      <h1>Repeat a capturing group, pitfall in RegExp</h1>
       <div class="article-meta">
-        <span class="posttime">2016/09/03</span>
+        <span class="posttime">2014/12/23</span>
         
 <div class="tags">
   <ul>
     
     <li>
-      <a href="/tags/angular2"><span></span>angular2</a>
+      <a href="/tags/regex"><span></span>regex</a>
     </li>
     
   </ul>
@@ -73,7 +73,7 @@ ga('send', 'pageview');
     
     
     <li>
-      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://elaijuh.github.io/post/ng2-hmr-with-backend-server/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://elaijuh.github.io/post/repeat-a-capturing-group/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
     </li>
     
     
@@ -95,18 +95,37 @@ ga('send', 'pageview');
 
   </header>
   <div class="content">
-    <p>Currenly I am developing a client + server side boilerplate with <a href="https://angular.io">Angular 2</a> and <a href="http://feathersjs.com">Feathers</a>.
-For server side, I am using <code>ts-node</code> with nodemon, so far so good. But I find it cumbesome that every time I need to bundle client side code.<br />
-After some exploring, I find a way to solve the problem. These are the dependencies:</p>
+    <p>RegExp is esoteric, known to all, but you will find it incredibly effecient when you start to get used to it. I like to use RegExp, but sometimes I tend to make mistakes, the most common of which is to repeat a capturing group. Let&rsquo;s think about this. Given a string <code>'a=1;b=2;...;k=n'</code>, I would like to capture <code>k, n</code> of each pair to form an array like <code>['a', 1, 'b', 2, ... 'k', n]</code>.</p>
 
-<ul>
-<li><a href="https://github.com/AngularClass/angular2-hmr">angular2-hmr</a> a bootload wrapper on <code>bootstrapModule</code>, it&rsquo;s cleared classified how to use in github</li>
-<li><a href="https://github.com/AngularClass/angular2-hmr-loader">angular2-hmr-loader</a>, a webpack loader to work with the previous one</li>
-<li><a href="https://github.com/webpack/webpack-dev-middleware">webpack-dev-middleware</a>, just like <code>webpack-dev-server</code></li>
-<li><a href="https://github.com/glenjamin/webpack-hot-middleware">webpack-hot-middleware</a>, an <code>express</code>/<code>feather</code> middleware just like <code>webpack-dev-server</code> w/ hot</li>
-</ul>
+<p><span class="more"></span></p>
 
-<p>All of their READMEs clearly walk you through, it just suprises me that few information could be connected on this while it&rsquo;s a quite general practice in <code>React</code></p>
+<p>Below is our first try:</p>
+
+<pre><code class="language-javascript">var s = 'a=1;b=2;c=3';
+var r = /(?:(\w)=(\d))?(?:;(\w)=(\d))*/;
+
+// expected to be ['a', 1, 'b', 2, 'c', 3]
+s.match(r).slice(1, 7); // ['a', 1, 'c', 3] !ops
+</code></pre>
+
+<p>As you can see, <code>b, 2</code> is lost. What happens behind is, when RegExp engine finishes matching for group 3 (which is &lsquo;b&rsquo;) and group 4 (which is 2) it finds the <code>*</code> which makes it redo the match for group 3 and 4 from last index. So <code>b, 2</code> is overridden by <code>c, 3</code>. Here we are trying to repeat a capturing group <code>(?:;(\w)=(\d))*</code> which leads to the unexpected result.</p>
+
+<p>So can we achieve the goal by global matching? Let&rsquo;s do the second try:</p>
+
+<pre><code class="language-javascript">var s = 'a=1;b=2;c=3';
+var r = /(?:(\w)=(\d))/g;
+
+// expected to be ['a', 1, 'b', 2, 'c', 3]
+s.match(r); // ['a=1', 'b=2', 'c=3'] !ops
+</code></pre>
+
+<p>Looks like it&rsquo;s even further from what we expected. That&rsquo;s true, in global matching, capturing group lose it&rsquo;s magic and it always return the matching result as a whole RegExp.</p>
+
+<p>Finally we yield to use some JavaScript snippet, various ways to go, not to address here.</p>
+
+<hr />
+
+<p><a href="http://www.regular-expressions.info/captureall.html">http://www.regular-expressions.info/captureall.html</a></p>
 
   </div>
   <footer>
@@ -116,7 +135,7 @@ After some exploring, I find a way to solve the problem. These are the dependenc
   <ul>
     
     <li>
-      <a href="/tags/angular2"><span></span>angular2</a>
+      <a href="/tags/regex"><span></span>regex</a>
     </li>
     
   </ul>
@@ -136,7 +155,7 @@ After some exploring, I find a way to solve the problem. These are the dependenc
     
     
     <li>
-      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://elaijuh.github.io/post/ng2-hmr-with-backend-server/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://elaijuh.github.io/post/repeat-a-capturing-group/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
     </li>
     
     
@@ -159,9 +178,9 @@ After some exploring, I find a way to solve the problem. These are the dependenc
       <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'hujiale';
-    var disqus_identifier = 'http:\/\/elaijuh.github.io\/post\/ng2-hmr-with-backend-server\/';
-    var disqus_title = 'Angular2 HMR with backend server supported';
-    var disqus_url = 'http:\/\/elaijuh.github.io\/post\/ng2-hmr-with-backend-server\/';
+    var disqus_identifier = 'http:\/\/elaijuh.github.io\/post\/repeat-a-capturing-group\/';
+    var disqus_title = 'Repeat a capturing group, pitfall in RegExp';
+    var disqus_url = 'http:\/\/elaijuh.github.io\/post\/repeat-a-capturing-group\/';
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -176,9 +195,14 @@ After some exploring, I find a way to solve the problem. These are the dependenc
         
         <div id="pagenavigation-next">
           <span class="pagenav-label">Previous</span>
-          <a href="http://elaijuh.github.io/post/migration-to-hugo/">Migration to Hugo</a>
+          <a href="http://elaijuh.github.io/post/handle-http-request-in-multiple-process/">Handle HTTP request in multiple processes in NodeJS</a>
         </div>
         
+        
+        <div id="pagenavigation-prev">
+          <span class="pagenav-label">Next</span>
+          <a href="http://elaijuh.github.io/post/hoisting-what-happen-behind-it/">Hoisting, what happens behind it</a>
+        </div>
         
       </div>
       

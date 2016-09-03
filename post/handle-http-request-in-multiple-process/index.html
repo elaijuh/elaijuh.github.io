@@ -18,7 +18,7 @@
     <script src="https://yandex.st/highlightjs/8.0/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <title>Angular2 HMR with backend server supported | moo...</title>
+    <title>Handle HTTP request in multiple processes in NodeJS | moo...</title>
   </head>
   <body>
     <div id="wrap">
@@ -44,15 +44,15 @@ ga('send', 'pageview');
 <div class="article">
   <header>
     <div class="article-header">
-      <h1>Angular2 HMR with backend server supported</h1>
+      <h1>Handle HTTP request in multiple processes in NodeJS</h1>
       <div class="article-meta">
-        <span class="posttime">2016/09/03</span>
+        <span class="posttime">2014/12/16</span>
         
 <div class="tags">
   <ul>
     
     <li>
-      <a href="/tags/angular2"><span></span>angular2</a>
+      <a href="/tags/"><span></span></a>
     </li>
     
   </ul>
@@ -73,7 +73,7 @@ ga('send', 'pageview');
     
     
     <li>
-      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://elaijuh.github.io/post/ng2-hmr-with-backend-server/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://elaijuh.github.io/post/handle-http-request-in-multiple-process/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
     </li>
     
     
@@ -95,18 +95,56 @@ ga('send', 'pageview');
 
   </header>
   <div class="content">
-    <p>Currenly I am developing a client + server side boilerplate with <a href="https://angular.io">Angular 2</a> and <a href="http://feathersjs.com">Feathers</a>.
-For server side, I am using <code>ts-node</code> with nodemon, so far so good. But I find it cumbesome that every time I need to bundle client side code.<br />
-After some exploring, I find a way to solve the problem. These are the dependencies:</p>
+    <p>NodeJS is single process based which is good at frequent IO operations. But single process can&rsquo;t fully utilize multi-core CPU. Luckily we have <code>child-process</code> module in NodeJS to spawn multiple processes. One of the practical examples is handling HTTP request, especially for a large number of concurrent requests. A common way is to use master-worker pattern, a master process working as a proxy to delegate the HTTP requests to child processes with load balance enabled. Cons of master-worker is rapid resource consuming as each process needs to listen on a different port. Another ninja way is to make each child process listen on the same port. Let&rsquo;s have a look at how to achieve that:</p>
 
-<ul>
-<li><a href="https://github.com/AngularClass/angular2-hmr">angular2-hmr</a> a bootload wrapper on <code>bootstrapModule</code>, it&rsquo;s cleared classified how to use in github</li>
-<li><a href="https://github.com/AngularClass/angular2-hmr-loader">angular2-hmr-loader</a>, a webpack loader to work with the previous one</li>
-<li><a href="https://github.com/webpack/webpack-dev-middleware">webpack-dev-middleware</a>, just like <code>webpack-dev-server</code></li>
-<li><a href="https://github.com/glenjamin/webpack-hot-middleware">webpack-hot-middleware</a>, an <code>express</code>/<code>feather</code> middleware just like <code>webpack-dev-server</code> w/ hot</li>
-</ul>
+<p><span class="more"></span></p>
 
-<p>All of their READMEs clearly walk you through, it just suprises me that few information could be connected on this while it&rsquo;s a quite general practice in <code>React</code></p>
+<pre><code class="language-javascript">// master.js
+var cp = require('child_process'),
+    cp1 = cp.fork('child-process.js'),
+    cp2 = cp.fork('child-process.js'),
+    net = require('net');
+
+var server = net.createServer(); // create a TCP server
+
+server.on('listening', function () {
+    /**
+     * this is a tricky part
+     * it's not sending the whole server object
+     * but a stringified message object with server._handle in
+     * we will have another post to discuss it later
+     */
+    cp1.send('server', server);
+    cp2.send('server', server);
+    server.close();
+});
+
+server.listen(1337);
+
+// child.js
+var http = require('http');
+
+var server = http.createServer(function (req, res) {
+   res.writeHead(200, {'Content-Type': 'text/plain'}); 
+   res.end('handled by child, pid: ' + process.pid + '\n');
+});
+
+process.on('message', function (m, tcpServer) {
+   if (m === 'server') {
+      tcpServer.on('connection', function (socket) {
+          server.emit('connection', socket);
+      });
+   }
+});
+</code></pre>
+
+<p>In <code>master.js</code>, we create a TCP server, have it bound to port 1337, and close it immediately once delegate it to child process. In <code>child.js</code>, we create a HTTP server, not like usual, it doesn&rsquo;t listen on any port explicitly. Now we have the TCP server sent from master process (regard it to be the same TCP server instance for now, but actually not. We will discuss it in another post). Once there is connection to the TCP server, we manually emit the <code>connection</code> event on HTTP server with the TCP socket passed in. So that any HTTP reqeust to port 1337 will be handled by child process now, one process at a time. Let&rsquo;s use curl to check the result:</p>
+
+<pre><code class="language-bash">$ curl http://localhost:1337
+handled by child, pid: 18169 
+$ curl http://localhost:1337
+handled by child, pid: 18168
+</code></pre>
 
   </div>
   <footer>
@@ -116,7 +154,7 @@ After some exploring, I find a way to solve the problem. These are the dependenc
   <ul>
     
     <li>
-      <a href="/tags/angular2"><span></span>angular2</a>
+      <a href="/tags/"><span></span></a>
     </li>
     
   </ul>
@@ -136,7 +174,7 @@ After some exploring, I find a way to solve the problem. These are the dependenc
     
     
     <li>
-      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://elaijuh.github.io/post/ng2-hmr-with-backend-server/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://elaijuh.github.io/post/handle-http-request-in-multiple-process/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
     </li>
     
     
@@ -159,9 +197,9 @@ After some exploring, I find a way to solve the problem. These are the dependenc
       <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'hujiale';
-    var disqus_identifier = 'http:\/\/elaijuh.github.io\/post\/ng2-hmr-with-backend-server\/';
-    var disqus_title = 'Angular2 HMR with backend server supported';
-    var disqus_url = 'http:\/\/elaijuh.github.io\/post\/ng2-hmr-with-backend-server\/';
+    var disqus_identifier = 'http:\/\/elaijuh.github.io\/post\/handle-http-request-in-multiple-process\/';
+    var disqus_title = 'Handle HTTP request in multiple processes in NodeJS';
+    var disqus_url = 'http:\/\/elaijuh.github.io\/post\/handle-http-request-in-multiple-process\/';
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -176,9 +214,14 @@ After some exploring, I find a way to solve the problem. These are the dependenc
         
         <div id="pagenavigation-next">
           <span class="pagenav-label">Previous</span>
-          <a href="http://elaijuh.github.io/post/migration-to-hugo/">Migration to Hugo</a>
+          <a href="http://elaijuh.github.io/post/angularjs-decorator/"> $provide.decorator - tweak Angular servicer</a>
         </div>
         
+        
+        <div id="pagenavigation-prev">
+          <span class="pagenav-label">Next</span>
+          <a href="http://elaijuh.github.io/post/repeat-a-capturing-group/">Repeat a capturing group, pitfall in RegExp</a>
+        </div>
         
       </div>
       

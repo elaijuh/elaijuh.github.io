@@ -18,7 +18,7 @@
     <script src="https://yandex.st/highlightjs/8.0/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <title>Angular2 HMR with backend server supported | moo...</title>
+    <title>Hoisting, what happens behind it | moo...</title>
   </head>
   <body>
     <div id="wrap">
@@ -44,15 +44,15 @@ ga('send', 'pageview');
 <div class="article">
   <header>
     <div class="article-header">
-      <h1>Angular2 HMR with backend server supported</h1>
+      <h1>Hoisting, what happens behind it</h1>
       <div class="article-meta">
-        <span class="posttime">2016/09/03</span>
+        <span class="posttime">2015/01/01</span>
         
 <div class="tags">
   <ul>
     
     <li>
-      <a href="/tags/angular2"><span></span>angular2</a>
+      <a href="/tags/javascript"><span></span>javascript</a>
     </li>
     
   </ul>
@@ -73,7 +73,7 @@ ga('send', 'pageview');
     
     
     <li>
-      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://elaijuh.github.io/post/ng2-hmr-with-backend-server/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://elaijuh.github.io/post/hoisting-what-happen-behind-it/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
     </li>
     
     
@@ -95,18 +95,54 @@ ga('send', 'pageview');
 
   </header>
   <div class="content">
-    <p>Currenly I am developing a client + server side boilerplate with <a href="https://angular.io">Angular 2</a> and <a href="http://feathersjs.com">Feathers</a>.
-For server side, I am using <code>ts-node</code> with nodemon, so far so good. But I find it cumbesome that every time I need to bundle client side code.<br />
-After some exploring, I find a way to solve the problem. These are the dependencies:</p>
+    <p>We always see the word <strong>hoisting</strong> in some javascript books and technical blogs. Hoisting is grabbed to explain the phenomenon that we can use a variable before we declare it. That&rsquo;s sound incredible in compiling languages, but in javascript it&rsquo;s really there. Some people might think that the interpretor do a magic to restructure the code and put all variable/function declaration statements at the top of the function body. Thinking like that way might help to write or read the program, but that&rsquo;s not the things truely happen behind. The post is to walk through the mechanism behind hoisting.</p>
 
-<ul>
-<li><a href="https://github.com/AngularClass/angular2-hmr">angular2-hmr</a> a bootload wrapper on <code>bootstrapModule</code>, it&rsquo;s cleared classified how to use in github</li>
-<li><a href="https://github.com/AngularClass/angular2-hmr-loader">angular2-hmr-loader</a>, a webpack loader to work with the previous one</li>
-<li><a href="https://github.com/webpack/webpack-dev-middleware">webpack-dev-middleware</a>, just like <code>webpack-dev-server</code></li>
-<li><a href="https://github.com/glenjamin/webpack-hot-middleware">webpack-hot-middleware</a>, an <code>express</code>/<code>feather</code> middleware just like <code>webpack-dev-server</code> w/ hot</li>
-</ul>
+<p><span class="more"></span></p>
 
-<p>All of their READMEs clearly walk you through, it just suprises me that few information could be connected on this while it&rsquo;s a quite general practice in <code>React</code></p>
+<pre><code class="language-javascript">function foo(x) {
+	console.log(x); // x
+	console.log(y); // undefined
+	console.log(z); // [function: z]
+
+	z(); // z
+
+	var y = 'y';
+	var z = 'z';
+
+	function z() { // overwrite var z
+		console.log('z');
+	}
+}
+
+foo('x');
+</code></pre>
+
+<p>There are 3 kinds of scopes in javascript - <code>global scope</code>, <code>function scope</code>, <code>eval scope</code>. We only discuss function scope here. Whenever a function is invoked, the execution context is put on the top of the stack, and before executing the function code step-by-step, there is a pre-stage called <code>Declaration Binding Instantiation</code>. In this declaration binding stage, an <code>VariableEnvironment</code>(VE) (in old ECMA-262, it&rsquo;s refered as variable object) is created. Run-time function will refer to this <code>VariableEnvironment</code> (actually it should be <code>LexicalEnvironment</code> which is initialized the same as <code>VariableEnvironment</code>) to identify the variables. So below is what the declaration binding stage do in sequence</p>
+
+<ol>
+<li>Formal parameters are bound to VE</li>
+<li>Function declaration is bound to VE. If the function name is already existing, it will overwrite it.</li>
+<li><code>Arguments</code> is bound to VE.</li>
+<li>Variable declaration is bound to VE. If the variable name is already existing, it will do nothing.</li>
+</ol>
+
+<p>VE for <code>foo</code> should look like:</p>
+
+<pre><code class="language-javascript">/*
+VE = {
+    x: 'x', // formal parameter x
+    z: [function z], // reference to function z
+    arguments:
+    y: undefined
+};
+*/
+</code></pre>
+
+<p>So before the execution of the function, all variables/functions are bound to VE already to be later referenced. Now you know the magic behind hoisting.</p>
+
+<hr />
+
+<p><a href="http://www.ecma-international.org/ecma-262/5.1/#sec-10.5">http://www.ecma-international.org/ecma-262/5.1/#sec-10.5</a></p>
 
   </div>
   <footer>
@@ -116,7 +152,7 @@ After some exploring, I find a way to solve the problem. These are the dependenc
   <ul>
     
     <li>
-      <a href="/tags/angular2"><span></span>angular2</a>
+      <a href="/tags/javascript"><span></span>javascript</a>
     </li>
     
   </ul>
@@ -136,7 +172,7 @@ After some exploring, I find a way to solve the problem. These are the dependenc
     
     
     <li>
-      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://elaijuh.github.io/post/ng2-hmr-with-backend-server/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://elaijuh.github.io/post/hoisting-what-happen-behind-it/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
     </li>
     
     
@@ -159,9 +195,9 @@ After some exploring, I find a way to solve the problem. These are the dependenc
       <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'hujiale';
-    var disqus_identifier = 'http:\/\/elaijuh.github.io\/post\/ng2-hmr-with-backend-server\/';
-    var disqus_title = 'Angular2 HMR with backend server supported';
-    var disqus_url = 'http:\/\/elaijuh.github.io\/post\/ng2-hmr-with-backend-server\/';
+    var disqus_identifier = 'http:\/\/elaijuh.github.io\/post\/hoisting-what-happen-behind-it\/';
+    var disqus_title = 'Hoisting, what happens behind it';
+    var disqus_url = 'http:\/\/elaijuh.github.io\/post\/hoisting-what-happen-behind-it\/';
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -176,9 +212,14 @@ After some exploring, I find a way to solve the problem. These are the dependenc
         
         <div id="pagenavigation-next">
           <span class="pagenav-label">Previous</span>
-          <a href="http://elaijuh.github.io/post/migration-to-hugo/">Migration to Hugo</a>
+          <a href="http://elaijuh.github.io/post/repeat-a-capturing-group/">Repeat a capturing group, pitfall in RegExp</a>
         </div>
         
+        
+        <div id="pagenavigation-prev">
+          <span class="pagenav-label">Next</span>
+          <a href="http://elaijuh.github.io/post/scope-the-most-important-thing-in-javascript/">Scope, the most important thing in JavaScript</a>
+        </div>
         
       </div>
       

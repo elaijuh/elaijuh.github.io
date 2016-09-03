@@ -18,7 +18,7 @@
     <script src="https://yandex.st/highlightjs/8.0/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <title>Angular2 HMR with backend server supported | moo...</title>
+    <title> $provide.decorator - tweak Angular servicer | moo...</title>
   </head>
   <body>
     <div id="wrap">
@@ -44,15 +44,15 @@ ga('send', 'pageview');
 <div class="article">
   <header>
     <div class="article-header">
-      <h1>Angular2 HMR with backend server supported</h1>
+      <h1> $provide.decorator - tweak Angular servicer</h1>
       <div class="article-meta">
-        <span class="posttime">2016/09/03</span>
+        <span class="posttime">2014/12/11</span>
         
 <div class="tags">
   <ul>
     
     <li>
-      <a href="/tags/angular2"><span></span>angular2</a>
+      <a href="/tags/angular1"><span></span>angular1</a>
     </li>
     
   </ul>
@@ -73,7 +73,7 @@ ga('send', 'pageview');
     
     
     <li>
-      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://elaijuh.github.io/post/ng2-hmr-with-backend-server/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://elaijuh.github.io/post/angularjs-decorator/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
     </li>
     
     
@@ -95,18 +95,50 @@ ga('send', 'pageview');
 
   </header>
   <div class="content">
-    <p>Currenly I am developing a client + server side boilerplate with <a href="https://angular.io">Angular 2</a> and <a href="http://feathersjs.com">Feathers</a>.
-For server side, I am using <code>ts-node</code> with nodemon, so far so good. But I find it cumbesome that every time I need to bundle client side code.<br />
-After some exploring, I find a way to solve the problem. These are the dependencies:</p>
+    <p>If you are using Angular, you can&rsquo;t avoid depending on third-party modules. Sometimes you find it not that perfect API the module provides, so that you hack into the source code and about to pull request. But the author&rsquo;s comments on your pull request, usually for popular repo, &lsquo;sorry-that&rsquo;s not our priority&rsquo; turns you down totally. Either you work around it or turns to another third-party module. Here is the third option, if you want to share the private data in service closure and provide some API for your specific need, you might find <code>$provide.decorator</code> helpful. Let&rsquo;s look at this:</p>
 
-<ul>
-<li><a href="https://github.com/AngularClass/angular2-hmr">angular2-hmr</a> a bootload wrapper on <code>bootstrapModule</code>, it&rsquo;s cleared classified how to use in github</li>
-<li><a href="https://github.com/AngularClass/angular2-hmr-loader">angular2-hmr-loader</a>, a webpack loader to work with the previous one</li>
-<li><a href="https://github.com/webpack/webpack-dev-middleware">webpack-dev-middleware</a>, just like <code>webpack-dev-server</code></li>
-<li><a href="https://github.com/glenjamin/webpack-hot-middleware">webpack-hot-middleware</a>, an <code>express</code>/<code>feather</code> middleware just like <code>webpack-dev-server</code> w/ hot</li>
-</ul>
+<p><span class="more"></span></p>
 
-<p>All of their READMEs clearly walk you through, it just suprises me that few information could be connected on this while it&rsquo;s a quite general practice in <code>React</code></p>
+<pre><code class="language-javascript">angular
+    .module('sortModule', [])
+    .factory('sortService', function () {
+        var list = [1, 3, 10, 2];
+        var service = {
+            doSort: doSort
+        }
+        return service;
+        ////////////////
+        function doSort() {
+            return list.sort().slice(); // [1, 10, 2, 3] default sort method compared by string
+        }
+    });
+
+var myApp = angular.module('myApp', ['sortModule']);
+myApp.config(function ($provide) {
+    $provide.decorator('sortService', function ($delegate) {
+        $delegate.doCustSort = function (fn) {
+            return list.sort(fn).slice(); // [1, 2, 3, 10] compared by number
+        };
+        
+        return $delegate;
+    });
+});
+
+myApp.controller('MyCtrl', function($scope, sortService) {
+    console.log(sortService.doSort()); // [1, 10, 2, 3]
+    var compare = function (a, b) {
+        if (a &lt; b) return -1;
+        if (a &gt; b) return 1;
+        return 0;
+    };
+    // we tweaked sortService with doCustSort method
+    console.log(sortService.doCustSort(compare)); // [1, 2, 3, 10]
+});
+</code></pre>
+
+<p>Here we add a customized sort method <code>doCustSort</code> to <code>$delegate</code> which references to the service itself. So that we can share the private <code>list</code> and do some specific logic on our need. And basically you can tweak most components in Angular as long as it&rsquo;s a <code>$provide</code>.</p>
+
+<p><a href="http://plnkr.co/edit/etgYtx?p=preview">Plnkr demo</a></p>
 
   </div>
   <footer>
@@ -116,7 +148,7 @@ After some exploring, I find a way to solve the problem. These are the dependenc
   <ul>
     
     <li>
-      <a href="/tags/angular2"><span></span>angular2</a>
+      <a href="/tags/angular1"><span></span>angular1</a>
     </li>
     
   </ul>
@@ -136,7 +168,7 @@ After some exploring, I find a way to solve the problem. These are the dependenc
     
     
     <li>
-      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://elaijuh.github.io/post/ng2-hmr-with-backend-server/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://elaijuh.github.io/post/angularjs-decorator/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
     </li>
     
     
@@ -159,9 +191,9 @@ After some exploring, I find a way to solve the problem. These are the dependenc
       <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'hujiale';
-    var disqus_identifier = 'http:\/\/elaijuh.github.io\/post\/ng2-hmr-with-backend-server\/';
-    var disqus_title = 'Angular2 HMR with backend server supported';
-    var disqus_url = 'http:\/\/elaijuh.github.io\/post\/ng2-hmr-with-backend-server\/';
+    var disqus_identifier = 'http:\/\/elaijuh.github.io\/post\/angularjs-decorator\/';
+    var disqus_title = ' $provide.decorator - tweak Angular servicer';
+    var disqus_url = 'http:\/\/elaijuh.github.io\/post\/angularjs-decorator\/';
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -176,9 +208,14 @@ After some exploring, I find a way to solve the problem. These are the dependenc
         
         <div id="pagenavigation-next">
           <span class="pagenav-label">Previous</span>
-          <a href="http://elaijuh.github.io/post/migration-to-hugo/">Migration to Hugo</a>
+          <a href="http://elaijuh.github.io/post/function-overload-in-javascript/">Function overload in JavaScript</a>
         </div>
         
+        
+        <div id="pagenavigation-prev">
+          <span class="pagenav-label">Next</span>
+          <a href="http://elaijuh.github.io/post/handle-http-request-in-multiple-process/">Handle HTTP request in multiple processes in NodeJS</a>
+        </div>
         
       </div>
       

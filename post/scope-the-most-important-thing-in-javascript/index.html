@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="generator" content="Hugo 0.16" />
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    
+    <link href="/index.xml" rel="alternate" type="application/rss+xml" title="moo..." />
+    <link href="/index.xml" rel="feed" type="application/rss+xml" title="moo..." />
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    
+    <script src="https://apis.google.com/js/platform.js" async defer>{lang: 'en'}</script>
+    
+    <link rel="stylesheet" href="https://yandex.st/highlightjs/8.0/styles/default.min.css">
+    <script src="https://yandex.st/highlightjs/8.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <title>Scope, the most important thing in JavaScript | moo...</title>
+  </head>
+  <body>
+    <div id="wrap">
+      
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-57201547-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+      <header class="site-header">
+        <div class="site-header-left">
+          <a class="site-header-title" href="http://elaijuh.github.io/">moo...</a>
+        </div>
+      </header>
+      <div class="container">
+        <div id="main">
+
+<div class="article">
+  <header>
+    <div class="article-header">
+      <h1>Scope, the most important thing in JavaScript</h1>
+      <div class="article-meta">
+        <span class="posttime">2015/01/31</span>
+        
+<div class="tags">
+  <ul>
+    
+    <li>
+      <a href="/tags/javascript"><span></span>javascript</a>
+    </li>
+    
+  </ul>
+</div>
+
+
+      </div>
+    </div>
+    
+<div id="share-buttons">
+  <ul>
+    
+    <li>
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="hjiale">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    </li>
+    
+    
+    
+    <li>
+      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://elaijuh.github.io/post/scope-the-most-important-thing-in-javascript/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+    </li>
+    
+    
+    
+    
+    <li>
+      <div class="g-plusone" data-size="medium"></div>
+    </li>
+    
+    
+    <li>
+      <a data-pocket-label="pocket" data-pocket-count="horizontal" class="pocket-btn" data-lang="en"></a>
+      <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
+    </li>
+    
+  </ul>
+</div>
+
+
+  </header>
+  <div class="content">
+    <p>cope and scope chain, the most important mechanism in JavaScript, are barely clearly explained though specified in ECMA-262 version 5.1. Without scope mechanism, there wouldn&rsquo;t be closure and functional programming. This post is aim to elaborate what happens behind from the very beginning when control enters the global code to execution end.</p>
+
+<p><span class="more"></span></p>
+
+<p>Firstly, for easy literal, let&rsquo;s agree on the following abbreviation:
+<code>GE</code>: Global Environment
+<code>VE</code>: Variable Environment
+<code>LE</code>: Lexical Environment
+<code>OLE</code>: Outer Lexcial Environment Reference
+<code>ER</code>: Environment Record
+<code>EC</code>: Execution Context
+<code>go</code>: global object (window for browser, global for NodeJS)</p>
+
+<p>Take following <strong>foo.js</strong> as example, let&rsquo;s dive into it line by line</p>
+
+<pre><code class="language-javascript">// foo.js
+var a = 1;
+function Foo(b) {
+	b = 3;
+	console.log(b); // 3
+	console.log(a); // 1
+}
+console.log(a);
+Foo(2);
+</code></pre>
+
+<ul>
+<li>Step 1: Control enters into global code
+Every javascript file is executed from global code, when the control enters into the global code (before executing the code ), a global EC will be created and push into the EC stack. <code>this</code> is set to <code>go</code>. <code>VE</code> is set to <code>GE</code> and associated with global <code>EC</code>. <code>LE</code> is set to <code>GE</code> and associated with global <code>EC</code>. <code>GE</code> is a javascript internal object which contains <code>ER</code>(bind with <code>go</code>) and <code>OLE</code>(initialized to null). So at this stage, the global <code>EC</code> looks like:</li>
+</ul>
+
+<pre><code class="language-javascript">// step 1
+GlobalEC: {
+	VE: { 
+		ER: { window: go }
+		OLE: null
+	},
+	LE: {
+		ER: { window: go }
+		OLE: null
+	}
+	this: window
+}
+</code></pre>
+
+<ul>
+<li>Step 2: Declaration Binding Instantiation for global EC
+After the execution context is created, control will scan the code (not execution) and bind each function declaration and variable declaration. At this stage, <code>VE</code> and <code>LE</code> will be augmented the same way, ie. <code>VE</code> is same as <code>LE</code>.  So the global EC looks like:</li>
+</ul>
+
+<pre><code class="language-javascript">// step 2
+GlobalEC: {
+	VE: { 
+		ER: { window: go, a: undefined, Foo: foo }
+		OLE: null
+	},
+	LE: {
+		ER: { window: go, a: undefined, Foo: foo }
+		OLE: null
+	}
+	this: window
+}
+</code></pre>
+
+<p>The tricky part is when control scans to <code>Foo</code>&rsquo;s function declaration, it will create a new function object <code>foo</code> and associate it with <code>Foo</code>. The common internal properties and special internal properties for function will be assigned to <code>foo</code>. One of these internal properties is <code>[[scope]]</code>, from here the scope chain mechanism starts. <code>foo.[[scope]]</code> is set to current <code>EC.LE</code></p>
+
+<ul>
+<li>Step 3: Executing the global code
+After the control finishes scanning the code in step 2, it starts to run the code line by line. During the execution, <code>LE</code> will be updated with the value bound to the variable in <code>ER</code>, but <code>VE</code> remains unchanged. And remember <code>foo.[[scope]]</code> is set to <code>LE</code> by reference, so it will be updated accordingly. So before the control enters <code>Foo</code>&rsquo;s code by calling <code>Foo()</code>, the <code>GlobalEC</code> looks like:</li>
+</ul>
+
+<pre><code class="language-javascript">// step 3
+GlobalEC: {
+	VE: { 
+		ER: { window: go, a: undefined, Foo: foo }
+		OLE: null
+	},
+	LE: {
+		ER: { window: go, a: 1, Foo: foo }
+		OLE: null
+	}
+	this: window
+}
+</code></pre>
+
+<ul>
+<li>Step 4: Control enters into Foo&rsquo;s code
+By calling <code>Foo()</code>, the control enters Foo&rsquo;s code. Much like the control enters into global code, it will create a <code>EC</code> for <code>Foo</code> and push it into the EC stack on the top of global EC. Then it will create <code>VE</code> and <code>LE</code> with a null <code>ER</code> associated. The tricky difference is <code>OLE</code> is set to <code>foo.[[scope]]</code> which is global <code>EC.LE</code>. The scope chain is established right from here. At this stage, <code>FooEC</code> looks like:</li>
+</ul>
+
+<pre><code class="language-javascript">// step 4
+FooEC: {
+	VE: { 
+		ER: null
+		OLE: foo.[[scope]] // GlobalEC.LE
+	},
+	LE: {
+		ER: null
+		OLE: foo.[[scope]] // GlobalEC.LE
+	}
+	this: window
+}
+</code></pre>
+
+<ul>
+<li>Step 5: Declaration Binding Instantiation for Foo EC
+Like it does in global code, the control will scan the function body before executing it, to bind the function declaration and variable declaration into <code>ER</code>. Additionally for function code, the formal parameters will be bound to <code>ER</code>.</li>
+</ul>
+
+<pre><code class="language-javascript">// step 5
+FooEC: {
+	VE: { 
+		ER: {b: 2}
+		OLE: foo.[[scope]] // GlobalEC.LE
+	},
+	LE: {
+		ER: {b: 2}
+		OLE: foo.[[scope]] // GlobalEC.LE
+	}
+	this: window
+}
+</code></pre>
+
+<ul>
+<li>Step 6: Executing the Foo code
+After scanning the function code, the control starts to execute the function line by line. During this stage, <code>LE</code> is likely to be updated while <code>VE</code> remains unchanged.</li>
+</ul>
+
+<pre><code class="language-javascript">// step 5
+FooEC: {
+	VE: { 
+		ER: {b: 2}
+		OLE: foo.[[scope]] // GlobalEC.LE
+	},
+	LE: {
+		ER: {b: 3}
+		OLE: foo.[[scope]] // GlobalEC.LE
+	}
+	this: window
+}
+</code></pre>
+
+<p>When control comes to <code>console.log(b)</code>, it will first find the variable <code>b</code> in <code>LE.ER</code> and value 3 is retrieved. When control comes to <code>console.log(a)</code>, it will first try to find the variable <code>a</code> in <code>LE.ER</code>. Unluckily , this time there is no <code>a</code> to be found, the control keeps finding <code>a</code> in <code>LE.OLE</code> which is <code>GlobalEC.LE</code>, finally <code>a</code> is found in <code>GlobalEC.LE.ER</code> with value bound to 1.</p>
+
+<hr />
+
+<p><a href="http://www.ecma-international.org/ecma-262/5.1/#sec-13.2">ecma-262 5.1 sec-13.2</a></p>
+
+<p><a href="http://www.ecma-international.org/ecma-262/5.1/#sec-10.4.3">ecma-262 5.1 sec-10.4.3</a></p>
+
+  </div>
+  <footer>
+    <div class="article-footer">
+      
+<div class="tags">
+  <ul>
+    
+    <li>
+      <a href="/tags/javascript"><span></span>javascript</a>
+    </li>
+    
+  </ul>
+</div>
+
+
+      
+      
+<div id="share-buttons">
+  <ul>
+    
+    <li>
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="hjiale">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    </li>
+    
+    
+    
+    <li>
+      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://elaijuh.github.io/post/scope-the-most-important-thing-in-javascript/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+    </li>
+    
+    
+    
+    
+    <li>
+      <div class="g-plusone" data-size="medium"></div>
+    </li>
+    
+    
+    <li>
+      <a data-pocket-label="pocket" data-pocket-count="horizontal" class="pocket-btn" data-lang="en"></a>
+      <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
+    </li>
+    
+  </ul>
+</div>
+
+
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'hujiale';
+    var disqus_identifier = 'http:\/\/elaijuh.github.io\/post\/scope-the-most-important-thing-in-javascript\/';
+    var disqus_title = 'Scope, the most important thing in JavaScript';
+    var disqus_url = 'http:\/\/elaijuh.github.io\/post\/scope-the-most-important-thing-in-javascript\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+      <div id="pagenavigation-next-prev">
+        
+        <div id="pagenavigation-next">
+          <span class="pagenav-label">Previous</span>
+          <a href="http://elaijuh.github.io/post/hoisting-what-happen-behind-it/">Hoisting, what happens behind it</a>
+        </div>
+        
+        
+        <div id="pagenavigation-prev">
+          <span class="pagenav-label">Next</span>
+          <a href="http://elaijuh.github.io/post/migration-to-hugo/">Migration to Hugo</a>
+        </div>
+        
+      </div>
+      
+    </div>
+  </footer>
+</div>
+        </div>
+        <div class="sidebar">
+  
+  
+  <div class="sidebar-content">
+    <div class="sidebar-header">
+      <span>Author</span>
+    </div>
+    <div id="author">
+      <span>Jiale HU</span>
+      <div>
+        
+        <a href="https://twitter.com/hjiale"><i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i></a>
+        
+        
+        <a href="https://github.com/elaijuh"><i class="fa fa-github-square fa-2x" aria-hidden="true"></i></a>
+        
+        
+        <a href="https://www.linkedin.com/in/jiale-hu-22106632"><i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="sidebar-content">
+    <div class="sidebar-header">
+      <span>Categories</span>
+    </div>
+    <div class="categories">
+      <ul>
+        
+        <li>
+          <a href="/categories/"><span></span> (1)</a>
+        </li>
+        
+        <li>
+          <a href="/categories/tech"><span></span>tech (9)</a>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+  
+  <div class="sidebar-content">
+    <div class="sidebar-header">
+      <span>RSS</span>
+    </div>
+    <div id="rss">
+      <a href="/index.xml" type="application/rss+xml" target="_blank">
+        <i class="fa fa-rss-square fa-2x" aria-hidden="true"></i>
+      </a>
+    </div>
+  </div>
+</div>
+
+      </div>
+      <footer>
+        <div id="site-footer-wrap">
+          <div id="site-footer">
+            <span>Powered by <a href="https://gohugo.io/">Hugo</a>.</span>
+            <span>
+              
+              Copyright (c) 2016, <a href="http://elaijuh.github.io/">moo...</a>
+              
+            </span>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
+

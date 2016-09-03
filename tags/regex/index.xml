@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Regex on moo...</title>
+    <link>http://elaijuh.github.io/tags/regex/</link>
+    <description>Recent content in Regex on moo...</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 23 Dec 2014 01:41:37 +0800</lastBuildDate>
+    <atom:link href="http://elaijuh.github.io/tags/regex/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Repeat a capturing group, pitfall in RegExp</title>
+      <link>http://elaijuh.github.io/post/repeat-a-capturing-group/</link>
+      <pubDate>Tue, 23 Dec 2014 01:41:37 +0800</pubDate>
+      
+      <guid>http://elaijuh.github.io/post/repeat-a-capturing-group/</guid>
+      <description>RegExp is esoteric, known to all, but you will find it incredibly effecient when you start to get used to it. I like to use RegExp, but sometimes I tend to make mistakes, the most common of which is to repeat a capturing group. Let&amp;rsquo;s think about this. Given a string &#39;a=1;b=2;...;k=n&#39;, I would like to capture k, n of each pair to form an array like [&#39;a&#39;, 1, &#39;b&#39;, 2, ...</description>
+    </item>
+    
+  </channel>
+</rss>
