@@ -6,8 +6,17 @@
     <description>Recent content on moo...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 03 Sep 2016 20:03:12 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 03 Sep 2016 20:53:14 +0800</lastBuildDate>
     <atom:link href="http://elaijuh.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Angular2 HMR with backend server supported</title>
+      <link>http://elaijuh.github.io/post/ng2-hmr-with-backend-server/</link>
+      <pubDate>Sat, 03 Sep 2016 20:53:14 +0800</pubDate>
+      
+      <guid>http://elaijuh.github.io/post/ng2-hmr-with-backend-server/</guid>
+      <description>Currenly I am developing a client + server side boilerplate with Angular 2 and Feathers. For server side, I am using ts-node with nodemon, so far so good. But I find it cumbesome that every time I need to bundle client side code. After some exploring, I find a way to solve the problem. These are the dependencies: angular2-hmr a bootload wrapper on bootstrapModule, it&amp;rsquo;s cleared classified how to use</description>
+    </item>
     
     <item>
       <title>Migration to Hugo</title>

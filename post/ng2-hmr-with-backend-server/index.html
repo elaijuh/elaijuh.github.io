@@ -18,7 +18,7 @@
     <script src="https://yandex.st/highlightjs/8.0/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <title>Migration to Hugo | moo...</title>
+    <title>Angular2 HMR with backend server supported | moo...</title>
   </head>
   <body>
     <div id="wrap">
@@ -44,10 +44,20 @@ ga('send', 'pageview');
 <div class="article">
   <header>
     <div class="article-header">
-      <h1>Migration to Hugo</h1>
+      <h1>Angular2 HMR with backend server supported</h1>
       <div class="article-meta">
         <span class="posttime">2016/09/03</span>
         
+<div class="tags">
+  <ul>
+    
+    <li>
+      <a href="/tags/angular2"><span></span>angular2</a>
+    </li>
+    
+  </ul>
+</div>
+
 
       </div>
     </div>
@@ -63,7 +73,7 @@ ga('send', 'pageview');
     
     
     <li>
-      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://elaijuh.github.io/post/migration-to-hugo/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://elaijuh.github.io/post/ng2-hmr-with-backend-server/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
     </li>
     
     
@@ -85,12 +95,33 @@ ga('send', 'pageview');
 
   </header>
   <div class="content">
-    <p>Yeah. Go</p>
+    <p>Currenly I am developing a client + server side boilerplate with <a href="https://angular.io">Angular 2</a> and <a href="http://feathersjs.com">Feathers</a>.
+For server side, I am using <code>ts-node</code> with nodemon, so far so good. But I find it cumbesome that every time I need to bundle client side code.<br />
+After some exploring, I find a way to solve the problem. These are the dependencies:</p>
+
+<ul>
+<li><a href="https://github.com/AngularClass/angular2-hmr">angular2-hmr</a> a bootload wrapper on <code>bootstrapModule</code>, it&rsquo;s cleared classified how to use in github</li>
+<li><a href="https://github.com/AngularClass/angular2-hmr-loader">angular2-hmr-loader</a>, a webpack loader to work with the previous one</li>
+<li><a href="https://github.com/webpack/webpack-dev-middleware">webpack-dev-middleware</a>, just like <code>webpack-dev-server</code></li>
+<li><a href="https://github.com/glenjamin/webpack-hot-middleware">webpack-hot-middleware</a>, an <code>express</code>/<code>feather</code> middleware just like <code>webpack-dev-server</code> w/ hot</li>
+</ul>
+
+<p>All of their READMEs clearly walk you through, it just suprises me that few information could be connected on this while it&rsquo;s a quite general practice in <code>React</code></p>
 
   </div>
   <footer>
     <div class="article-footer">
       
+<div class="tags">
+  <ul>
+    
+    <li>
+      <a href="/tags/angular2"><span></span>angular2</a>
+    </li>
+    
+  </ul>
+</div>
+
 
       
       
@@ -105,7 +136,7 @@ ga('send', 'pageview');
     
     
     <li>
-      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://elaijuh.github.io/post/migration-to-hugo/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://elaijuh.github.io/post/ng2-hmr-with-backend-server/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
     </li>
     
     
@@ -129,11 +160,11 @@ ga('send', 'pageview');
       
       <div id="pagenavigation-next-prev">
         
-        
-        <div id="pagenavigation-prev">
-          <span class="pagenav-label">Next</span>
-          <a href="http://elaijuh.github.io/post/ng2-hmr-with-backend-server/">Angular2 HMR with backend server supported</a>
+        <div id="pagenavigation-next">
+          <span class="pagenav-label">Previous</span>
+          <a href="http://elaijuh.github.io/post/migration-to-hugo/">Migration to Hugo</a>
         </div>
+        
         
       </div>
       
