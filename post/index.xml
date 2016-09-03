@@ -27,5 +27,14 @@
       <description>Yeah. Go</description>
     </item>
     
+    <item>
+      <title>JavaScript prototype and inheritance</title>
+      <link>http://elaijuh.github.io/post/javascript-prototype-and-inheritance/</link>
+      <pubDate>Mon, 01 Dec 2014 05:13:52 +0800</pubDate>
+      
+      <guid>http://elaijuh.github.io/post/javascript-prototype-and-inheritance/</guid>
+      <description>Inheritance in JS is quite different from class based inheritance which is popular for being used in C++ and Java. In class based inheritance language, we have to abstract a class which is not a real world subject. While in prototype based inheritance, we can implement inheritance on objects directly. The post walks you through how to do inheritance in JS. Simple object inheritance As every object has an internal property [[prototype]] which points to it&amp;rsquo;s prototype, we can directly assign a super object to it.</description>
+    </item>
+    
   </channel>
 </rss>

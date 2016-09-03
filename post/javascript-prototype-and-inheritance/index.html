@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="generator" content="Hugo 0.16" />
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    
+    <link href="/index.xml" rel="alternate" type="application/rss+xml" title="moo..." />
+    <link href="/index.xml" rel="feed" type="application/rss+xml" title="moo..." />
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    
+    <script src="https://apis.google.com/js/platform.js" async defer>{lang: 'en'}</script>
+    
+    <link rel="stylesheet" href="https://yandex.st/highlightjs/8.0/styles/default.min.css">
+    <script src="https://yandex.st/highlightjs/8.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <title>JavaScript prototype and inheritance | moo...</title>
+  </head>
+  <body>
+    <div id="wrap">
+      
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-57201547-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+      <header class="site-header">
+        <div class="site-header-left">
+          <a class="site-header-title" href="http://elaijuh.github.io/">moo...</a>
+        </div>
+      </header>
+      <div class="container">
+        <div id="main">
+
+<div class="article">
+  <header>
+    <div class="article-header">
+      <h1>JavaScript prototype and inheritance</h1>
+      <div class="article-meta">
+        <span class="posttime">2014/12/01</span>
+        
+<div class="tags">
+  <ul>
+    
+    <li>
+      <a href="/tags/javascript"><span></span>javascript</a>
+    </li>
+    
+  </ul>
+</div>
+
+
+      </div>
+    </div>
+    
+<div id="share-buttons">
+  <ul>
+    
+    <li>
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="hjiale">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    </li>
+    
+    
+    
+    <li>
+      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://elaijuh.github.io/post/javascript-prototype-and-inheritance/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+    </li>
+    
+    
+    
+    
+    <li>
+      <div class="g-plusone" data-size="medium"></div>
+    </li>
+    
+    
+    <li>
+      <a data-pocket-label="pocket" data-pocket-count="horizontal" class="pocket-btn" data-lang="en"></a>
+      <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
+    </li>
+    
+  </ul>
+</div>
+
+
+  </header>
+  <div class="content">
+    
+
+<p>Inheritance in JS is quite different from class based inheritance which is popular for being used in C++ and Java. In class based inheritance language, we have to abstract a class which is not a real world subject. While in prototype based inheritance, we can implement inheritance on objects directly.</p>
+
+<p><span class="more"></span></p>
+
+<p>The post walks you through how to do inheritance in JS.</p>
+
+<h3 id="simple-object-inheritance">Simple object inheritance</h3>
+
+<p>As every object has an internal property <code>[[prototype]]</code> which points to it&rsquo;s prototype, we can directly assign a super object to it. [[prototype]] could be implemented in different ways in different browsers. In Chrome and Firefox, it can be refered as <code>__proto__</code>.</p>
+
+<pre><code class="language-javascript">var sup = {x: 'x', y: 'y'};
+var sub = {a: 'a'};
+console.log(sub.x); // undefined
+
+sub.__proto__ = sup;
+console.log(sub.x); // x
+</code></pre>
+
+<h3 id="inheritance-by-prototype-chaining">Inheritance by prototype chaining</h3>
+
+<p>In most of the time, especially in OO style, we would like to have a constructor and then create objects from it. In JS, constructor is not a class and not different from any regular function except that you can <code>new</code> it. Usually a constructor does not explicitly return anything, it&rsquo;s side effect is to assign all the <code>this</code> properties you defined in the constructor body to the object and return it. A constructor function has a <code>prototype</code> property which points to the prototype object of the constructor. The object created by the constructor has it&rsquo;s [[prototype]] pointing to the constructor&rsquo;s prototype object. Inheritance is implemented by assigning super object to sub constructor&rsquo;s prototype. Take a look at this:</p>
+
+<pre><code class="language-javascript">function Sup() {
+    this.x = 'x';
+    this.y = 'y';
+}
+
+function Sub() {
+    this.a = 'a';
+}
+
+Sub.prototype = new Sup();
+
+var sub = new Sub();
+console.log(sub.x); // x
+
+</code></pre>
+
+<p>The sub object has no x itself, so it will find x in it&rsquo;s prototype which is a super object. This is cool, but the problem comes when there is reference property in super object.</p>
+
+<pre><code class="language-javascript">function Sup() {
+    this.x = 'x';
+    this.z = ['z'];
+}
+
+function Sub() {
+    this.a = 'a';
+}
+
+Sub.prototype = new Sup();
+
+var sub1 = new Sub();
+var sub2 = new Sub();
+sub1.z.push('zz');
+console.log(sub1.z); // ['z', 'zz']
+console.log(sub2.z); // ['z', 'zz'], !expected to be ['z']
+</code></pre>
+
+<p>Both sub1.z and sub2.z are pointing to the same z in super object. Any sub object&rsquo;s operation on z will have impact on all sub objects. That&rsquo;s dangerous!</p>
+
+<h3 id="classical-inheritance-by-constructor-stealing">Classical inheritance by constructor stealing</h3>
+
+<p>Now we see the problem in prototype chaining inheritance, is there a way to solve it?</p>
+
+<pre><code class="language-javascript">function Sup() {
+    this.z = ['z'];
+}
+
+function Sub() {
+    Sup.call(this);
+    this.a = 'a';
+}
+
+var sub1 = new Sub();
+var sub2 = new Sub();
+sub1.z.push('zz');
+console.log(sub1.z); // ['z', 'zz']
+console.log(sub2.z); // ['z'], !cool
+</code></pre>
+
+<p>In sub constructor we steal super constructor and call it with <code>this</code> reference. Now that every sub object has a copy of z and will not interfere with each other. This solves the problem in prototype chaining inheritance, but it&rsquo;s downside is every property including method to be inheritted should be defined inside the super constructor. So there is no method reuse. How about we combine constructor stealing and prototype chaining together?</p>
+
+<h3 id="combination-inheritance-pseudoclassical-inheritance">Combination inheritance (pseudoclassical inheritance)</h3>
+
+<p>Both prototype chaining inheritance and constructor stealing inheritance have downsides, what if we combine them together?</p>
+
+<pre><code class="language-javascript">function Sup() {
+    this.z = ['z'];
+}
+Sup.prototype.mo = function () {
+    console.log('mo');
+};
+
+function Sub() {
+    Sup.call(this);
+    this.a = 'a';
+}
+Sub.prototype = new Sup();
+
+var sub1 = new Sub();
+var sub2 = new Sub();
+
+sub1.z.push('zz');
+console.log(sub1.z); // ['z', 'zz']
+sub1.mo(); // mo
+console.log(sub2.z); // ['z']
+sub2.mo(); // mo
+</code></pre>
+
+<p>That&rsquo;s cool, we don&rsquo;t need to define methods in super constructor&rsquo;s body and they are reusable now. The combination inheritance addresses both downsides of prototype chaining and constructor stealing. It&rsquo;s widely used in real life. It also preserves the behavior of <code>instanceof</code> and <code>isPrototypeOf</code> which looks like perfect now. But, yeah there is always another but :), if you look deep into the pattern, you might find that the super constructor has been called twice, <code>Sup.call(this)</code> and <code>Sub.prototype = new Sup()</code> which means the set of properties are duplicated in memory. This is an unavoidable ineffecient part of combination inheritance. And on another hand, combination inheritance still relies on constructor function which is kind of like class inheritance, while JS is really good at inheritance on objects. <a href="http://www.crockford.com">Douglas Crockford</a> has introduced prototypal inheritance in 2006 based on the premise that inheritance on objects.</p>
+
+<h3 id="prototypal-inheritance">Prototypal inheritance</h3>
+
+<p>So how to do inheritance directly on objects without constructors?</p>
+
+<pre><code class="language-javascript">function create(supObj) {
+    function Empty() {};
+    Empty.prototype = supObj;
+    return new Empty();
+}
+</code></pre>
+
+<p>Crockford introduced a factory like function to create the sub object based on the passed in super object. So super constructor is not a must now. But the type of the sub object is lost. Based on this create function, Crockford introduced parasitic inheritance which is closer to real life.</p>
+
+<h3 id="parasitic-inheritance">Parasitic inheritance</h3>
+
+<p>Much like prototypal inheritance, parasitic inheritance just encapsulates all the properties or methods for the sub object in one function.</p>
+
+<pre><code class="language-javascript">function createAnother(supObj) {
+    var sub = create(supObj);
+    
+    sub.a = 'a';
+    sub.mo = function () {
+        console.log('mo');
+    };
+    return sub;
+}
+</code></pre>
+
+<p>Now the sub object has all the properties of super object and it&rsquo;s own property a and method mo. Parasitic inheritance addresses the duplicated properties downside in combination inheritance, but it loses object type which means <code>instanceof</code> and <code>isPrototypeOf</code> don&rsquo;t work for sub object any more. Let&rsquo;s keep improvement, finally we work out a way combining constructor stealing and parasitic inheritance.</p>
+
+<h3 id="parasitic-combination-inheritance">Parasitic combination inheritance</h3>
+
+<pre><code class="language-javascript">function create(supObj) {
+    function Empty() {};
+    Empty.prototype = supObj;
+    return new Empty();
+}
+
+function inheritPrototype(Sub, Sup) {
+    var subPrototype = create(Sup.prototype);
+    subPrototype.constructor = Sub; // link constructor back to Sub
+    Sub.prototype = subPrototype;
+}
+
+function Sup() {
+    this.x = 'x';
+    this.z = ['z'];
+}
+
+Sup.prototype.mo = function () {
+    console.log('mo');
+};
+
+function Sub() {
+    Sup.call(this);
+    this.a = 'a';
+}
+
+inheritPrototype(Sub, Sup);
+
+var sub1 = new Sub();
+var sub2 = new Sub();
+sub1.z.push('zz');
+sub1.mo(); // mo
+cnosole.log(sub1.z); // ['z', 'zz']
+sub2.mo(); // mo
+console.log(sub2.z); // ['z']
+
+console.log(sub1 instanceof Sub); // true
+console.log(Sub.prototype.isPrototypeOf(sub2)); //true
+</code></pre>
+
+<p>Now both the downside in combination inheritance - duplicated properties and the downside in parasitic inheritance - object type lost are addressed. We are kind of having a perfect inheritance machenism now. BUT&hellip;personally I will not suggest to use inheritance heavily unless you want to mess yourself up.</p>
+
+  </div>
+  <footer>
+    <div class="article-footer">
+      
+<div class="tags">
+  <ul>
+    
+    <li>
+      <a href="/tags/javascript"><span></span>javascript</a>
+    </li>
+    
+  </ul>
+</div>
+
+
+      
+      
+<div id="share-buttons">
+  <ul>
+    
+    <li>
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="hjiale">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    </li>
+    
+    
+    
+    <li>
+      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://elaijuh.github.io/post/javascript-prototype-and-inheritance/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+    </li>
+    
+    
+    
+    
+    <li>
+      <div class="g-plusone" data-size="medium"></div>
+    </li>
+    
+    
+    <li>
+      <a data-pocket-label="pocket" data-pocket-count="horizontal" class="pocket-btn" data-lang="en"></a>
+      <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
+    </li>
+    
+  </ul>
+</div>
+
+
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'hujiale';
+    var disqus_identifier = 'http:\/\/elaijuh.github.io\/post\/javascript-prototype-and-inheritance\/';
+    var disqus_title = 'JavaScript prototype and inheritance';
+    var disqus_url = 'http:\/\/elaijuh.github.io\/post\/javascript-prototype-and-inheritance\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+      <div id="pagenavigation-next-prev">
+        
+        
+        <div id="pagenavigation-prev">
+          <span class="pagenav-label">Next</span>
+          <a href="http://elaijuh.github.io/post/migration-to-hugo/">Migration to Hugo</a>
+        </div>
+        
+      </div>
+      
+    </div>
+  </footer>
+</div>
+        </div>
+        <div class="sidebar">
+  
+  
+  <div class="sidebar-content">
+    <div class="sidebar-header">
+      <span>Author</span>
+    </div>
+    <div id="author">
+      <span>Jiale HU</span>
+      <div>
+        
+        <a href="https://twitter.com/hjiale"><i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i></a>
+        
+        
+        <a href="https://github.com/elaijuh"><i class="fa fa-github-square fa-2x" aria-hidden="true"></i></a>
+        
+        
+        <a href="https://www.linkedin.com/in/jiale-hu-22106632"><i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="sidebar-content">
+    <div class="sidebar-header">
+      <span>Categories</span>
+    </div>
+    <div class="categories">
+      <ul>
+        
+        <li>
+          <a href="/categories/tech"><span></span>tech (2)</a>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+  
+  <div class="sidebar-content">
+    <div class="sidebar-header">
+      <span>RSS</span>
+    </div>
+    <div id="rss">
+      <a href="/index.xml" type="application/rss+xml" target="_blank">
+        <i class="fa fa-rss-square fa-2x" aria-hidden="true"></i>
+      </a>
+    </div>
+  </div>
+</div>
+
+      </div>
+      <footer>
+        <div id="site-footer-wrap">
+          <div id="site-footer">
+            <span>Powered by <a href="https://gohugo.io/">Hugo</a>.</span>
+            <span>
+              
+              Copyright (c) 2016, <a href="http://elaijuh.github.io/">moo...</a>
+              
+            </span>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
+
