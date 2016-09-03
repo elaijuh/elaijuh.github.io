@@ -19,6 +19,15 @@
     </item>
     
     <item>
+      <title>Function overload in JavaScript</title>
+      <link>http://elaijuh.github.io/post/function-overload-in-javascript/</link>
+      <pubDate>Thu, 04 Dec 2014 01:14:12 +0800</pubDate>
+      
+      <guid>http://elaijuh.github.io/post/function-overload-in-javascript/</guid>
+      <description>As we know, Javscript has no function overload in nature. If you try to declare the same function with different signature, the previous one will be overwritten rather than overloaded. As function overload in most OO programming languages are by means of parameters, it operates on different logic according to the passed in parameters. So there is still a way to do function overload in JS. var foo = { bar: function () { switch (arguments.length) { case 0: console.log(0); break; case 1: console.log(arguments[0]); break; case 2: console.log(arguments[0] + arguments[1]); break; } } } foo.bar(); // 0 foo.bar(1); // 1 foo.bar(1, 2); // 3 This approach is workable but not tidy and flexiable.</description>
+    </item>
+    
+    <item>
       <title>JavaScript prototype and inheritance</title>
       <link>http://elaijuh.github.io/post/javascript-prototype-and-inheritance/</link>
       <pubDate>Mon, 01 Dec 2014 05:13:52 +0800</pubDate>

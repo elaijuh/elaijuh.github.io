@@ -18,7 +18,7 @@
     <script src="https://yandex.st/highlightjs/8.0/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <title>Angular2 HMR with backend server supported | moo...</title>
+    <title>Function overload in JavaScript | moo...</title>
   </head>
   <body>
     <div id="wrap">
@@ -44,15 +44,15 @@ ga('send', 'pageview');
 <div class="article">
   <header>
     <div class="article-header">
-      <h1>Angular2 HMR with backend server supported</h1>
+      <h1>Function overload in JavaScript</h1>
       <div class="article-meta">
-        <span class="posttime">2016/09/03</span>
+        <span class="posttime">2014/12/04</span>
         
 <div class="tags">
   <ul>
     
     <li>
-      <a href="/tags/angular2"><span></span>angular2</a>
+      <a href="/tags/javascript"><span></span>javascript</a>
     </li>
     
   </ul>
@@ -73,7 +73,7 @@ ga('send', 'pageview');
     
     
     <li>
-      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://elaijuh.github.io/post/ng2-hmr-with-backend-server/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://elaijuh.github.io/post/function-overload-in-javascript/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
     </li>
     
     
@@ -95,18 +95,69 @@ ga('send', 'pageview');
 
   </header>
   <div class="content">
-    <p>Currenly I am developing a client + server side boilerplate with <a href="https://angular.io">Angular 2</a> and <a href="http://feathersjs.com">Feathers</a>.
-For server side, I am using <code>ts-node</code> with nodemon, so far so good. But I find it cumbesome that every time I need to bundle client side code.<br />
-After some exploring, I find a way to solve the problem. These are the dependencies:</p>
+    <p>As we know, Javscript has no function overload in nature. If you try to declare the same function with different signature, the previous one will be overwritten rather than overloaded. As function overload in most OO programming languages are by means of parameters, it operates on different logic according to the passed in parameters. So there is still a way to do function overload in JS.</p>
 
-<ul>
-<li><a href="https://github.com/AngularClass/angular2-hmr">angular2-hmr</a> a bootload wrapper on <code>bootstrapModule</code>, it&rsquo;s cleared classified how to use in github</li>
-<li><a href="https://github.com/AngularClass/angular2-hmr-loader">angular2-hmr-loader</a>, a webpack loader to work with the previous one</li>
-<li><a href="https://github.com/webpack/webpack-dev-middleware">webpack-dev-middleware</a>, just like <code>webpack-dev-server</code></li>
-<li><a href="https://github.com/glenjamin/webpack-hot-middleware">webpack-hot-middleware</a>, an <code>express</code>/<code>feather</code> middleware just like <code>webpack-dev-server</code> w/ hot</li>
-</ul>
+<p><span class="more"></span></p>
 
-<p>All of their READMEs clearly walk you through, it just suprises me that few information could be connected on this while it&rsquo;s a quite general practice in <code>React</code></p>
+<pre><code class="language-javascript">var foo = {
+    bar: function () {
+        switch (arguments.length) {
+            case 0:
+                console.log(0);
+                break;
+            case 1:
+                console.log(arguments[0]);
+                break;
+            case 2:
+                console.log(arguments[0] + arguments[1]);
+                break;
+        }
+    }
+}
+
+foo.bar(); // 0
+foo.bar(1); // 1
+foo.bar(1, 2); // 3
+</code></pre>
+
+<p>This approach is workable but not tidy and flexiable. With more and more overloads, the switch block becomes longer and longer scaring away developers.</p>
+
+<p>With <code>function.length</code> and <code>closure</code>, we could implement the same in a neat and ninja way.</p>
+
+<pre><code class="language-javascript">var foo = {
+    overloadMethod: function (name, fn) {
+        var baseFn = this[name];
+        this[name] = function () {
+            if (fn.length === arguments.length) {
+                return fn.apply(this, arguments);
+            } else if (typeof baseFn === 'function') {
+                return baseFn.apply(this, arguments); // baseFn is in a closure
+            }
+        };
+    }
+};
+
+foo.overloadMethod('bar', function() {
+    console.log(0);
+})
+foo.overloadMethod('bar', function(x) {
+    console.log(x);
+})
+foo.overloadMethod('bar', function(x, y) {
+    console.log(x + y);
+})
+
+
+foo.bar(); // 0
+foo.bar(1); // 1
+foo.bar(1, 2); // 3
+</code></pre>
+
+<p>So everytime you want to overload the method, just call <code>foo.overloadMethod</code> with the method name and anonymous function passed in. It looks like <code>foo.bar</code> is overwritten again and again, but actually every single version of <code>foo.bar</code> is completely kept in closure to be referenced.</p>
+
+<hr />
+
+<p>Reference book: <a href="http://www.amazon.com/Secrets-JavaScript-Ninja-John-Resig/dp/193398869X/ref=sr_1_1?ie=UTF8&amp;qid=1417626477&amp;sr=8-1&amp;keywords=secrets+of+javascript+ninja">Secrets of the JavaScript Ninja</a>, <a href="http://ejohn.org/">John Resig</a></p>
 
   </div>
   <footer>
@@ -116,7 +167,7 @@ After some exploring, I find a way to solve the problem. These are the dependenc
   <ul>
     
     <li>
-      <a href="/tags/angular2"><span></span>angular2</a>
+      <a href="/tags/javascript"><span></span>javascript</a>
     </li>
     
   </ul>
@@ -136,7 +187,7 @@ After some exploring, I find a way to solve the problem. These are the dependenc
     
     
     <li>
-      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://elaijuh.github.io/post/ng2-hmr-with-backend-server/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://elaijuh.github.io/post/function-overload-in-javascript/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
     </li>
     
     
@@ -159,9 +210,9 @@ After some exploring, I find a way to solve the problem. These are the dependenc
       <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'hujiale';
-    var disqus_identifier = 'http:\/\/elaijuh.github.io\/post\/ng2-hmr-with-backend-server\/';
-    var disqus_title = 'Angular2 HMR with backend server supported';
-    var disqus_url = 'http:\/\/elaijuh.github.io\/post\/ng2-hmr-with-backend-server\/';
+    var disqus_identifier = 'http:\/\/elaijuh.github.io\/post\/function-overload-in-javascript\/';
+    var disqus_title = 'Function overload in JavaScript';
+    var disqus_url = 'http:\/\/elaijuh.github.io\/post\/function-overload-in-javascript\/';
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -176,9 +227,14 @@ After some exploring, I find a way to solve the problem. These are the dependenc
         
         <div id="pagenavigation-next">
           <span class="pagenav-label">Previous</span>
-          <a href="http://elaijuh.github.io/post/migration-to-hugo/">Migration to Hugo</a>
+          <a href="http://elaijuh.github.io/post/javascript-prototype-and-inheritance/">JavaScript prototype and inheritance</a>
         </div>
         
+        
+        <div id="pagenavigation-prev">
+          <span class="pagenav-label">Next</span>
+          <a href="http://elaijuh.github.io/post/migration-to-hugo/">Migration to Hugo</a>
+        </div>
         
       </div>
       
