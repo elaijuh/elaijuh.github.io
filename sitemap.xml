@@ -2,61 +2,61 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://elaijuh.github.io/</loc>
+    <loc>http://blog.hujiale.me/</loc>
     <lastmod>2016-09-03T20:53:14+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://elaijuh.github.io/post/ng2-hmr-with-backend-server/</loc>
+    <loc>http://blog.hujiale.me/post/ng2-hmr-with-backend-server/</loc>
     <lastmod>2016-09-03T20:53:14+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://elaijuh.github.io/post/migration-to-hugo/</loc>
+    <loc>http://blog.hujiale.me/post/migration-to-hugo/</loc>
     <lastmod>2016-09-03T20:03:12+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://elaijuh.github.io/post/scope-the-most-important-thing-in-javascript/</loc>
+    <loc>http://blog.hujiale.me/post/scope-the-most-important-thing-in-javascript/</loc>
     <lastmod>2015-01-31T23:07:59+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://elaijuh.github.io/post/hoisting-what-happen-behind-it/</loc>
+    <loc>http://blog.hujiale.me/post/hoisting-what-happen-behind-it/</loc>
     <lastmod>2015-01-01T01:55:22+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://elaijuh.github.io/post/repeat-a-capturing-group/</loc>
+    <loc>http://blog.hujiale.me/post/repeat-a-capturing-group/</loc>
     <lastmod>2014-12-23T01:41:37+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://elaijuh.github.io/post/handle-http-request-in-multiple-process/</loc>
+    <loc>http://blog.hujiale.me/post/handle-http-request-in-multiple-process/</loc>
     <lastmod>2014-12-16T01:28:26+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://elaijuh.github.io/post/angularjs-decorator/</loc>
+    <loc>http://blog.hujiale.me/post/angularjs-decorator/</loc>
     <lastmod>2014-12-11T22:56:24+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://elaijuh.github.io/post/function-overload-in-javascript/</loc>
+    <loc>http://blog.hujiale.me/post/function-overload-in-javascript/</loc>
     <lastmod>2014-12-04T01:14:12+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://elaijuh.github.io/post/javascript-prototype-and-inheritance/</loc>
+    <loc>http://blog.hujiale.me/post/javascript-prototype-and-inheritance/</loc>
     <lastmod>2014-12-01T05:13:52+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://elaijuh.github.io/post/unit-test-angular-directive/</loc>
+    <loc>http://blog.hujiale.me/post/unit-test-angular-directive/</loc>
   </url>
   
   <url>
-    <loc>http://elaijuh.github.io/post/vertical-align-an-image/</loc>
+    <loc>http://blog.hujiale.me/post/vertical-align-an-image/</loc>
   </url>
   
 </urlset>

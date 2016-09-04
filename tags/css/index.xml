@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Css on moo...</title>
-    <link>http://elaijuh.github.io/tags/css/</link>
+    <link>http://blog.hujiale.me/tags/css/</link>
     <description>Recent content in Css on moo...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="http://elaijuh.github.io/tags/css/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.hujiale.me/tags/css/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Vertical align an unknown size image</title>
-      <link>http://elaijuh.github.io/post/vertical-align-an-image/</link>
+      <link>http://blog.hujiale.me/post/vertical-align-an-image/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://elaijuh.github.io/post/vertical-align-an-image/</guid>
+      <guid>http://blog.hujiale.me/post/vertical-align-an-image/</guid>
       <description>Some ways to vertiacl align an image in a div, the image&amp;rsquo;s width and height are unknown Use a helper incline-block div to vertica the image. The helper&amp;rsquo;s width is 0 Use a tricky way top, right, bottom, left all 0 and margin auto Use css transform translateY demo</description>
     </item>
     

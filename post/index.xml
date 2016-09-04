@@ -2,109 +2,109 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on moo...</title>
-    <link>http://elaijuh.github.io/post/</link>
+    <link>http://blog.hujiale.me/post/</link>
     <description>Recent content in Posts on moo...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 03 Sep 2016 20:53:14 +0800</lastBuildDate>
-    <atom:link href="http://elaijuh.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.hujiale.me/post/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Angular2 HMR with backend server supported</title>
-      <link>http://elaijuh.github.io/post/ng2-hmr-with-backend-server/</link>
+      <link>http://blog.hujiale.me/post/ng2-hmr-with-backend-server/</link>
       <pubDate>Sat, 03 Sep 2016 20:53:14 +0800</pubDate>
       
-      <guid>http://elaijuh.github.io/post/ng2-hmr-with-backend-server/</guid>
+      <guid>http://blog.hujiale.me/post/ng2-hmr-with-backend-server/</guid>
       <description>Currenly I am developing a client + server side boilerplate with Angular 2 and Feathers. For server side, I am using ts-node with nodemon, so far so good. But I find it cumbesome that every time I need to bundle client side code. After some exploring, I find a way to solve the problem. These are the dependencies: angular2-hmr a bootload wrapper on bootstrapModule, it&amp;rsquo;s cleared classified how to use</description>
     </item>
     
     <item>
       <title>Migration to Hugo</title>
-      <link>http://elaijuh.github.io/post/migration-to-hugo/</link>
+      <link>http://blog.hujiale.me/post/migration-to-hugo/</link>
       <pubDate>Sat, 03 Sep 2016 20:03:12 +0800</pubDate>
       
-      <guid>http://elaijuh.github.io/post/migration-to-hugo/</guid>
+      <guid>http://blog.hujiale.me/post/migration-to-hugo/</guid>
       <description>Yeah. Go</description>
     </item>
     
     <item>
       <title>Scope, the most important thing in JavaScript</title>
-      <link>http://elaijuh.github.io/post/scope-the-most-important-thing-in-javascript/</link>
+      <link>http://blog.hujiale.me/post/scope-the-most-important-thing-in-javascript/</link>
       <pubDate>Sat, 31 Jan 2015 23:07:59 +0800</pubDate>
       
-      <guid>http://elaijuh.github.io/post/scope-the-most-important-thing-in-javascript/</guid>
+      <guid>http://blog.hujiale.me/post/scope-the-most-important-thing-in-javascript/</guid>
       <description>cope and scope chain, the most important mechanism in JavaScript, are barely clearly explained though specified in ECMA-262 version 5.1. Without scope mechanism, there wouldn&amp;rsquo;t be closure and functional programming. This post is aim to elaborate what happens behind from the very beginning when control enters the global code to execution end. Firstly, for easy literal, let&amp;rsquo;s agree on the following abbreviation: GE: Global Environment VE: Variable Environment LE: Lexical Environment OLE: Outer Lexcial Environment Reference ER: Environment Record EC: Execution Context go: global object (window for browser, global for NodeJS) Take following foo.js as example, let&amp;rsquo;s dive into it line by line // foo.js var a = 1; function Foo(b) { b = 3; console.log(b); // 3 console.log(a); // 1 } console.log(a); Foo(2); Step 1: Control enters into global code Every javascript file is executed from global code, when the control enters into the global code (before executing the code ), a global EC will be created and push into the EC stack.</description>
     </item>
     
     <item>
       <title>Hoisting, what happens behind it</title>
-      <link>http://elaijuh.github.io/post/hoisting-what-happen-behind-it/</link>
+      <link>http://blog.hujiale.me/post/hoisting-what-happen-behind-it/</link>
       <pubDate>Thu, 01 Jan 2015 01:55:22 +0800</pubDate>
       
-      <guid>http://elaijuh.github.io/post/hoisting-what-happen-behind-it/</guid>
+      <guid>http://blog.hujiale.me/post/hoisting-what-happen-behind-it/</guid>
       <description>We always see the word hoisting in some javascript books and technical blogs. Hoisting is grabbed to explain the phenomenon that we can use a variable before we declare it. That&amp;rsquo;s sound incredible in compiling languages, but in javascript it&amp;rsquo;s really there. Some people might think that the interpretor do a magic to restructure the code and put all variable/function declaration statements at the top of the function body. Thinking like that way might help to write or read the program, but that&amp;rsquo;s not the things truely happen behind.</description>
     </item>
     
     <item>
       <title>Repeat a capturing group, pitfall in RegExp</title>
-      <link>http://elaijuh.github.io/post/repeat-a-capturing-group/</link>
+      <link>http://blog.hujiale.me/post/repeat-a-capturing-group/</link>
       <pubDate>Tue, 23 Dec 2014 01:41:37 +0800</pubDate>
       
-      <guid>http://elaijuh.github.io/post/repeat-a-capturing-group/</guid>
+      <guid>http://blog.hujiale.me/post/repeat-a-capturing-group/</guid>
       <description>RegExp is esoteric, known to all, but you will find it incredibly effecient when you start to get used to it. I like to use RegExp, but sometimes I tend to make mistakes, the most common of which is to repeat a capturing group. Let&amp;rsquo;s think about this. Given a string &#39;a=1;b=2;...;k=n&#39;, I would like to capture k, n of each pair to form an array like [&#39;a&#39;, 1, &#39;b&#39;, 2, ...</description>
     </item>
     
     <item>
       <title>Handle HTTP request in multiple processes in NodeJS</title>
-      <link>http://elaijuh.github.io/post/handle-http-request-in-multiple-process/</link>
+      <link>http://blog.hujiale.me/post/handle-http-request-in-multiple-process/</link>
       <pubDate>Tue, 16 Dec 2014 01:28:26 +0800</pubDate>
       
-      <guid>http://elaijuh.github.io/post/handle-http-request-in-multiple-process/</guid>
+      <guid>http://blog.hujiale.me/post/handle-http-request-in-multiple-process/</guid>
       <description>NodeJS is single process based which is good at frequent IO operations. But single process can&amp;rsquo;t fully utilize multi-core CPU. Luckily we have child-process module in NodeJS to spawn multiple processes. One of the practical examples is handling HTTP request, especially for a large number of concurrent requests. A common way is to use master-worker pattern, a master process working as a proxy to delegate the HTTP requests to child processes with load balance enabled.</description>
     </item>
     
     <item>
       <title> $provide.decorator - tweak Angular servicer</title>
-      <link>http://elaijuh.github.io/post/angularjs-decorator/</link>
+      <link>http://blog.hujiale.me/post/angularjs-decorator/</link>
       <pubDate>Thu, 11 Dec 2014 22:56:24 +0800</pubDate>
       
-      <guid>http://elaijuh.github.io/post/angularjs-decorator/</guid>
+      <guid>http://blog.hujiale.me/post/angularjs-decorator/</guid>
       <description>If you are using Angular, you can&amp;rsquo;t avoid depending on third-party modules. Sometimes you find it not that perfect API the module provides, so that you hack into the source code and about to pull request. But the author&amp;rsquo;s comments on your pull request, usually for popular repo, &amp;lsquo;sorry-that&amp;rsquo;s not our priority&amp;rsquo; turns you down totally. Either you work around it or turns to another third-party module. Here is the third option, if you want to share the private data in service closure and provide some API for your specific need, you might find $provide.decorator helpful.</description>
     </item>
     
     <item>
       <title>Function overload in JavaScript</title>
-      <link>http://elaijuh.github.io/post/function-overload-in-javascript/</link>
+      <link>http://blog.hujiale.me/post/function-overload-in-javascript/</link>
       <pubDate>Thu, 04 Dec 2014 01:14:12 +0800</pubDate>
       
-      <guid>http://elaijuh.github.io/post/function-overload-in-javascript/</guid>
+      <guid>http://blog.hujiale.me/post/function-overload-in-javascript/</guid>
       <description>As we know, Javscript has no function overload in nature. If you try to declare the same function with different signature, the previous one will be overwritten rather than overloaded. As function overload in most OO programming languages are by means of parameters, it operates on different logic according to the passed in parameters. So there is still a way to do function overload in JS. var foo = { bar: function () { switch (arguments.length) { case 0: console.log(0); break; case 1: console.log(arguments[0]); break; case 2: console.log(arguments[0] + arguments[1]); break; } } } foo.bar(); // 0 foo.bar(1); // 1 foo.bar(1, 2); // 3 This approach is workable but not tidy and flexiable.</description>
     </item>
     
     <item>
       <title>JavaScript prototype and inheritance</title>
-      <link>http://elaijuh.github.io/post/javascript-prototype-and-inheritance/</link>
+      <link>http://blog.hujiale.me/post/javascript-prototype-and-inheritance/</link>
       <pubDate>Mon, 01 Dec 2014 05:13:52 +0800</pubDate>
       
-      <guid>http://elaijuh.github.io/post/javascript-prototype-and-inheritance/</guid>
+      <guid>http://blog.hujiale.me/post/javascript-prototype-and-inheritance/</guid>
       <description>Inheritance in JS is quite different from class based inheritance which is popular for being used in C++ and Java. In class based inheritance language, we have to abstract a class which is not a real world subject. While in prototype based inheritance, we can implement inheritance on objects directly. The post walks you through how to do inheritance in JS. Simple object inheritance As every object has an internal property [[prototype]] which points to it&amp;rsquo;s prototype, we can directly assign a super object to it.</description>
     </item>
     
     <item>
       <title>Unit test Angular directive</title>
-      <link>http://elaijuh.github.io/post/unit-test-angular-directive/</link>
+      <link>http://blog.hujiale.me/post/unit-test-angular-directive/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://elaijuh.github.io/post/unit-test-angular-directive/</guid>
+      <guid>http://blog.hujiale.me/post/unit-test-angular-directive/</guid>
       <description>I seldom test angular directive unless there is some DOM mutation being processed in the directive, like add/remove classes, show/hide elements or compile/destroy elements. If you have a heavy dependencies on directives, the unit test will be a little bit clunky as for mocking the inline controller of the required directive. Stack overflow gives several alternatives to do so, I am picking two of them which I prefer to go and demo them here.</description>
     </item>
     
     <item>
       <title>Vertical align an unknown size image</title>
-      <link>http://elaijuh.github.io/post/vertical-align-an-image/</link>
+      <link>http://blog.hujiale.me/post/vertical-align-an-image/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://elaijuh.github.io/post/vertical-align-an-image/</guid>
+      <guid>http://blog.hujiale.me/post/vertical-align-an-image/</guid>
       <description>Some ways to vertiacl align an image in a div, the image&amp;rsquo;s width and height are unknown Use a helper incline-block div to vertica the image. The helper&amp;rsquo;s width is 0 Use a tricky way top, right, bottom, left all 0 and margin auto Use css transform translateY demo</description>
     </item>
     

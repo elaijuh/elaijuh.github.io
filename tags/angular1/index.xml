@@ -2,28 +2,28 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Angular1 on moo...</title>
-    <link>http://elaijuh.github.io/tags/angular1/</link>
+    <link>http://blog.hujiale.me/tags/angular1/</link>
     <description>Recent content in Angular1 on moo...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 11 Dec 2014 22:56:24 +0800</lastBuildDate>
-    <atom:link href="http://elaijuh.github.io/tags/angular1/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.hujiale.me/tags/angular1/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title> $provide.decorator - tweak Angular servicer</title>
-      <link>http://elaijuh.github.io/post/angularjs-decorator/</link>
+      <link>http://blog.hujiale.me/post/angularjs-decorator/</link>
       <pubDate>Thu, 11 Dec 2014 22:56:24 +0800</pubDate>
       
-      <guid>http://elaijuh.github.io/post/angularjs-decorator/</guid>
+      <guid>http://blog.hujiale.me/post/angularjs-decorator/</guid>
       <description>If you are using Angular, you can&amp;rsquo;t avoid depending on third-party modules. Sometimes you find it not that perfect API the module provides, so that you hack into the source code and about to pull request. But the author&amp;rsquo;s comments on your pull request, usually for popular repo, &amp;lsquo;sorry-that&amp;rsquo;s not our priority&amp;rsquo; turns you down totally. Either you work around it or turns to another third-party module. Here is the third option, if you want to share the private data in service closure and provide some API for your specific need, you might find $provide.decorator helpful.</description>
     </item>
     
     <item>
       <title>Unit test Angular directive</title>
-      <link>http://elaijuh.github.io/post/unit-test-angular-directive/</link>
+      <link>http://blog.hujiale.me/post/unit-test-angular-directive/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://elaijuh.github.io/post/unit-test-angular-directive/</guid>
+      <guid>http://blog.hujiale.me/post/unit-test-angular-directive/</guid>
       <description>I seldom test angular directive unless there is some DOM mutation being processed in the directive, like add/remove classes, show/hide elements or compile/destroy elements. If you have a heavy dependencies on directives, the unit test will be a little bit clunky as for mocking the inline controller of the required directive. Stack overflow gives several alternatives to do so, I am picking two of them which I prefer to go and demo them here.</description>
     </item>
     
