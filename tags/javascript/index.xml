@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Javascript on moo...</title>
-    <link>http://blog.hujiale.me/tags/javascript/</link>
-    <description>Recent content in Javascript on moo...</description>
+    <title>moo...</title>
+    <link>http://blog.hujiale.me/tags/javascript/index.xml</link>
+    <description>Recent content on moo...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 31 Jan 2015 23:07:59 +0800</lastBuildDate>
-    <atom:link href="http://blog.hujiale.me/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Scope, the most important thing in JavaScript</title>
@@ -15,7 +14,9 @@
       <pubDate>Sat, 31 Jan 2015 23:07:59 +0800</pubDate>
       
       <guid>http://blog.hujiale.me/post/scope-the-most-important-thing-in-javascript/</guid>
-      <description>cope and scope chain, the most important mechanism in JavaScript, are barely clearly explained though specified in ECMA-262 version 5.1. Without scope mechanism, there wouldn&amp;rsquo;t be closure and functional programming. This post is aim to elaborate what happens behind from the very beginning when control enters the global code to execution end. Firstly, for easy literal, let&amp;rsquo;s agree on the following abbreviation: GE: Global Environment VE: Variable Environment LE: Lexical Environment OLE: Outer Lexcial Environment Reference ER: Environment Record EC: Execution Context go: global object (window for browser, global for NodeJS) Take following foo.js as example, let&amp;rsquo;s dive into it line by line // foo.js var a = 1; function Foo(b) { b = 3; console.log(b); // 3 console.log(a); // 1 } console.log(a); Foo(2); Step 1: Control enters into global code Every javascript file is executed from global code, when the control enters into the global code (before executing the code ), a global EC will be created and push into the EC stack.</description>
+      <description>cope and scope chain, the most important mechanism in JavaScript, are barely clearly explained though specified in ECMA-262 version 5.1. Without scope mechanism, there wouldn&amp;rsquo;t be closure and functional programming. This post is aim to elaborate what happens behind from the very beginning when control enters the global code to execution end.
+
+Firstly, for easy literal, let&amp;rsquo;s agree on the following abbreviation: GE: Global Environment VE: Variable Environment LE: Lexical Environment OLE: Outer Lexcial Environment Reference ER: Environment Record EC: Execution Context go: global object (window for browser, global for NodeJS)</description>
     </item>
     
     <item>
@@ -33,7 +34,9 @@
       <pubDate>Thu, 04 Dec 2014 01:14:12 +0800</pubDate>
       
       <guid>http://blog.hujiale.me/post/function-overload-in-javascript/</guid>
-      <description>As we know, Javscript has no function overload in nature. If you try to declare the same function with different signature, the previous one will be overwritten rather than overloaded. As function overload in most OO programming languages are by means of parameters, it operates on different logic according to the passed in parameters. So there is still a way to do function overload in JS. var foo = { bar: function () { switch (arguments.length) { case 0: console.log(0); break; case 1: console.log(arguments[0]); break; case 2: console.log(arguments[0] + arguments[1]); break; } } } foo.bar(); // 0 foo.bar(1); // 1 foo.bar(1, 2); // 3 This approach is workable but not tidy and flexiable.</description>
+      <description>As we know, Javscript has no function overload in nature. If you try to declare the same function with different signature, the previous one will be overwritten rather than overloaded. As function overload in most OO programming languages are by means of parameters, it operates on different logic according to the passed in parameters. So there is still a way to do function overload in JS.
+
+var foo = { bar: function () { switch (arguments.</description>
     </item>
     
     <item>
@@ -42,7 +45,10 @@
       <pubDate>Mon, 01 Dec 2014 05:13:52 +0800</pubDate>
       
       <guid>http://blog.hujiale.me/post/javascript-prototype-and-inheritance/</guid>
-      <description>Inheritance in JS is quite different from class based inheritance which is popular for being used in C++ and Java. In class based inheritance language, we have to abstract a class which is not a real world subject. While in prototype based inheritance, we can implement inheritance on objects directly. The post walks you through how to do inheritance in JS. Simple object inheritance As every object has an internal property [[prototype]] which points to it&amp;rsquo;s prototype, we can directly assign a super object to it.</description>
+      <description>Inheritance in JS is quite different from class based inheritance which is popular for being used in C++ and Java. In class based inheritance language, we have to abstract a class which is not a real world subject. While in prototype based inheritance, we can implement inheritance on objects directly.
+
+The post walks you through how to do inheritance in JS.
+Simple object inheritance As every object has an internal property [[prototype]] which points to it&amp;rsquo;s prototype, we can directly assign a super object to it.</description>
     </item>
     
   </channel>

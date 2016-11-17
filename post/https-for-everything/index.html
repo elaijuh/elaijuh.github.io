@@ -18,7 +18,7 @@
     <script src="https://yandex.st/highlightjs/8.0/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <title>Vertical align an unknown size image | moo...</title>
+    <title>Https for everything | moo...</title>
   </head>
   <body>
     <div id="wrap">
@@ -44,15 +44,15 @@ ga('send', 'pageview');
 <div class="article">
   <header>
     <div class="article-header">
-      <h1>Vertical align an unknown size image</h1>
+      <h1>Https for everything</h1>
       <div class="article-meta">
-        <span class="posttime">0001/01/01</span>
+        <span class="posttime">2016/11/18</span>
         
 <div class="tags">
   <ul>
     
     <li>
-      <a href="/tags/css"><span></span>css</a>
+      <a href="/tags/https"><span></span>https</a>
     </li>
     
   </ul>
@@ -73,7 +73,7 @@ ga('send', 'pageview');
     
     
     <li>
-      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://blog.hujiale.me/post/vertical-align-an-image/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://blog.hujiale.me/post/https-for-everything/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
     </li>
     
     
@@ -95,15 +95,50 @@ ga('send', 'pageview');
 
   </header>
   <div class="content">
-    <p>Some ways to vertiacl align an image in a div, the image&rsquo;s width and height are unknown</p>
+    
 
-<ul>
-<li>Use a helper incline-block div to vertica the image. The helper&rsquo;s width is 0</li>
-<li>Use a tricky way top, right, bottom, left all 0 and margin auto</li>
-<li>Use css transform translateY</li>
-</ul>
+<p>HTTPS is highly recommended for every web site, as a web developer I am building both my personal
+and company app under https. Applying for the certificates could be a block for you to migrate/build
+your site to https as you need to pay for it and it could take quite a while. Thanks to <a href="https://letsencrypt.org/">letsencrypt</a>
+now we can have free open certificate authorify for our sites.</p>
 
-<p><a href="http://codepen.io/elaijuh/pen/pygbBy">demo</a></p>
+<p>I will list the least steps to build a site by using <a href="https://certbot.eff.org/">certbot</a></p>
+
+<h4 id="install-certbot">Install certbot</h4>
+
+<pre><code class="language-sh">wget https://dl.eff.org/certbot-auto
+chmod a+x ./certbot-auto
+</code></pre>
+
+<p>After that, you can run <code>./certbot-auto --help</code> to check if it&rsquo;s installed successfully.</p>
+
+<h4 id="use-certbot-to-generate-certificates">Use certbot to generate certificates</h4>
+
+<pre><code class="language-sh">./certbot-auto certonly --standalone -d www.yourdomain.com -d sub.yourdomain.com
+</code></pre>
+
+<p>Make sure <code>www.yourdomain.com</code> and <code>sub.yourdomain.com</code> is online at <code>80</code> port as this command will
+check the validation. You can ignore <code>--standalone</code> at the moment, it&rsquo;s just a plugin
+for certbot to generated software independent certificates. After running the command, there will be 4 files generated
+at <code>/etc/letsencrypt</code>. They are <code>privKey.pem</code>, <code>fullchain.pem</code>, <code>cert.pem</code> and <code>chain.pem</code>.
+Usually the web server only needs to point to the previous two for enableing https.
+I will go through you how to point to certificates ad different server (nginx, apache) has different way.
+You can google for it by yourself</p>
+
+<h4 id="renew-the-certificates">Renew the certificates</h4>
+
+<p>The certificates are only valid for 90 days, luckily the renew is easy.</p>
+
+<pre><code class="language-sh">./certbot-auto renew
+</code></pre>
+
+<p>That&rsquo;s it. If certbot check the certificates are due for renewal, it will renew them.
+I also create a daily cron task to renew it automatically.
+<code>0 0 * * * ~/certbot-auto renew</code></p>
+
+<hr />
+
+<p><a href="https://certbot.eff.org/docs/using.html#getting-certificates-and-choosing-plugins">Reference</a></p>
 
   </div>
   <footer>
@@ -113,7 +148,7 @@ ga('send', 'pageview');
   <ul>
     
     <li>
-      <a href="/tags/css"><span></span>css</a>
+      <a href="/tags/https"><span></span>https</a>
     </li>
     
   </ul>
@@ -140,7 +175,7 @@ ga('send', 'pageview');
     
     
     <li>
-      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://blog.hujiale.me/post/vertical-align-an-image/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://blog.hujiale.me/post/https-for-everything/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
     </li>
     
     
@@ -163,9 +198,9 @@ ga('send', 'pageview');
       <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'hujiale';
-    var disqus_identifier = 'http:\/\/blog.hujiale.me\/post\/vertical-align-an-image\/';
-    var disqus_title = 'Vertical align an unknown size image';
-    var disqus_url = 'http:\/\/blog.hujiale.me\/post\/vertical-align-an-image\/';
+    var disqus_identifier = 'http:\/\/blog.hujiale.me\/post\/https-for-everything\/';
+    var disqus_title = 'Https for everything';
+    var disqus_url = 'http:\/\/blog.hujiale.me\/post\/https-for-everything\/';
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -178,11 +213,11 @@ ga('send', 'pageview');
       
       <div id="pagenavigation-next-prev">
         
-        
-        <div id="pagenavigation-prev">
-          <span class="pagenav-label">Next</span>
-          <a href="http://blog.hujiale.me/post/unit-test-angular-directive/">Unit test Angular directive</a>
+        <div id="pagenavigation-next">
+          <span class="pagenav-label">Previous</span>
+          <a href="http://blog.hujiale.me/post/ng2-hmr-with-backend-server/">Angular2 HMR with backend server supported</a>
         </div>
+        
         
       </div>
       

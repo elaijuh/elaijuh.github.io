@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>moo...</title>
+    <link>http://blog.hujiale.me/tags/https/index.xml</link>
+    <description>Recent content on moo...</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="/tags/https/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Https for everything</title>
+      <link>http://blog.hujiale.me/post/https-for-everything/</link>
+      <pubDate>Fri, 18 Nov 2016 00:59:57 +0800</pubDate>
+      
+      <guid>http://blog.hujiale.me/post/https-for-everything/</guid>
+      <description>HTTPS is highly recommended for every web site, as a web developer I am building both my personal and company app under https. Applying for the certificates could be a block for you to migrate/build your site to https as you need to pay for it and it could take quite a while. Thanks to letsencrypt now we can have free open certificate authorify for our sites.
+I will list the least steps to build a site by using certbot</description>
+    </item>
+    
+  </channel>
+</rss>
