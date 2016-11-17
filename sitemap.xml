@@ -12,6 +12,11 @@
   </url>
   
   <url>
+    <loc>http://blog.hujiale.me/post/how-to-make-ngrx-store-work-with-hmr/</loc>
+    <lastmod>2016-09-11T03:26:53+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://blog.hujiale.me/post/ng2-hmr-with-backend-server/</loc>
     <lastmod>2016-09-03T20:53:14+08:00</lastmod>
   </url>
