@@ -6,8 +6,19 @@
     <description>Recent content in Post-rsses on moo...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 18 Nov 2016 00:59:57 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 21 Dec 2016 22:18:43 +0800</lastBuildDate>
     <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Provision AWS Lightsail with Ansible</title>
+      <link>http://blog.hujiale.me/post/provision-lightsail-with-ansible/</link>
+      <pubDate>Wed, 21 Dec 2016 22:18:43 +0800</pubDate>
+      
+      <guid>http://blog.hujiale.me/post/provision-lightsail-with-ansible/</guid>
+      <description>Amazon has announced a new cloud service Lightsail recently aiming at DigitalOcean, with exact same price and same spec of node. As a heavy DigitalOcean user, I am more than happy to try the alternative provided by AWS. Creating the first instance is not smooth, I got successfully created the first instance by AWS SDK after 3 weeks in and out mails with the support team.
+TL;DR
+This post is a quick guide on provisioning the instance by Ansible.</description>
+    </item>
     
     <item>
       <title>Https for everything</title>

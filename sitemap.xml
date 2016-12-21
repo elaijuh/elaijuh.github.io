@@ -3,7 +3,12 @@
   
   <url>
     <loc>http://blog.hujiale.me/</loc>
-    <lastmod>2016-11-18T00:59:57+08:00</lastmod>
+    <lastmod>2016-12-21T22:18:43+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.hujiale.me/post/provision-lightsail-with-ansible/</loc>
+    <lastmod>2016-12-21T22:18:43+08:00</lastmod>
   </url>
   
   <url>

@@ -18,7 +18,7 @@
     <script src="https://yandex.st/highlightjs/8.0/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <title>Repeat a capturing group, pitfall in RegExp | moo...</title>
+    <title>Provision AWS Lightsail with Ansible | moo...</title>
   </head>
   <body>
     <div id="wrap">
@@ -44,15 +44,19 @@ ga('send', 'pageview');
 <div class="article">
   <header>
     <div class="article-header">
-      <h1>Repeat a capturing group, pitfall in RegExp</h1>
+      <h1>Provision AWS Lightsail with Ansible</h1>
       <div class="article-meta">
-        <span class="posttime">2014/12/23</span>
+        <span class="posttime">2016/12/21</span>
         
 <div class="tags">
   <ul>
     
     <li>
-      <a href="/tags/regex"><span></span>regex</a>
+      <a href="/tags/aws"><span></span>aws</a>
+    </li>
+    
+    <li>
+      <a href="/tags/ansible"><span></span>ansible</a>
     </li>
     
   </ul>
@@ -73,7 +77,7 @@ ga('send', 'pageview');
     
     
     <li>
-      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://blog.hujiale.me/post/repeat-a-capturing-group/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://blog.hujiale.me/post/provision-lightsail-with-ansible/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
     </li>
     
     
@@ -95,37 +99,114 @@ ga('send', 'pageview');
 
   </header>
   <div class="content">
-    <p>RegExp is esoteric, known to all, but you will find it incredibly effecient when you start to get used to it. I like to use RegExp, but sometimes I tend to make mistakes, the most common of which is to repeat a capturing group. Let&rsquo;s think about this. Given a string <code>'a=1;b=2;...;k=n'</code>, I would like to capture <code>k, n</code> of each pair to form an array like <code>['a', 1, 'b', 2, ... 'k', n]</code>.</p>
+    
 
-<p><span class="more"></span></p>
+<p>Amazon has announced a new cloud service <strong>Lightsail</strong> recently aiming at DigitalOcean, with exact same price and same spec of node.  As a heavy DigitalOcean user, I am more than happy to try the alternative provided by AWS. Creating the first instance is not smooth, I got successfully created the first instance by AWS SDK after 3 weeks in and out mails with the support team.</p>
 
-<p>Below is our first try:</p>
+<p>TL;DR</p>
 
-<pre><code class="language-javascript">var s = 'a=1;b=2;c=3';
-var r = /(?:(\w)=(\d))?(?:;(\w)=(\d))*/;
+<p>This post is a quick guide on provisioning the instance by Ansible.  Before that ,  some outlines:</p>
 
-// expected to be ['a', 1, 'b', 2, 'c', 3]
-s.match(r).slice(1, 7); // ['a', 1, 'c', 3] !ops
+<ul>
+<li>The default login account for Lightsail is pretty much depended on the image, while in DigitalOcean it is <strong>root</strong>.</li>
+<li>Lightsail is using key pair (.pem) for ssh login, you can either use default key pair or create a new pair. After successfully log into the instance, I added a pub ssh id by my preference.</li>
+<li>Everything in docker, as well as ansible</li>
+</ul>
+
+<h2 id="ansible-playbook">Ansible playbook</h2>
+
+<p>provision.yml</p>
+
+<pre><code class="language-yml">---
+- hosts: cloud 
+  gather_facts: False
+  tasks:
+    - name: Update local known_hosts
+      local_action: shell ssh-keyscan -H {{ hostvars[item].ansible_host }} &gt;&gt; ~/.ssh/known_hosts
+      with_items: &quot;{{ groups.cloud }}&quot;
+
+    - name: Install aptitude
+      raw: test ! -e /usr/bin/aptitude &amp;&amp; sudo apt-get install -qq aptitude || true
+
+    - name: Install python 2.7
+      raw: test ! -e /usr/bin/python &amp;&amp; (sudo apt-get update -qq &amp;&amp; sudo apt-get install -qq python2.7) || true
+
+    - name: Install letsencrypt 
+      raw: test ! -e /usr/bin/letsencrypt &amp;&amp; (sudo apt-get update -qq &amp;&amp; sudo apt-get install -qq letsencrypt) || true
+
+- hosts: cloud 
+  roles:
+    - update-apt
+    - user
+    - swap
+
+- hosts: cloud 
+  roles:
+    # https://github.com/angstwad/docker.ubuntu
+    - role: angstwad.docker_ubuntu
+      become: yes
+      kernel_pkg_state: present
 </code></pre>
 
-<p>As you can see, <code>b, 2</code> is lost. What happens behind is, when RegExp engine finishes matching for group 3 (which is &lsquo;b&rsquo;) and group 4 (which is 2) it finds the <code>*</code> which makes it redo the match for group 3 and 4 from last index. So <code>b, 2</code> is overridden by <code>c, 3</code>. Here we are trying to repeat a capturing group <code>(?:;(\w)=(\d))*</code> which leads to the unexpected result.</p>
+<p>provision.ini</p>
 
-<p>So can we achieve the goal by global matching? Let&rsquo;s do the second try:</p>
+<pre><code class="language-ini">[hosts]
+[YOUR_LIGHTSAIL_INSTANCE_NAME] ansible_host=[YOUR_IP] private_ip=[YOUR_PRIVATE_IP]
 
-<pre><code class="language-javascript">var s = 'a=1;b=2;c=3';
-var r = /(?:(\w)=(\d))/g;
+[cloud:children]
+hosts
 
-// expected to be ['a', 1, 'b', 2, 'c', 3]
-s.match(r); // ['a=1', 'b=2', 'c=3'] !ops
+[cloud:vars]
+ansible_connection=ssh
+ansible_user=ubuntu
+ansible_ssh_private_key_file=~/.ssh/id_rsa
+ansible_python_interpreter=/usr/bin/python2.7
 </code></pre>
 
-<p>Looks like it&rsquo;s even further from what we expected. That&rsquo;s true, in global matching, capturing group lose it&rsquo;s magic and it always return the matching result as a whole RegExp.</p>
+<p>Looking at <code>provision.yml</code> , the first 3 common tasks are pretty straight forward:</p>
 
-<p>Finally we yield to use some JavaScript snippet, various ways to go, not to address here.</p>
+<ul>
+<li>Adding remote instance IP to your local known_hosts</li>
+<li>Install Python</li>
+<li>Install letsencrypt for HTTPS</li>
+</ul>
 
-<hr />
+<p>Followed by 3 common roles:</p>
 
-<p><a href="http://www.regular-expressions.info/captureall.html">http://www.regular-expressions.info/captureall.html</a></p>
+<ul>
+<li>Update and upgrade apt</li>
+<li>Create application user in sudo group</li>
+<li>Specify swap file (optional)</li>
+</ul>
+
+<p>I would like to pick user role as example</p>
+
+<p>ansible/roles/user/tasks/main.yml</p>
+
+<pre><code class="language-yml">---
+- name: Ensure user exists
+  become: yes
+  user:
+    name: appuser
+    state: present
+    shell: /bin/bash
+    append: yes 
+    groups: sudo
+
+- name: Ensure authorized key exists
+  become: yes
+  authorized_key: user=appuser key=&quot;{{ lookup('file', '~/.ssh/id_rsa.pub') }}&quot;
+
+- name: Copy sudoers
+  become: yes
+  copy: src=./sudoers dest=/etc/sudoers
+</code></pre>
+
+<p>This role will create a user <code>appuser</code> in sudo group for application deploy.  So that we don’t need to use the default user <code>ubuntu</code> every time. Make sure you have added the id pub key into the instance’s <code>authorized_key</code> file</p>
+
+<p>The last role is installing docker into the instance, after that you can use any docker command like <code>sudo docker</code> or <code>sudo docker-compose</code> in the instance and it’s armed with docker engine now.</p>
+
+<p>OK now we have a provisioned instance and keep lego it with any application you write. I will suggest to use Ansible docker service as well to depoly your application based on docker image.</p>
 
   </div>
   <footer>
@@ -135,7 +216,11 @@ s.match(r); // ['a=1', 'b=2', 'c=3'] !ops
   <ul>
     
     <li>
-      <a href="/tags/regex"><span></span>regex</a>
+      <a href="/tags/aws"><span></span>aws</a>
+    </li>
+    
+    <li>
+      <a href="/tags/ansible"><span></span>ansible</a>
     </li>
     
   </ul>
@@ -162,7 +247,7 @@ s.match(r); // ['a=1', 'b=2', 'c=3'] !ops
     
     
     <li>
-      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://blog.hujiale.me/post/repeat-a-capturing-group/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+      <iframe src="https://www.facebook.com/plugins/share_button.php?href=http://blog.hujiale.me/post/provision-lightsail-with-ansible/&layout=button_count&mobile_iframe=true&appId=your%20app%20id&width=89&height=20" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
     </li>
     
     
@@ -185,9 +270,9 @@ s.match(r); // ['a=1', 'b=2', 'c=3'] !ops
       <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'hujiale';
-    var disqus_identifier = 'http:\/\/blog.hujiale.me\/post\/repeat-a-capturing-group\/';
-    var disqus_title = 'Repeat a capturing group, pitfall in RegExp';
-    var disqus_url = 'http:\/\/blog.hujiale.me\/post\/repeat-a-capturing-group\/';
+    var disqus_identifier = 'http:\/\/blog.hujiale.me\/post\/provision-lightsail-with-ansible\/';
+    var disqus_title = 'Provision AWS Lightsail with Ansible';
+    var disqus_url = 'http:\/\/blog.hujiale.me\/post\/provision-lightsail-with-ansible\/';
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -202,14 +287,9 @@ s.match(r); // ['a=1', 'b=2', 'c=3'] !ops
         
         <div id="pagenavigation-next">
           <span class="pagenav-label">Previous</span>
-          <a href="http://blog.hujiale.me/post/handle-http-request-in-multiple-process/">Handle HTTP request in multiple processes in NodeJS</a>
+          <a href="http://blog.hujiale.me/post/https-for-everything/">Https for everything</a>
         </div>
         
-        
-        <div id="pagenavigation-prev">
-          <span class="pagenav-label">Next</span>
-          <a href="http://blog.hujiale.me/post/hoisting-what-happen-behind-it/">Hoisting, what happens behind it</a>
-        </div>
         
       </div>
       
