@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>moo...</title>
+    <title>Regex on moo...</title>
     <link>http://blog.hujiale.me/tags/regex/index.xml</link>
-    <description>Recent content on moo...</description>
+    <description>Recent content in Regex on moo...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="/tags/regex/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.hujiale.me/tags/regex/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Repeat a capturing group, pitfall in RegExp</title>
@@ -14,7 +14,38 @@
       <pubDate>Tue, 23 Dec 2014 01:41:37 +0800</pubDate>
       
       <guid>http://blog.hujiale.me/post/repeat-a-capturing-group/</guid>
-      <description>RegExp is esoteric, known to all, but you will find it incredibly effecient when you start to get used to it. I like to use RegExp, but sometimes I tend to make mistakes, the most common of which is to repeat a capturing group. Let&amp;rsquo;s think about this. Given a string &#39;a=1;b=2;...;k=n&#39;, I would like to capture k, n of each pair to form an array like [&#39;a&#39;, 1, &#39;b&#39;, 2, .</description>
+      <description>&lt;p&gt;RegExp is esoteric, known to all, but you will find it incredibly effecient when you start to get used to it. I like to use RegExp, but sometimes I tend to make mistakes, the most common of which is to repeat a capturing group. Let&amp;rsquo;s think about this. Given a string &lt;code&gt;&#39;a=1;b=2;...;k=n&#39;&lt;/code&gt;, I would like to capture &lt;code&gt;k, n&lt;/code&gt; of each pair to form an array like &lt;code&gt;[&#39;a&#39;, 1, &#39;b&#39;, 2, ... &#39;k&#39;, n]&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&#34;more&#34;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Below is our first try:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var s = &#39;a=1;b=2;c=3&#39;;
+var r = /(?:(\w)=(\d))?(?:;(\w)=(\d))*/;
+
+// expected to be [&#39;a&#39;, 1, &#39;b&#39;, 2, &#39;c&#39;, 3]
+s.match(r).slice(1, 7); // [&#39;a&#39;, 1, &#39;c&#39;, 3] !ops
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see, &lt;code&gt;b, 2&lt;/code&gt; is lost. What happens behind is, when RegExp engine finishes matching for group 3 (which is &amp;lsquo;b&amp;rsquo;) and group 4 (which is 2) it finds the &lt;code&gt;*&lt;/code&gt; which makes it redo the match for group 3 and 4 from last index. So &lt;code&gt;b, 2&lt;/code&gt; is overridden by &lt;code&gt;c, 3&lt;/code&gt;. Here we are trying to repeat a capturing group &lt;code&gt;(?:;(\w)=(\d))*&lt;/code&gt; which leads to the unexpected result.&lt;/p&gt;
+
+&lt;p&gt;So can we achieve the goal by global matching? Let&amp;rsquo;s do the second try:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var s = &#39;a=1;b=2;c=3&#39;;
+var r = /(?:(\w)=(\d))/g;
+
+// expected to be [&#39;a&#39;, 1, &#39;b&#39;, 2, &#39;c&#39;, 3]
+s.match(r); // [&#39;a=1&#39;, &#39;b=2&#39;, &#39;c=3&#39;] !ops
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Looks like it&amp;rsquo;s even further from what we expected. That&amp;rsquo;s true, in global matching, capturing group lose it&amp;rsquo;s magic and it always return the matching result as a whole RegExp.&lt;/p&gt;
+
+&lt;p&gt;Finally we yield to use some JavaScript snippet, various ways to go, not to address here.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.regular-expressions.info/captureall.html&#34;&gt;http://www.regular-expressions.info/captureall.html&lt;/a&gt;&lt;/p&gt;
+</description>
     </item>
     
   </channel>

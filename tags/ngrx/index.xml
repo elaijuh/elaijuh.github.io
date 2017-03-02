@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>moo...</title>
+    <title>Ngrx on moo...</title>
     <link>http://blog.hujiale.me/tags/ngrx/index.xml</link>
-    <description>Recent content on moo...</description>
+    <description>Recent content in Ngrx on moo...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="/tags/ngrx/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.hujiale.me/tags/ngrx/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>How to make ngrx/store work with HMR</title>
@@ -14,8 +14,145 @@
       <pubDate>Sun, 11 Sep 2016 03:26:53 +0800</pubDate>
       
       <guid>http://blog.hujiale.me/post/how-to-make-ngrx-store-work-with-hmr/</guid>
-      <description>In my previous post, I talked of a way to develop angular 2 app with HMR. The vendors I use are @angularclass/hmr and @angularclass/hmr-loader Later on, I thought I might need a data flow tool like redux to manage my app state and I found ngrx/store
-@angularclass/hmr injects some hmr prefix life cycles into the main module to let you to restore the data. But app state management is optional and you can choose your own way to implement it, so I will walk you through how I implement HMR with ngrx/store</description>
+      <description>
+
+&lt;p&gt;In my previous post, I talked of a way to develop angular 2 app with HMR.
+The vendors I use are &lt;em&gt;@angularclass/hmr&lt;/em&gt; and &lt;em&gt;@angularclass/hmr-loader&lt;/em&gt;
+Later on, I thought I might need a data flow tool like redux to manage my app state and I found &lt;a href=&#34;https://github.com/ngrx/store&#34;&gt;ngrx/store&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;@angularclass/hmr injects some &lt;em&gt;hmr&lt;/em&gt; prefix life cycles into the main module to let you to restore the data.
+But app state management is optional and you can choose your own way to implement it, so I will walk you through how I implement HMR with ngrx/store&lt;/p&gt;
+
+&lt;h3 id=&#34;retrieve-the-current-state&#34;&gt;Retrieve the current state&lt;/h3&gt;
+
+&lt;p&gt;To retrive the current app state before it&amp;rsquo;s deposed is easy, just subscribe it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;this._store.take(1).subscribe(s =&amp;gt; store.rootState = s)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That&amp;rsquo;s it&lt;/p&gt;
+
+&lt;h3 id=&#34;restore-the-current-state&#34;&gt;Restore the current state&lt;/h3&gt;
+
+&lt;p&gt;This is kinda cumbesome as &lt;code&gt;ngrx/store&lt;/code&gt; doesn&amp;rsquo;t provide a way to set the root state, I need to compose a rootReducer to do this.
+With the help of &lt;a href=&#34;https://github.com/MikeRyan52&#34;&gt;Mike Ryan&lt;/a&gt;, I figure out a way to do that.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function stateSetter(reducer: ActionReducer&amp;lt;any&amp;gt;): ActionReducer&amp;lt;any&amp;gt; {
+  return function (state, action ) {
+    if (action.type === &#39;SET_ROOT_STATE&#39;) {
+      return action.payload
+    }
+    return reducer(state, action)
+  }
+}
+
+const rootReducer = compose(stateSetter, combineReducers)({
+    // your reducers here
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now I can dispatch a &lt;code&gt;SET_ROOT_STATE&lt;/code&gt; action to reset the app state to what I have stored&lt;/p&gt;
+
+&lt;h3 id=&#34;get-everything-together&#34;&gt;Get everything together&lt;/h3&gt;
+
+&lt;p&gt;This is very much based on &lt;a href=&#34;https://github.com/mgechev/angular2-seed&#34;&gt;angular2-seed&lt;/a&gt;, you might have your own &lt;code&gt;main.ts&lt;/code&gt; though&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;import { platformBrowserDynamic } from &#39;@angular/platform-browser-dynamic&#39;
+import { BrowserModule } from &#39;@angular/platform-browser&#39;
+import { RouterModule } from &#39;@angular/router&#39;
+import { NgModule, ApplicationRef } from &#39;@angular/core&#39;
+import { removeNgStyles, createNewHosts, createInputTransfer, bootloader } from &#39;@angularclass/hmr&#39;
+
+import { compose} from &#39;@ngrx/core/compose&#39;
+import { Store, StoreModule, ActionReducer, combineReducers } from &#39;@ngrx/store&#39;
+import { StoreDevtoolsModule } from &#39;@ngrx/store-devtools&#39;
+import { StoreLogMonitorModule, useLogMonitor } from &#39;@ngrx/store-log-monitor&#39;
+
+import { AppModule } from &#39;./app&#39;
+import { AppComponent } from &#39;./app/app.component&#39;
+import { message } from &#39;./reducer&#39;
+
+
+// Generate a reducer to set the root state
+function stateSetter(reducer: ActionReducer&amp;lt;any&amp;gt;): ActionReducer&amp;lt;any&amp;gt; {
+  return function (state, action ) {
+    if (action.type === &#39;SET_ROOT_STATE&#39;) {
+      return action.payload
+    }
+    return reducer(state, action)
+  }
+}
+
+const rootReducer = compose(stateSetter, combineReducers)({
+  message
+})
+
+let imports = [
+  BrowserModule,
+  RouterModule.forRoot([], {
+    useHash: true
+  }),
+  // app
+  AppModule,
+  // vendors
+  StoreModule.provideStore(rootReducer)
+]
+
+// Enable HMR and ngrx/devtools in hot reload mode
+if (module.hot) imports.push(...[
+    StoreDevtoolsModule.instrumentStore({
+      monitor: useLogMonitor({
+        visible: true,
+        position: &#39;right&#39;
+      })
+    }),
+    StoreLogMonitorModule,
+])
+
+@NgModule({
+  bootstrap: [ AppComponent ],
+  declarations: [ AppComponent ],
+  imports
+})
+class MainModule {
+  constructor(public appRef: ApplicationRef, private _store: Store&amp;lt;any&amp;gt; ) {}
+  hmrOnInit(store) {
+    if (!store || !store.rootState) return
+
+    // restore state by dispatch a SET_ROOT_STATE action
+    if (store.rootState) {
+      this._store.dispatch({
+        type: &#39;SET_ROOT_STATE&#39;,
+        payload: store.rootState
+      })
+    }
+
+    if (&#39;restoreInputValues&#39; in store) { store.restoreInputValues() }
+    this.appRef.tick()
+    Object.keys(store).forEach(prop =&amp;gt; delete store[prop])
+  }
+  hmrOnDestroy(store) {
+    const cmpLocation = this.appRef.components.map(cmp =&amp;gt; cmp.location.nativeElement)
+    this._store.take(1).subscribe(s =&amp;gt; store.rootState = s)
+    store.disposeOldHosts = createNewHosts(cmpLocation)
+    store.restoreInputValues  = createInputTransfer()
+    removeNgStyles()
+  }
+  hmrAfterDestroy(store) {
+    store.disposeOldHosts()
+    delete store.disposeOldHosts
+  }
+}
+
+export function main() {
+  return platformBrowserDynamic().bootstrapModule(MainModule)
+}
+
+bootloader(main)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now the state remains the same after you change your code with HMR on, cool right.&lt;/p&gt;
+</description>
     </item>
     
   </channel>

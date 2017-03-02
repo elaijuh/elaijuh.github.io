@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>moo...</title>
+    <title>Nodejs on moo...</title>
     <link>http://blog.hujiale.me/tags/nodejs/index.xml</link>
-    <description>Recent content on moo...</description>
+    <description>Recent content in Nodejs on moo...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="/tags/nodejs/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.hujiale.me/tags/nodejs/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Handle HTTP request in multiple processes in NodeJS</title>
@@ -14,7 +14,57 @@
       <pubDate>Tue, 16 Dec 2014 01:28:26 +0800</pubDate>
       
       <guid>http://blog.hujiale.me/post/handle-http-request-in-multiple-process/</guid>
-      <description>NodeJS is single process based which is good at frequent IO operations. But single process can&amp;rsquo;t fully utilize multi-core CPU. Luckily we have child-process module in NodeJS to spawn multiple processes. One of the practical examples is handling HTTP request, especially for a large number of concurrent requests. A common way is to use master-worker pattern, a master process working as a proxy to delegate the HTTP requests to child processes with load balance enabled.</description>
+      <description>&lt;p&gt;NodeJS is single process based which is good at frequent IO operations. But single process can&amp;rsquo;t fully utilize multi-core CPU. Luckily we have &lt;code&gt;child-process&lt;/code&gt; module in NodeJS to spawn multiple processes. One of the practical examples is handling HTTP request, especially for a large number of concurrent requests. A common way is to use master-worker pattern, a master process working as a proxy to delegate the HTTP requests to child processes with load balance enabled. Cons of master-worker is rapid resource consuming as each process needs to listen on a different port. Another ninja way is to make each child process listen on the same port. Let&amp;rsquo;s have a look at how to achieve that:&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&#34;more&#34;&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// master.js
+var cp = require(&#39;child_process&#39;),
+    cp1 = cp.fork(&#39;child-process.js&#39;),
+    cp2 = cp.fork(&#39;child-process.js&#39;),
+    net = require(&#39;net&#39;);
+
+var server = net.createServer(); // create a TCP server
+
+server.on(&#39;listening&#39;, function () {
+    /**
+     * this is a tricky part
+     * it&#39;s not sending the whole server object
+     * but a stringified message object with server._handle in
+     * we will have another post to discuss it later
+     */
+    cp1.send(&#39;server&#39;, server);
+    cp2.send(&#39;server&#39;, server);
+    server.close();
+});
+
+server.listen(1337);
+
+// child.js
+var http = require(&#39;http&#39;);
+
+var server = http.createServer(function (req, res) {
+   res.writeHead(200, {&#39;Content-Type&#39;: &#39;text/plain&#39;}); 
+   res.end(&#39;handled by child, pid: &#39; + process.pid + &#39;\n&#39;);
+});
+
+process.on(&#39;message&#39;, function (m, tcpServer) {
+   if (m === &#39;server&#39;) {
+      tcpServer.on(&#39;connection&#39;, function (socket) {
+          server.emit(&#39;connection&#39;, socket);
+      });
+   }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In &lt;code&gt;master.js&lt;/code&gt;, we create a TCP server, have it bound to port 1337, and close it immediately once delegate it to child process. In &lt;code&gt;child.js&lt;/code&gt;, we create a HTTP server, not like usual, it doesn&amp;rsquo;t listen on any port explicitly. Now we have the TCP server sent from master process (regard it to be the same TCP server instance for now, but actually not. We will discuss it in another post). Once there is connection to the TCP server, we manually emit the &lt;code&gt;connection&lt;/code&gt; event on HTTP server with the TCP socket passed in. So that any HTTP reqeust to port 1337 will be handled by child process now, one process at a time. Let&amp;rsquo;s use curl to check the result:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ curl http://localhost:1337
+handled by child, pid: 18169 
+$ curl http://localhost:1337
+handled by child, pid: 18168
+&lt;/code&gt;&lt;/pre&gt;
+</description>
     </item>
     
   </channel>
