@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Regex on moo...</title>
-    <link>http://blog.hujiale.me/tags/regex/index.xml</link>
+    <link>https://blog.hujiale.me/tags/regex/index.xml</link>
     <description>Recent content in Regex on moo...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="http://blog.hujiale.me/tags/regex/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.hujiale.me/tags/regex/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Repeat a capturing group, pitfall in RegExp</title>
-      <link>http://blog.hujiale.me/post/repeat-a-capturing-group/</link>
+      <link>https://blog.hujiale.me/post/repeat-a-capturing-group/</link>
       <pubDate>Tue, 23 Dec 2014 01:41:37 +0800</pubDate>
       
-      <guid>http://blog.hujiale.me/post/repeat-a-capturing-group/</guid>
+      <guid>https://blog.hujiale.me/post/repeat-a-capturing-group/</guid>
       <description>&lt;p&gt;RegExp is esoteric, known to all, but you will find it incredibly effecient when you start to get used to it. I like to use RegExp, but sometimes I tend to make mistakes, the most common of which is to repeat a capturing group. Let&amp;rsquo;s think about this. Given a string &lt;code&gt;&#39;a=1;b=2;...;k=n&#39;&lt;/code&gt;, I would like to capture &lt;code&gt;k, n&lt;/code&gt; of each pair to form an array like &lt;code&gt;[&#39;a&#39;, 1, &#39;b&#39;, 2, ... &#39;k&#39;, n]&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;span class=&#34;more&#34;&gt;&lt;/span&gt;&lt;/p&gt;

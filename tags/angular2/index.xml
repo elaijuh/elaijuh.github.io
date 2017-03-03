@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Angular2 on moo...</title>
-    <link>http://blog.hujiale.me/tags/angular2/index.xml</link>
+    <link>https://blog.hujiale.me/tags/angular2/index.xml</link>
     <description>Recent content in Angular2 on moo...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="http://blog.hujiale.me/tags/angular2/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.hujiale.me/tags/angular2/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>How to make ngrx/store work with HMR</title>
-      <link>http://blog.hujiale.me/post/how-to-make-ngrx-store-work-with-hmr/</link>
+      <link>https://blog.hujiale.me/post/how-to-make-ngrx-store-work-with-hmr/</link>
       <pubDate>Sun, 11 Sep 2016 03:26:53 +0800</pubDate>
       
-      <guid>http://blog.hujiale.me/post/how-to-make-ngrx-store-work-with-hmr/</guid>
+      <guid>https://blog.hujiale.me/post/how-to-make-ngrx-store-work-with-hmr/</guid>
       <description>
 
 &lt;p&gt;In my previous post, I talked of a way to develop angular 2 app with HMR.
@@ -157,10 +157,10 @@ bootloader(main)
     
     <item>
       <title>Angular2 HMR with backend server supported</title>
-      <link>http://blog.hujiale.me/post/ng2-hmr-with-backend-server/</link>
+      <link>https://blog.hujiale.me/post/ng2-hmr-with-backend-server/</link>
       <pubDate>Sat, 03 Sep 2016 20:53:14 +0800</pubDate>
       
-      <guid>http://blog.hujiale.me/post/ng2-hmr-with-backend-server/</guid>
+      <guid>https://blog.hujiale.me/post/ng2-hmr-with-backend-server/</guid>
       <description>&lt;p&gt;Currenly I am developing a client + server side boilerplate with &lt;a href=&#34;https://angular.io&#34;&gt;Angular 2&lt;/a&gt; and &lt;a href=&#34;http://feathersjs.com&#34;&gt;Feathers&lt;/a&gt;.
 For server side, I am using &lt;code&gt;ts-node&lt;/code&gt; with nodemon, so far so good. But I find it cumbesome that every time I need to bundle client side code.&lt;br /&gt;
 After some exploring, I find a way to solve the problem. These are the dependencies:&lt;/p&gt;

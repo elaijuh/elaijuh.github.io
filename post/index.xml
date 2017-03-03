@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on moo...</title>
-    <link>http://blog.hujiale.me/post/index.xml</link>
+    <link>https://blog.hujiale.me/post/index.xml</link>
     <description>Recent content in Posts on moo...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 21 Dec 2016 22:18:43 +0800</lastBuildDate>
-    <atom:link href="http://blog.hujiale.me/post/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.hujiale.me/post/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Provision AWS Lightsail with Ansible</title>
-      <link>http://blog.hujiale.me/post/provision-lightsail-with-ansible/</link>
+      <link>https://blog.hujiale.me/post/provision-lightsail-with-ansible/</link>
       <pubDate>Wed, 21 Dec 2016 22:18:43 +0800</pubDate>
       
-      <guid>http://blog.hujiale.me/post/provision-lightsail-with-ansible/</guid>
+      <guid>https://blog.hujiale.me/post/provision-lightsail-with-ansible/</guid>
       <description>
 
 &lt;p&gt;Amazon has announced a new cloud service &lt;strong&gt;Lightsail&lt;/strong&gt; recently aiming at DigitalOcean, with exact same price and same spec of node.  As a heavy DigitalOcean user, I am more than happy to try the alternative provided by AWS. Creating the first instance is not smooth, I got successfully created the first instance by AWS SDK after 3 weeks in and out mails with the support team.&lt;/p&gt;
@@ -128,10 +128,10 @@ ansible_python_interpreter=/usr/bin/python2.7
     
     <item>
       <title>Https for everything</title>
-      <link>http://blog.hujiale.me/post/https-for-everything/</link>
+      <link>https://blog.hujiale.me/post/https-for-everything/</link>
       <pubDate>Fri, 18 Nov 2016 00:59:57 +0800</pubDate>
       
-      <guid>http://blog.hujiale.me/post/https-for-everything/</guid>
+      <guid>https://blog.hujiale.me/post/https-for-everything/</guid>
       <description>
 
 &lt;p&gt;HTTPS is highly recommended for every web site, as a web developer I am building both my personal
@@ -181,10 +181,10 @@ I also create a daily cron task to renew it automatically.
     
     <item>
       <title>How to make ngrx/store work with HMR</title>
-      <link>http://blog.hujiale.me/post/how-to-make-ngrx-store-work-with-hmr/</link>
+      <link>https://blog.hujiale.me/post/how-to-make-ngrx-store-work-with-hmr/</link>
       <pubDate>Sun, 11 Sep 2016 03:26:53 +0800</pubDate>
       
-      <guid>http://blog.hujiale.me/post/how-to-make-ngrx-store-work-with-hmr/</guid>
+      <guid>https://blog.hujiale.me/post/how-to-make-ngrx-store-work-with-hmr/</guid>
       <description>
 
 &lt;p&gt;In my previous post, I talked of a way to develop angular 2 app with HMR.
@@ -328,10 +328,10 @@ bootloader(main)
     
     <item>
       <title>Angular2 HMR with backend server supported</title>
-      <link>http://blog.hujiale.me/post/ng2-hmr-with-backend-server/</link>
+      <link>https://blog.hujiale.me/post/ng2-hmr-with-backend-server/</link>
       <pubDate>Sat, 03 Sep 2016 20:53:14 +0800</pubDate>
       
-      <guid>http://blog.hujiale.me/post/ng2-hmr-with-backend-server/</guid>
+      <guid>https://blog.hujiale.me/post/ng2-hmr-with-backend-server/</guid>
       <description>&lt;p&gt;Currenly I am developing a client + server side boilerplate with &lt;a href=&#34;https://angular.io&#34;&gt;Angular 2&lt;/a&gt; and &lt;a href=&#34;http://feathersjs.com&#34;&gt;Feathers&lt;/a&gt;.
 For server side, I am using &lt;code&gt;ts-node&lt;/code&gt; with nodemon, so far so good. But I find it cumbesome that every time I need to bundle client side code.&lt;br /&gt;
 After some exploring, I find a way to solve the problem. These are the dependencies:&lt;/p&gt;
@@ -349,20 +349,20 @@ After some exploring, I find a way to solve the problem. These are the dependenc
     
     <item>
       <title>Migration to Hugo</title>
-      <link>http://blog.hujiale.me/post/migration-to-hugo/</link>
+      <link>https://blog.hujiale.me/post/migration-to-hugo/</link>
       <pubDate>Sat, 03 Sep 2016 20:03:12 +0800</pubDate>
       
-      <guid>http://blog.hujiale.me/post/migration-to-hugo/</guid>
+      <guid>https://blog.hujiale.me/post/migration-to-hugo/</guid>
       <description>&lt;p&gt;Yeah. Go&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Vertical align an unknown size image</title>
-      <link>http://blog.hujiale.me/post/vertical-align-an-image/</link>
+      <link>https://blog.hujiale.me/post/vertical-align-an-image/</link>
       <pubDate>Sun, 27 Mar 2016 01:32:00 +0800</pubDate>
       
-      <guid>http://blog.hujiale.me/post/vertical-align-an-image/</guid>
+      <guid>https://blog.hujiale.me/post/vertical-align-an-image/</guid>
       <description>&lt;p&gt;Some ways to vertiacl align an image in a div, the image&amp;rsquo;s width and height are unknown&lt;/p&gt;
 
 &lt;ul&gt;
@@ -377,10 +377,10 @@ After some exploring, I find a way to solve the problem. These are the dependenc
     
     <item>
       <title>Unit test Angular directive</title>
-      <link>http://blog.hujiale.me/post/unit-test-angular-directive/</link>
+      <link>https://blog.hujiale.me/post/unit-test-angular-directive/</link>
       <pubDate>Wed, 17 Jun 2015 01:27:00 +0800</pubDate>
       
-      <guid>http://blog.hujiale.me/post/unit-test-angular-directive/</guid>
+      <guid>https://blog.hujiale.me/post/unit-test-angular-directive/</guid>
       <description>
 
 &lt;p&gt;I seldom test angular directive unless there is some DOM mutation being processed in the directive, like add/remove classes, show/hide elements or compile/destroy elements. If you have a heavy  dependencies on directives, the unit test will be a little bit clunky as for mocking the inline controller of the required directive. Stack overflow gives several alternatives to do so, I am picking two of them which I prefer to go  and demo them here. At the bottom of this post, I will attach the SO link for reference.&lt;/p&gt;
@@ -467,10 +467,10 @@ it(&#39;should bind bar to scope&#39;, function() {
     
     <item>
       <title>Scope, the most important thing in JavaScript</title>
-      <link>http://blog.hujiale.me/post/scope-the-most-important-thing-in-javascript/</link>
+      <link>https://blog.hujiale.me/post/scope-the-most-important-thing-in-javascript/</link>
       <pubDate>Sat, 31 Jan 2015 23:07:59 +0800</pubDate>
       
-      <guid>http://blog.hujiale.me/post/scope-the-most-important-thing-in-javascript/</guid>
+      <guid>https://blog.hujiale.me/post/scope-the-most-important-thing-in-javascript/</guid>
       <description>&lt;p&gt;cope and scope chain, the most important mechanism in JavaScript, are barely clearly explained though specified in ECMA-262 version 5.1. Without scope mechanism, there wouldn&amp;rsquo;t be closure and functional programming. This post is aim to elaborate what happens behind from the very beginning when control enters the global code to execution end.&lt;/p&gt;
 
 &lt;p&gt;&lt;span class=&#34;more&#34;&gt;&lt;/span&gt;&lt;/p&gt;
@@ -625,10 +625,10 @@ FooEC: {
     
     <item>
       <title>Hoisting, what happens behind it</title>
-      <link>http://blog.hujiale.me/post/hoisting-what-happen-behind-it/</link>
+      <link>https://blog.hujiale.me/post/hoisting-what-happen-behind-it/</link>
       <pubDate>Thu, 01 Jan 2015 01:55:22 +0800</pubDate>
       
-      <guid>http://blog.hujiale.me/post/hoisting-what-happen-behind-it/</guid>
+      <guid>https://blog.hujiale.me/post/hoisting-what-happen-behind-it/</guid>
       <description>&lt;p&gt;We always see the word &lt;strong&gt;hoisting&lt;/strong&gt; in some javascript books and technical blogs. Hoisting is grabbed to explain the phenomenon that we can use a variable before we declare it. That&amp;rsquo;s sound incredible in compiling languages, but in javascript it&amp;rsquo;s really there. Some people might think that the interpretor do a magic to restructure the code and put all variable/function declaration statements at the top of the function body. Thinking like that way might help to write or read the program, but that&amp;rsquo;s not the things truely happen behind. The post is to walk through the mechanism behind hoisting.&lt;/p&gt;
 
 &lt;p&gt;&lt;span class=&#34;more&#34;&gt;&lt;/span&gt;&lt;/p&gt;
@@ -682,10 +682,10 @@ VE = {
     
     <item>
       <title>Repeat a capturing group, pitfall in RegExp</title>
-      <link>http://blog.hujiale.me/post/repeat-a-capturing-group/</link>
+      <link>https://blog.hujiale.me/post/repeat-a-capturing-group/</link>
       <pubDate>Tue, 23 Dec 2014 01:41:37 +0800</pubDate>
       
-      <guid>http://blog.hujiale.me/post/repeat-a-capturing-group/</guid>
+      <guid>https://blog.hujiale.me/post/repeat-a-capturing-group/</guid>
       <description>&lt;p&gt;RegExp is esoteric, known to all, but you will find it incredibly effecient when you start to get used to it. I like to use RegExp, but sometimes I tend to make mistakes, the most common of which is to repeat a capturing group. Let&amp;rsquo;s think about this. Given a string &lt;code&gt;&#39;a=1;b=2;...;k=n&#39;&lt;/code&gt;, I would like to capture &lt;code&gt;k, n&lt;/code&gt; of each pair to form an array like &lt;code&gt;[&#39;a&#39;, 1, &#39;b&#39;, 2, ... &#39;k&#39;, n]&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;span class=&#34;more&#34;&gt;&lt;/span&gt;&lt;/p&gt;
@@ -722,10 +722,10 @@ s.match(r); // [&#39;a=1&#39;, &#39;b=2&#39;, &#39;c=3&#39;] !ops
     
     <item>
       <title>Handle HTTP request in multiple processes in NodeJS</title>
-      <link>http://blog.hujiale.me/post/handle-http-request-in-multiple-process/</link>
+      <link>https://blog.hujiale.me/post/handle-http-request-in-multiple-process/</link>
       <pubDate>Tue, 16 Dec 2014 01:28:26 +0800</pubDate>
       
-      <guid>http://blog.hujiale.me/post/handle-http-request-in-multiple-process/</guid>
+      <guid>https://blog.hujiale.me/post/handle-http-request-in-multiple-process/</guid>
       <description>&lt;p&gt;NodeJS is single process based which is good at frequent IO operations. But single process can&amp;rsquo;t fully utilize multi-core CPU. Luckily we have &lt;code&gt;child-process&lt;/code&gt; module in NodeJS to spawn multiple processes. One of the practical examples is handling HTTP request, especially for a large number of concurrent requests. A common way is to use master-worker pattern, a master process working as a proxy to delegate the HTTP requests to child processes with load balance enabled. Cons of master-worker is rapid resource consuming as each process needs to listen on a different port. Another ninja way is to make each child process listen on the same port. Let&amp;rsquo;s have a look at how to achieve that:&lt;/p&gt;
 
 &lt;p&gt;&lt;span class=&#34;more&#34;&gt;&lt;/span&gt;&lt;/p&gt;
@@ -781,10 +781,10 @@ handled by child, pid: 18168
     
     <item>
       <title> $provide.decorator - tweak Angular servicer</title>
-      <link>http://blog.hujiale.me/post/angularjs-decorator/</link>
+      <link>https://blog.hujiale.me/post/angularjs-decorator/</link>
       <pubDate>Thu, 11 Dec 2014 22:56:24 +0800</pubDate>
       
-      <guid>http://blog.hujiale.me/post/angularjs-decorator/</guid>
+      <guid>https://blog.hujiale.me/post/angularjs-decorator/</guid>
       <description>&lt;p&gt;If you are using Angular, you can&amp;rsquo;t avoid depending on third-party modules. Sometimes you find it not that perfect API the module provides, so that you hack into the source code and about to pull request. But the author&amp;rsquo;s comments on your pull request, usually for popular repo, &amp;lsquo;sorry-that&amp;rsquo;s not our priority&amp;rsquo; turns you down totally. Either you work around it or turns to another third-party module. Here is the third option, if you want to share the private data in service closure and provide some API for your specific need, you might find &lt;code&gt;$provide.decorator&lt;/code&gt; helpful. Let&amp;rsquo;s look at this:&lt;/p&gt;
 
 &lt;p&gt;&lt;span class=&#34;more&#34;&gt;&lt;/span&gt;&lt;/p&gt;
@@ -834,10 +834,10 @@ myApp.controller(&#39;MyCtrl&#39;, function($scope, sortService) {
     
     <item>
       <title>Function overload in JavaScript</title>
-      <link>http://blog.hujiale.me/post/function-overload-in-javascript/</link>
+      <link>https://blog.hujiale.me/post/function-overload-in-javascript/</link>
       <pubDate>Thu, 04 Dec 2014 01:14:12 +0800</pubDate>
       
-      <guid>http://blog.hujiale.me/post/function-overload-in-javascript/</guid>
+      <guid>https://blog.hujiale.me/post/function-overload-in-javascript/</guid>
       <description>&lt;p&gt;As we know, Javscript has no function overload in nature. If you try to declare the same function with different signature, the previous one will be overwritten rather than overloaded. As function overload in most OO programming languages are by means of parameters, it operates on different logic according to the passed in parameters. So there is still a way to do function overload in JS.&lt;/p&gt;
 
 &lt;p&gt;&lt;span class=&#34;more&#34;&gt;&lt;/span&gt;&lt;/p&gt;
@@ -906,10 +906,10 @@ foo.bar(1, 2); // 3
     
     <item>
       <title>JavaScript prototype and inheritance</title>
-      <link>http://blog.hujiale.me/post/javascript-prototype-and-inheritance/</link>
+      <link>https://blog.hujiale.me/post/javascript-prototype-and-inheritance/</link>
       <pubDate>Mon, 01 Dec 2014 05:13:52 +0800</pubDate>
       
-      <guid>http://blog.hujiale.me/post/javascript-prototype-and-inheritance/</guid>
+      <guid>https://blog.hujiale.me/post/javascript-prototype-and-inheritance/</guid>
       <description>
 
 &lt;p&gt;Inheritance in JS is quite different from class based inheritance which is popular for being used in C++ and Java. In class based inheritance language, we have to abstract a class which is not a real world subject. While in prototype based inheritance, we can implement inheritance on objects directly.&lt;/p&gt;

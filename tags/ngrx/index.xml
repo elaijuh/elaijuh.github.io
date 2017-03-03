@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ngrx on moo...</title>
-    <link>http://blog.hujiale.me/tags/ngrx/index.xml</link>
+    <link>https://blog.hujiale.me/tags/ngrx/index.xml</link>
     <description>Recent content in Ngrx on moo...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="http://blog.hujiale.me/tags/ngrx/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.hujiale.me/tags/ngrx/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>How to make ngrx/store work with HMR</title>
-      <link>http://blog.hujiale.me/post/how-to-make-ngrx-store-work-with-hmr/</link>
+      <link>https://blog.hujiale.me/post/how-to-make-ngrx-store-work-with-hmr/</link>
       <pubDate>Sun, 11 Sep 2016 03:26:53 +0800</pubDate>
       
-      <guid>http://blog.hujiale.me/post/how-to-make-ngrx-store-work-with-hmr/</guid>
+      <guid>https://blog.hujiale.me/post/how-to-make-ngrx-store-work-with-hmr/</guid>
       <description>
 
 &lt;p&gt;In my previous post, I talked of a way to develop angular 2 app with HMR.
