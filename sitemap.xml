@@ -2,6 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.hujiale.me/</loc>
+    <lastmod>2017-03-09T22:34:12+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.hujiale.me/post/yiin-free-to-wording/</loc>
+    <lastmod>2017-03-09T22:34:12+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.hujiale.me/post/provision-lightsail-with-ansible/</loc>
     <lastmod>2016-12-21T22:18:43+08:00</lastmod>
   </url>
@@ -69,94 +79,6 @@
   <url>
     <loc>https://blog.hujiale.me/post/javascript-prototype-and-inheritance/</loc>
     <lastmod>2014-12-01T05:13:52+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/angular1/</loc>
-    <lastmod>2015-06-17T01:27:00+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/angular2/</loc>
-    <lastmod>2016-09-11T03:26:53+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/ansible/</loc>
-    <lastmod>2016-12-21T22:18:43+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/aws/</loc>
-    <lastmod>2016-12-21T22:18:43+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/categories/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/css/</loc>
-    <lastmod>2016-03-27T01:32:00+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/https/</loc>
-    <lastmod>2016-11-18T00:59:57+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/javascript/</loc>
-    <lastmod>2015-01-31T23:07:59+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/ngrx/</loc>
-    <lastmod>2016-09-11T03:26:53+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/nodejs/</loc>
-    <lastmod>2014-12-16T01:28:26+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/post/</loc>
-    <lastmod>2016-12-21T22:18:43+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/regex/</loc>
-    <lastmod>2014-12-23T01:41:37+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/categories/tech/</loc>
-    <lastmod>2016-12-21T22:18:43+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/</loc>
-    <lastmod>2016-12-21T22:18:43+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
 </urlset>

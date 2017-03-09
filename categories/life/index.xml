@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>moo...</title>
-    <link>https://blog.hujiale.me/tags/</link>
-    <description>Recent content on moo...</description>
+    <title>Life on moo...</title>
+    <link>https://blog.hujiale.me/categories/life/</link>
+    <description>Recent content in Life on moo...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 09 Mar 2017 22:34:12 +0800</lastBuildDate>
-    <atom:link href="https://blog.hujiale.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.hujiale.me/categories/life/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>yiin, free to wording</title>

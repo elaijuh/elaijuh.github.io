@@ -65,9 +65,7 @@
 
       
       <div class="content">
-        cope and scope chain, the most important mechanism in JavaScript, are barely clearly explained though specified in ECMA-262 version 5.1. Without scope mechanism, there wouldn&rsquo;t be closure and functional programming. This post is aim to elaborate what happens behind from the very beginning when control enters the global code to execution end.
-
-Firstly, for easy literal, let&rsquo;s agree on the following abbreviation: GE: Global Environment VE: Variable Environment LE: Lexical Environment OLE: Outer Lexcial Environment Reference ER: Environment Record EC: Execution Context go: global object (window for browser, global for NodeJS)
+        cope and scope chain, the most important mechanism in JavaScript, are barely clearly explained though specified in ECMA-262 version 5.1. Without scope mechanism, there wouldn&rsquo;t be closure and functional programming. This post is aim to elaborate what happens behind from the very beginning when control enters the global code to execution end. Firstly, for easy literal, let&rsquo;s agree on the following abbreviation: GE: Global Environment VE: Variable Environment LE: Lexical Environment OLE: Outer Lexcial Environment Reference ER: Environment Record EC: Execution Context go: global object (window for browser, global for NodeJS) Take following foo.js as example, let&rsquo;s dive into it line by line // foo.js var a = 1; function Foo(b) { b = 3; console.log(b); // 3 console.log(a); // 1 } console.log(a); Foo(2); Step 1: Control enters into global code Every javascript file is executed from global code, when the control enters into the global code (before executing the code ), a global EC will be created and push into the EC stack.
         
         ...<a class="button is-link" href="https://blog.hujiale.me/post/scope-the-most-important-thing-in-javascript/" style="height:28px">
           Read more
@@ -115,9 +113,7 @@ Firstly, for easy literal, let&rsquo;s agree on the following abbreviation: GE: 
 
       
       <div class="content">
-        As we know, Javscript has no function overload in nature. If you try to declare the same function with different signature, the previous one will be overwritten rather than overloaded. As function overload in most OO programming languages are by means of parameters, it operates on different logic according to the passed in parameters. So there is still a way to do function overload in JS.
-
-var foo = { bar: function () { switch (arguments.
+        As we know, Javscript has no function overload in nature. If you try to declare the same function with different signature, the previous one will be overwritten rather than overloaded. As function overload in most OO programming languages are by means of parameters, it operates on different logic according to the passed in parameters. So there is still a way to do function overload in JS. var foo = { bar: function () { switch (arguments.length) { case 0: console.log(0); break; case 1: console.log(arguments[0]); break; case 2: console.log(arguments[0] + arguments[1]); break; } } } foo.bar(); // 0 foo.bar(1); // 1 foo.bar(1, 2); // 3 This approach is workable but not tidy and flexiable.
         
         ...<a class="button is-link" href="https://blog.hujiale.me/post/function-overload-in-javascript/" style="height:28px">
           Read more
@@ -141,10 +137,7 @@ var foo = { bar: function () { switch (arguments.
 
       
       <div class="content">
-        Inheritance in JS is quite different from class based inheritance which is popular for being used in C++ and Java. In class based inheritance language, we have to abstract a class which is not a real world subject. While in prototype based inheritance, we can implement inheritance on objects directly.
-
-The post walks you through how to do inheritance in JS.
-Simple object inheritance As every object has an internal property [[prototype]] which points to it&rsquo;s prototype, we can directly assign a super object to it.
+        Inheritance in JS is quite different from class based inheritance which is popular for being used in C++ and Java. In class based inheritance language, we have to abstract a class which is not a real world subject. While in prototype based inheritance, we can implement inheritance on objects directly. The post walks you through how to do inheritance in JS. Simple object inheritance As every object has an internal property [[prototype]] which points to it&rsquo;s prototype, we can directly assign a super object to it.
         
         ...<a class="button is-link" href="https://blog.hujiale.me/post/javascript-prototype-and-inheritance/" style="height:28px">
           Read more

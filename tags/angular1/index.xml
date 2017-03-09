@@ -2,10 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Angular1 on moo...</title>
-    <link>https://blog.hujiale.me/tags/angular1/index.xml</link>
+    <link>https://blog.hujiale.me/tags/angular1/</link>
     <description>Recent content in Angular1 on moo...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Wed, 17 Jun 2015 01:27:00 +0800</lastBuildDate>
     <atom:link href="https://blog.hujiale.me/tags/angular1/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
