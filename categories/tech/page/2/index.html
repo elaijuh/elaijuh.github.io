@@ -65,7 +65,7 @@
 
       
       <div class="content">
-        If you are using Angular, you can&rsquo;t avoid depending on third-party modules. Sometimes you find it not that perfect API the module provides, so that you hack into the source code and about to pull request. But the author&rsquo;s comments on your pull request, usually for popular repo, &lsquo;sorry-that&rsquo;s not our priority&rsquo; turns you down totally. Either you work around it or turns to another third-party module. Here is the third option, if you want to share the private data in service closure and provide some API for your specific need, you might find $provide.decorator helpful.
+        If you are using Angular, you can&rsquo;t avoid depending on third-party modules. Sometimes you find it not that perfect API the module provides, so that you hack into the source code and about to pull request. But the author&rsquo;s comments on your pull request, usually for popular repo, &lsquo;sorry-that&rsquo;s not our priority&rsquo; turns you down totally. Either you work around it or turns to another third-party module. Here is the third option, if you want to share the private data in service closure and provide some API for your specific need, you might find $provide.
         
         ...<a class="button is-link" href="https://blog.hujiale.me/post/angularjs-decorator/" style="height:28px">
           Read more
@@ -89,7 +89,9 @@
 
       
       <div class="content">
-        As we know, Javscript has no function overload in nature. If you try to declare the same function with different signature, the previous one will be overwritten rather than overloaded. As function overload in most OO programming languages are by means of parameters, it operates on different logic according to the passed in parameters. So there is still a way to do function overload in JS. var foo = { bar: function () { switch (arguments.length) { case 0: console.log(0); break; case 1: console.log(arguments[0]); break; case 2: console.log(arguments[0] + arguments[1]); break; } } } foo.bar(); // 0 foo.bar(1); // 1 foo.bar(1, 2); // 3 This approach is workable but not tidy and flexiable.
+        As we know, Javscript has no function overload in nature. If you try to declare the same function with different signature, the previous one will be overwritten rather than overloaded. As function overload in most OO programming languages are by means of parameters, it operates on different logic according to the passed in parameters. So there is still a way to do function overload in JS.
+
+var foo = { bar: function () { switch (arguments.
         
         ...<a class="button is-link" href="https://blog.hujiale.me/post/function-overload-in-javascript/" style="height:28px">
           Read more
@@ -113,7 +115,10 @@
 
       
       <div class="content">
-        Inheritance in JS is quite different from class based inheritance which is popular for being used in C++ and Java. In class based inheritance language, we have to abstract a class which is not a real world subject. While in prototype based inheritance, we can implement inheritance on objects directly. The post walks you through how to do inheritance in JS. Simple object inheritance As every object has an internal property [[prototype]] which points to it&rsquo;s prototype, we can directly assign a super object to it.
+        Inheritance in JS is quite different from class based inheritance which is popular for being used in C++ and Java. In class based inheritance language, we have to abstract a class which is not a real world subject. While in prototype based inheritance, we can implement inheritance on objects directly.
+
+The post walks you through how to do inheritance in JS.
+Simple object inheritance As every object has an internal property [[prototype]] which points to it&rsquo;s prototype, we can directly assign a super object to it.
         
         ...<a class="button is-link" href="https://blog.hujiale.me/post/javascript-prototype-and-inheritance/" style="height:28px">
           Read more

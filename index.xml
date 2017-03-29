@@ -2,12 +2,68 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>moo...</title>
-    <link>https://blog.hujiale.me/</link>
+    <link>https://blog.hujiale.me/index.xml</link>
     <description>Recent content on moo...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 09 Mar 2017 22:34:12 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 29 Mar 2017 11:35:33 +0800</lastBuildDate>
     <atom:link href="https://blog.hujiale.me/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Cookie sync in programmatic advertising</title>
+      <link>https://blog.hujiale.me/post/cookie-sync/</link>
+      <pubDate>Wed, 29 Mar 2017 11:35:33 +0800</pubDate>
+      
+      <guid>https://blog.hujiale.me/post/cookie-sync/</guid>
+      <description>
+
+&lt;p&gt;Cookie is a browser mechanism to store small piece of information in client’s browser. Now days, cookie is widely used in:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;- Sign in. Store session in cookie for server side authentication.
+- User preference. It stores user preference and load them when open the site which makes the UI user friendly.
+- eCommerce. Remember the good in your shopping cart.
+- Tracking behavior.  It records the user behavior for better targeting.
+- Advertising. It carries various information through couple of counter parties in advertising realm. DSP, SSP, Ad Exchange, etc.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Though cookie is prevalent, for security reason, cross domain policy restricts cookie only in the domain which cookie is set. A cookie set by &lt;em&gt;foo.com&lt;/em&gt; is not allowed to be accessed by &lt;em&gt;bar.com&lt;/em&gt;. (Cookies do not provide isolation by port). In advertising, cookie might have user ID and information stored which needs to be shared among individual parties with different domains. How could that be achieved?&lt;/p&gt;
+
+&lt;p&gt;Introducing cookie sync (or cookie mapping).&lt;/p&gt;
+
+&lt;p&gt;First we will elaborate how cookie sync works with a real life scenario, then we track the data flow, finally you will find a runnable code example in our github repo and you can read through and run by yourself.&lt;/p&gt;
+
+&lt;h3 id=&#34;scenario-retargeting-users&#34;&gt;Scenario - retargeting users&lt;/h3&gt;
+
+&lt;p&gt;A demand book selling site want to retarget users who did browse the book but finally left without conducting a payment. A user might leave for many reasons, but as long as the user shows interest in a particular book, the company would like to retarget the user at a later time when the user intends to buy books again.&lt;/p&gt;
+
+&lt;p&gt;Demand site asks DSP for help to achieve that. Once a user browses a book, a pixel will be triggered to DSP. DSP generates an unique ID for that user (anonymous) and keeps in database. DSP also sets cookie in client side, so that next time when the user come back(piggyback), DSP should know. But DSP alone is not enough, because the book company wants the user to see the book when he is browsing another publisher sites.  DSP will bid for inventory to show the book ad, but at what price is most effective? Obviously, if DSP knows who is the user browsing that inventory then it can make wise bid strategy.  So DSP needs to sync information with SSP (who requests the inventory auction)  by cookie.&lt;/p&gt;
+
+&lt;p&gt;If you still remember, DSP sets a cookie for user (DSPID), it also responses with a pixel to be triggered to SSP site carrying the DSPID in URL. Now SSP knows the user and the DSPID of the user. SSP generates an SSPID and stored it together with DSPID in database(it’s not a MUST), and then set SSP cookie to user browser. After that, SSP redirect back to DSP with SSPID attached.  So that DSP knows the mapping of DSPID/SSPID. When a ad request is issued from publisher site, SSP will call for auction to every DSP with  SSPID carried as well as the ad meta. When DSP received the auction call from SSP, if it sees the SSPID and find in database, then DSP bid for the inventory, otherwise DSP should conduct a negative bid strategy. If DSP wins, the user will see the same book ad in publisher site.&lt;/p&gt;
+
+&lt;p&gt;That’s the basic idea of RTB and cookie sync’s role in between.&lt;/p&gt;
+
+&lt;h3 id=&#34;flow&#34;&gt;Flow&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://blog.hujiale.me/images/cookie-sync.jpeg&#34; alt=&#34;cookie-sync&#34; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;1. User browse the book in demand site which have a pixel embedded
+2. A pixel is triggered to DSP. DSP save the DSPID in database
+3. DSP set the cookie back to browser and send back a pixel (SSP site)
+4. Pixel for SSP, carring DSPID in URL. Start cookie sync
+5. Redirect back from SSP with SSPID, cookie is sync
+6. DSP now knows the SSPID and update database for DSPID
+7. User browser publisher site at a later time
+8. Ad tag requests SSP to get an ad to display
+9. SSP request an ad auction to every DSP, SSPID is carried in request body as well as ad meta
+10. DSP receives the auction request and find the SSPID in database. DSP bids for inventory
+11. SSP decides which DSP wins and response with ad information. If our DSP wins, user will see the book again.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;code-example&#34;&gt;Code example&lt;/h3&gt;
+
+&lt;p&gt;You can find the runnable code demo &lt;a href=&#34;https://github.com/implustech/cookie-sync-demo&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>yiin, free to wording</title>
@@ -917,201 +973,6 @@ foo.bar(1, 2); // 3
 &lt;hr /&gt;
 
 &lt;p&gt;Reference book: &lt;a href=&#34;http://www.amazon.com/Secrets-JavaScript-Ninja-John-Resig/dp/193398869X/ref=sr_1_1?ie=UTF8&amp;amp;qid=1417626477&amp;amp;sr=8-1&amp;amp;keywords=secrets+of+javascript+ninja&#34;&gt;Secrets of the JavaScript Ninja&lt;/a&gt;, &lt;a href=&#34;http://ejohn.org/&#34;&gt;John Resig&lt;/a&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>JavaScript prototype and inheritance</title>
-      <link>https://blog.hujiale.me/post/javascript-prototype-and-inheritance/</link>
-      <pubDate>Mon, 01 Dec 2014 05:13:52 +0800</pubDate>
-      
-      <guid>https://blog.hujiale.me/post/javascript-prototype-and-inheritance/</guid>
-      <description>
-
-&lt;p&gt;Inheritance in JS is quite different from class based inheritance which is popular for being used in C++ and Java. In class based inheritance language, we have to abstract a class which is not a real world subject. While in prototype based inheritance, we can implement inheritance on objects directly.&lt;/p&gt;
-
-&lt;p&gt;&lt;span class=&#34;more&#34;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;The post walks you through how to do inheritance in JS.&lt;/p&gt;
-
-&lt;h3 id=&#34;simple-object-inheritance&#34;&gt;Simple object inheritance&lt;/h3&gt;
-
-&lt;p&gt;As every object has an internal property &lt;code&gt;[[prototype]]&lt;/code&gt; which points to it&amp;rsquo;s prototype, we can directly assign a super object to it. [[prototype]] could be implemented in different ways in different browsers. In Chrome and Firefox, it can be refered as &lt;code&gt;__proto__&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var sup = {x: &#39;x&#39;, y: &#39;y&#39;};
-var sub = {a: &#39;a&#39;};
-console.log(sub.x); // undefined
-
-sub.__proto__ = sup;
-console.log(sub.x); // x
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;inheritance-by-prototype-chaining&#34;&gt;Inheritance by prototype chaining&lt;/h3&gt;
-
-&lt;p&gt;In most of the time, especially in OO style, we would like to have a constructor and then create objects from it. In JS, constructor is not a class and not different from any regular function except that you can &lt;code&gt;new&lt;/code&gt; it. Usually a constructor does not explicitly return anything, it&amp;rsquo;s side effect is to assign all the &lt;code&gt;this&lt;/code&gt; properties you defined in the constructor body to the object and return it. A constructor function has a &lt;code&gt;prototype&lt;/code&gt; property which points to the prototype object of the constructor. The object created by the constructor has it&amp;rsquo;s [[prototype]] pointing to the constructor&amp;rsquo;s prototype object. Inheritance is implemented by assigning super object to sub constructor&amp;rsquo;s prototype. Take a look at this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function Sup() {
-    this.x = &#39;x&#39;;
-    this.y = &#39;y&#39;;
-}
-
-function Sub() {
-    this.a = &#39;a&#39;;
-}
-
-Sub.prototype = new Sup();
-
-var sub = new Sub();
-console.log(sub.x); // x
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The sub object has no x itself, so it will find x in it&amp;rsquo;s prototype which is a super object. This is cool, but the problem comes when there is reference property in super object.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function Sup() {
-    this.x = &#39;x&#39;;
-    this.z = [&#39;z&#39;];
-}
-
-function Sub() {
-    this.a = &#39;a&#39;;
-}
-
-Sub.prototype = new Sup();
-
-var sub1 = new Sub();
-var sub2 = new Sub();
-sub1.z.push(&#39;zz&#39;);
-console.log(sub1.z); // [&#39;z&#39;, &#39;zz&#39;]
-console.log(sub2.z); // [&#39;z&#39;, &#39;zz&#39;], !expected to be [&#39;z&#39;]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Both sub1.z and sub2.z are pointing to the same z in super object. Any sub object&amp;rsquo;s operation on z will have impact on all sub objects. That&amp;rsquo;s dangerous!&lt;/p&gt;
-
-&lt;h3 id=&#34;classical-inheritance-by-constructor-stealing&#34;&gt;Classical inheritance by constructor stealing&lt;/h3&gt;
-
-&lt;p&gt;Now we see the problem in prototype chaining inheritance, is there a way to solve it?&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function Sup() {
-    this.z = [&#39;z&#39;];
-}
-
-function Sub() {
-    Sup.call(this);
-    this.a = &#39;a&#39;;
-}
-
-var sub1 = new Sub();
-var sub2 = new Sub();
-sub1.z.push(&#39;zz&#39;);
-console.log(sub1.z); // [&#39;z&#39;, &#39;zz&#39;]
-console.log(sub2.z); // [&#39;z&#39;], !cool
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In sub constructor we steal super constructor and call it with &lt;code&gt;this&lt;/code&gt; reference. Now that every sub object has a copy of z and will not interfere with each other. This solves the problem in prototype chaining inheritance, but it&amp;rsquo;s downside is every property including method to be inheritted should be defined inside the super constructor. So there is no method reuse. How about we combine constructor stealing and prototype chaining together?&lt;/p&gt;
-
-&lt;h3 id=&#34;combination-inheritance-pseudoclassical-inheritance&#34;&gt;Combination inheritance (pseudoclassical inheritance)&lt;/h3&gt;
-
-&lt;p&gt;Both prototype chaining inheritance and constructor stealing inheritance have downsides, what if we combine them together?&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function Sup() {
-    this.z = [&#39;z&#39;];
-}
-Sup.prototype.mo = function () {
-    console.log(&#39;mo&#39;);
-};
-
-function Sub() {
-    Sup.call(this);
-    this.a = &#39;a&#39;;
-}
-Sub.prototype = new Sup();
-
-var sub1 = new Sub();
-var sub2 = new Sub();
-
-sub1.z.push(&#39;zz&#39;);
-console.log(sub1.z); // [&#39;z&#39;, &#39;zz&#39;]
-sub1.mo(); // mo
-console.log(sub2.z); // [&#39;z&#39;]
-sub2.mo(); // mo
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;That&amp;rsquo;s cool, we don&amp;rsquo;t need to define methods in super constructor&amp;rsquo;s body and they are reusable now. The combination inheritance addresses both downsides of prototype chaining and constructor stealing. It&amp;rsquo;s widely used in real life. It also preserves the behavior of &lt;code&gt;instanceof&lt;/code&gt; and &lt;code&gt;isPrototypeOf&lt;/code&gt; which looks like perfect now. But, yeah there is always another but :), if you look deep into the pattern, you might find that the super constructor has been called twice, &lt;code&gt;Sup.call(this)&lt;/code&gt; and &lt;code&gt;Sub.prototype = new Sup()&lt;/code&gt; which means the set of properties are duplicated in memory. This is an unavoidable ineffecient part of combination inheritance. And on another hand, combination inheritance still relies on constructor function which is kind of like class inheritance, while JS is really good at inheritance on objects. &lt;a href=&#34;http://www.crockford.com&#34;&gt;Douglas Crockford&lt;/a&gt; has introduced prototypal inheritance in 2006 based on the premise that inheritance on objects.&lt;/p&gt;
-
-&lt;h3 id=&#34;prototypal-inheritance&#34;&gt;Prototypal inheritance&lt;/h3&gt;
-
-&lt;p&gt;So how to do inheritance directly on objects without constructors?&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function create(supObj) {
-    function Empty() {};
-    Empty.prototype = supObj;
-    return new Empty();
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Crockford introduced a factory like function to create the sub object based on the passed in super object. So super constructor is not a must now. But the type of the sub object is lost. Based on this create function, Crockford introduced parasitic inheritance which is closer to real life.&lt;/p&gt;
-
-&lt;h3 id=&#34;parasitic-inheritance&#34;&gt;Parasitic inheritance&lt;/h3&gt;
-
-&lt;p&gt;Much like prototypal inheritance, parasitic inheritance just encapsulates all the properties or methods for the sub object in one function.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function createAnother(supObj) {
-    var sub = create(supObj);
-    
-    sub.a = &#39;a&#39;;
-    sub.mo = function () {
-        console.log(&#39;mo&#39;);
-    };
-    return sub;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now the sub object has all the properties of super object and it&amp;rsquo;s own property a and method mo. Parasitic inheritance addresses the duplicated properties downside in combination inheritance, but it loses object type which means &lt;code&gt;instanceof&lt;/code&gt; and &lt;code&gt;isPrototypeOf&lt;/code&gt; don&amp;rsquo;t work for sub object any more. Let&amp;rsquo;s keep improvement, finally we work out a way combining constructor stealing and parasitic inheritance.&lt;/p&gt;
-
-&lt;h3 id=&#34;parasitic-combination-inheritance&#34;&gt;Parasitic combination inheritance&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function create(supObj) {
-    function Empty() {};
-    Empty.prototype = supObj;
-    return new Empty();
-}
-
-function inheritPrototype(Sub, Sup) {
-    var subPrototype = create(Sup.prototype);
-    subPrototype.constructor = Sub; // link constructor back to Sub
-    Sub.prototype = subPrototype;
-}
-
-function Sup() {
-    this.x = &#39;x&#39;;
-    this.z = [&#39;z&#39;];
-}
-
-Sup.prototype.mo = function () {
-    console.log(&#39;mo&#39;);
-};
-
-function Sub() {
-    Sup.call(this);
-    this.a = &#39;a&#39;;
-}
-
-inheritPrototype(Sub, Sup);
-
-var sub1 = new Sub();
-var sub2 = new Sub();
-sub1.z.push(&#39;zz&#39;);
-sub1.mo(); // mo
-cnosole.log(sub1.z); // [&#39;z&#39;, &#39;zz&#39;]
-sub2.mo(); // mo
-console.log(sub2.z); // [&#39;z&#39;]
-
-console.log(sub1 instanceof Sub); // true
-console.log(Sub.prototype.isPrototypeOf(sub2)); //true
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now both the downside in combination inheritance - duplicated properties and the downside in parasitic inheritance - object type lost are addressed. We are kind of having a perfect inheritance machenism now. BUT&amp;hellip;personally I will not suggest to use inheritance heavily unless you want to mess yourself up.&lt;/p&gt;
 </description>
     </item>
     

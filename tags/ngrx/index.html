@@ -67,7 +67,8 @@
 
       
       <div class="content">
-        In my previous post, I talked of a way to develop angular 2 app with HMR. The vendors I use are @angularclass/hmr and @angularclass/hmr-loader Later on, I thought I might need a data flow tool like redux to manage my app state and I found ngrx/store @angularclass/hmr injects some hmr prefix life cycles into the main module to let you to restore the data. But app state management is optional and you can choose your own way to implement it, so I will walk you through how I implement HMR with ngrx/store Retrieve the current state To retrive the current app state before it&rsquo;s deposed is easy, just subscribe it: this._store.take(1).subscribe(s =&gt; store.rootState = s) That&rsquo;s it Restore the current state This is kinda cumbesome as ngrx/store doesn&rsquo;t provide a way to set the root state, I need to compose a rootReducer to do this.
+        In my previous post, I talked of a way to develop angular 2 app with HMR. The vendors I use are @angularclass/hmr and @angularclass/hmr-loader Later on, I thought I might need a data flow tool like redux to manage my app state and I found ngrx/store
+@angularclass/hmr injects some hmr prefix life cycles into the main module to let you to restore the data. But app state management is optional and you can choose your own way to implement it, so I will walk you through how I implement HMR with ngrx/store
         
         ...<a class="button is-link" href="https://blog.hujiale.me/post/how-to-make-ngrx-store-work-with-hmr/" style="height:28px">
           Read more
