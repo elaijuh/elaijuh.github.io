@@ -1,28 +1,140 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>moo...</title>
+    <title>Tags on {be stateless}</title>
     <link>https://blog.hujiale.me/tags/</link>
-    <description>Recent content on moo...</description>
+    <description>Recent content in Tags on {be stateless}</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 09 Mar 2017 22:34:12 +0800</lastBuildDate>
-    <atom:link href="https://blog.hujiale.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 17 Jun 2015 01:27:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.hujiale.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
-      <title>yiin, free to wording</title>
-      <link>https://blog.hujiale.me/post/yiin-free-to-wording/</link>
+      <title>Angular1</title>
+      <link>https://blog.hujiale.me/tags/angular1/</link>
+      <pubDate>Wed, 17 Jun 2015 01:27:00 +0800</pubDate>
+      
+      <guid>https://blog.hujiale.me/tags/angular1/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Angular2</title>
+      <link>https://blog.hujiale.me/tags/angular2/</link>
+      <pubDate>Sun, 11 Sep 2016 03:26:53 +0800</pubDate>
+      
+      <guid>https://blog.hujiale.me/tags/angular2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ansible</title>
+      <link>https://blog.hujiale.me/tags/ansible/</link>
+      <pubDate>Wed, 21 Dec 2016 22:18:43 +0800</pubDate>
+      
+      <guid>https://blog.hujiale.me/tags/ansible/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Aws</title>
+      <link>https://blog.hujiale.me/tags/aws/</link>
+      <pubDate>Wed, 21 Dec 2016 22:18:43 +0800</pubDate>
+      
+      <guid>https://blog.hujiale.me/tags/aws/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cookie</title>
+      <link>https://blog.hujiale.me/tags/cookie/</link>
+      <pubDate>Wed, 29 Mar 2017 11:35:33 +0800</pubDate>
+      
+      <guid>https://blog.hujiale.me/tags/cookie/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Css</title>
+      <link>https://blog.hujiale.me/tags/css/</link>
+      <pubDate>Sun, 27 Mar 2016 01:32:00 +0800</pubDate>
+      
+      <guid>https://blog.hujiale.me/tags/css/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Freebsd</title>
+      <link>https://blog.hujiale.me/tags/freebsd/</link>
+      <pubDate>Tue, 12 Sep 2017 00:21:39 +0800</pubDate>
+      
+      <guid>https://blog.hujiale.me/tags/freebsd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Https</title>
+      <link>https://blog.hujiale.me/tags/https/</link>
+      <pubDate>Fri, 18 Nov 2016 00:59:57 +0800</pubDate>
+      
+      <guid>https://blog.hujiale.me/tags/https/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Javascript</title>
+      <link>https://blog.hujiale.me/tags/javascript/</link>
+      <pubDate>Sat, 31 Jan 2015 23:07:59 +0800</pubDate>
+      
+      <guid>https://blog.hujiale.me/tags/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Life</title>
+      <link>https://blog.hujiale.me/tags/life/</link>
       <pubDate>Thu, 09 Mar 2017 22:34:12 +0800</pubDate>
       
-      <guid>https://blog.hujiale.me/post/yiin-free-to-wording/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://yiin.life&#34;&gt;Yiin(隐)&lt;/a&gt; is an ancient Chinese life style which an individual tends to keep himself away from social life only focusing inside.&lt;/p&gt;
-
-&lt;p&gt;I made this product because sometimes I just feel tired of registering and verification, password things when I want to say something. Saying to yourself or even nobody without asking for any comments or feedback should not have any barriers. It&amp;rsquo;s human nature that you are not asking for passport just for talking, you talk when you want to talk.&lt;/p&gt;
-
-&lt;p&gt;This product is absolutely not involving any fancy style, font, ads. And it is supposed to be hard to find the words back after publish as words should be kept in mind rather than somewhere else (though there is a way to find them back as they are always kept somewhere in internet).&lt;/p&gt;
-
-&lt;p&gt;Thanks to txt.fyi for enlighting.&lt;/p&gt;
-</description>
+      <guid>https://blog.hujiale.me/tags/life/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ngrx</title>
+      <link>https://blog.hujiale.me/tags/ngrx/</link>
+      <pubDate>Sun, 11 Sep 2016 03:26:53 +0800</pubDate>
+      
+      <guid>https://blog.hujiale.me/tags/ngrx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Nodejs</title>
+      <link>https://blog.hujiale.me/tags/nodejs/</link>
+      <pubDate>Tue, 16 Dec 2014 01:28:26 +0800</pubDate>
+      
+      <guid>https://blog.hujiale.me/tags/nodejs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Regex</title>
+      <link>https://blog.hujiale.me/tags/regex/</link>
+      <pubDate>Tue, 23 Dec 2014 01:41:37 +0800</pubDate>
+      
+      <guid>https://blog.hujiale.me/tags/regex/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rtb</title>
+      <link>https://blog.hujiale.me/tags/rtb/</link>
+      <pubDate>Wed, 29 Mar 2017 11:35:33 +0800</pubDate>
+      
+      <guid>https://blog.hujiale.me/tags/rtb/</guid>
+      <description></description>
     </item>
     
   </channel>

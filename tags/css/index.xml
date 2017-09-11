@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Css on moo...</title>
-    <link>https://blog.hujiale.me/tags/css/index.xml</link>
-    <description>Recent content in Css on moo...</description>
+    <title>Css on {be stateless}</title>
+    <link>https://blog.hujiale.me/tags/css/</link>
+    <description>Recent content in Css on {be stateless}</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="https://blog.hujiale.me/tags/css/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 27 Mar 2016 01:32:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.hujiale.me/tags/css/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Vertical align an unknown size image</title>
@@ -14,16 +17,8 @@
       <pubDate>Sun, 27 Mar 2016 01:32:00 +0800</pubDate>
       
       <guid>https://blog.hujiale.me/post/vertical-align-an-image/</guid>
-      <description>&lt;p&gt;Some ways to vertiacl align an image in a div, the image&amp;rsquo;s width and height are unknown&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Use a helper incline-block div to vertica the image. The helper&amp;rsquo;s width is 0&lt;/li&gt;
-&lt;li&gt;Use a tricky way top, right, bottom, left all 0 and margin auto&lt;/li&gt;
-&lt;li&gt;Use css transform translateY&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://codepen.io/elaijuh/pen/pygbBy&#34;&gt;demo&lt;/a&gt;&lt;/p&gt;
-</description>
+      <description>Some ways to vertiacl align an image in a div, the image&amp;rsquo;s width and height are unknown
+ Use a helper incline-block div to vertica the image. The helper&amp;rsquo;s width is 0 Use a tricky way top, right, bottom, left all 0 and margin auto Use css transform translateY  demo</description>
     </item>
     
   </channel>

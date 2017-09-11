@@ -3,8 +3,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta content="" name="keywords">
-<meta content="moo..." property="og:title">
-<title>moo...</title>
+<meta content="{be stateless}" property="og:title">
+<title>{be stateless}</title>
 <link rel="stylesheet" href="https://blog.hujiale.me//css/style.css">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
@@ -15,7 +15,7 @@
   <div class="container">
     <nav class="nav">
       <div class="nav-left">
-        <a class="nav-item" href="https://blog.hujiale.me/"><h1 class="title is-4">moo...</h1></a>
+        <a class="nav-item" href="https://blog.hujiale.me/"><h1 class="title is-4">{be stateless}</h1></a>
       </div>
       <div class="nav-right">
         <nav class="nav-item level is-mobile">
@@ -52,6 +52,32 @@
 
 <section class="section">
   <div class="container">
+    
+    <article>
+      <h2 class="subtitle is-6">September 12, 2017</h2>
+      <h1 class="title"><a href="https://blog.hujiale.me/post/get-ready-for-freebsd/">Get ready for FreeBSD</a></h1>
+      
+        <div class="tags">
+    
+        <a class="button is-link" href="/tags/freebsd">freebsd</a>
+    
+</div>
+
+      
+      <div class="content">
+        I would like to install both FreeBSD and Win10 onto my old workstation. FreeBSD offical manual is quite straight forward and smooth for beginner to complete installation. It just misses some pieces for dual boot with old BIOS, here it is.
+I am installing version 11.1 and still using ufs with old BIOS, most parts should be compatible to the previous versions.
+Now when you come to Partitioning step, choose Manual, you might probably see a divice like ada0 with MBR label followed by ada0s1 and ada0s2 with NTFS label.
+        
+        ...<a class="button is-link" href="https://blog.hujiale.me/post/get-ready-for-freebsd/" style="height:28px">
+          Read more
+          <span class="icon is-small">
+            <i class="fa fa-angle-double-right"></i>
+          </span>
+        </a>
+        
+      </div>
+    </article>
     
     <article>
       <h2 class="subtitle is-6">March 29, 2017</h2>
@@ -247,32 +273,6 @@ After some exploring, I find a way to solve the problem. These are the dependenc
         I seldom test angular directive unless there is some DOM mutation being processed in the directive, like add/remove classes, show/hide elements or compile/destroy elements. If you have a heavy dependencies on directives, the unit test will be a little bit clunky as for mocking the inline controller of the required directive. Stack overflow gives several alternatives to do so, I am picking two of them which I prefer to go and demo them here.
         
         ...<a class="button is-link" href="https://blog.hujiale.me/post/unit-test-angular-directive/" style="height:28px">
-          Read more
-          <span class="icon is-small">
-            <i class="fa fa-angle-double-right"></i>
-          </span>
-        </a>
-        
-      </div>
-    </article>
-    
-    <article>
-      <h2 class="subtitle is-6">January 31, 2015</h2>
-      <h1 class="title"><a href="https://blog.hujiale.me/post/scope-the-most-important-thing-in-javascript/">Scope, the most important thing in JavaScript</a></h1>
-      
-        <div class="tags">
-    
-        <a class="button is-link" href="/tags/javascript">javascript</a>
-    
-</div>
-
-      
-      <div class="content">
-        cope and scope chain, the most important mechanism in JavaScript, are barely clearly explained though specified in ECMA-262 version 5.1. Without scope mechanism, there wouldn&rsquo;t be closure and functional programming. This post is aim to elaborate what happens behind from the very beginning when control enters the global code to execution end.
-
-Firstly, for easy literal, let&rsquo;s agree on the following abbreviation: GE: Global Environment VE: Variable Environment LE: Lexical Environment OLE: Outer Lexcial Environment Reference ER: Environment Record EC: Execution Context go: global object (window for browser, global for NodeJS)
-        
-        ...<a class="button is-link" href="https://blog.hujiale.me/post/scope-the-most-important-thing-in-javascript/" style="height:28px">
           Read more
           <span class="icon is-small">
             <i class="fa fa-angle-double-right"></i>

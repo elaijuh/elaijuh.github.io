@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Life on moo...</title>
-    <link>https://blog.hujiale.me/tags/life/index.xml</link>
-    <description>Recent content in Life on moo...</description>
+    <title>Life on {be stateless}</title>
+    <link>https://blog.hujiale.me/tags/life/</link>
+    <description>Recent content in Life on {be stateless}</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="https://blog.hujiale.me/tags/life/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 09 Mar 2017 22:34:12 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.hujiale.me/tags/life/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>yiin, free to wording</title>
@@ -14,14 +17,8 @@
       <pubDate>Thu, 09 Mar 2017 22:34:12 +0800</pubDate>
       
       <guid>https://blog.hujiale.me/post/yiin-free-to-wording/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://yiin.life&#34;&gt;Yiin(隐)&lt;/a&gt; is an ancient Chinese life style which an individual tends to keep himself away from social life only focusing inside.&lt;/p&gt;
-
-&lt;p&gt;I made this product because sometimes I just feel tired of registering and verification, password things when I want to say something. Saying to yourself or even nobody without asking for any comments or feedback should not have any barriers. It&amp;rsquo;s human nature that you are not asking for passport just for talking, you talk when you want to talk.&lt;/p&gt;
-
-&lt;p&gt;This product is absolutely not involving any fancy style, font, ads. And it is supposed to be hard to find the words back after publish as words should be kept in mind rather than somewhere else (though there is a way to find them back as they are always kept somewhere in internet).&lt;/p&gt;
-
-&lt;p&gt;Thanks to txt.fyi for enlighting.&lt;/p&gt;
-</description>
+      <description>Yiin(隐) is an ancient Chinese life style which an individual tends to keep himself away from social life only focusing inside.
+I made this product because sometimes I just feel tired of registering and verification, password things when I want to say something. Saying to yourself or even nobody without asking for any comments or feedback should not have any barriers. It&amp;rsquo;s human nature that you are not asking for passport just for talking, you talk when you want to talk.</description>
     </item>
     
   </channel>

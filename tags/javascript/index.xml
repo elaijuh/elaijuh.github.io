@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Javascript on moo...</title>
-    <link>https://blog.hujiale.me/tags/javascript/index.xml</link>
-    <description>Recent content in Javascript on moo...</description>
+    <title>Javascript on {be stateless}</title>
+    <link>https://blog.hujiale.me/tags/javascript/</link>
+    <description>Recent content in Javascript on {be stateless}</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="https://blog.hujiale.me/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 31 Jan 2015 23:07:59 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.hujiale.me/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Scope, the most important thing in JavaScript</title>
@@ -14,156 +17,9 @@
       <pubDate>Sat, 31 Jan 2015 23:07:59 +0800</pubDate>
       
       <guid>https://blog.hujiale.me/post/scope-the-most-important-thing-in-javascript/</guid>
-      <description>&lt;p&gt;cope and scope chain, the most important mechanism in JavaScript, are barely clearly explained though specified in ECMA-262 version 5.1. Without scope mechanism, there wouldn&amp;rsquo;t be closure and functional programming. This post is aim to elaborate what happens behind from the very beginning when control enters the global code to execution end.&lt;/p&gt;
+      <description>cope and scope chain, the most important mechanism in JavaScript, are barely clearly explained though specified in ECMA-262 version 5.1. Without scope mechanism, there wouldn&amp;rsquo;t be closure and functional programming. This post is aim to elaborate what happens behind from the very beginning when control enters the global code to execution end.
 
-&lt;p&gt;&lt;span class=&#34;more&#34;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Firstly, for easy literal, let&amp;rsquo;s agree on the following abbreviation:
-&lt;code&gt;GE&lt;/code&gt;: Global Environment
-&lt;code&gt;VE&lt;/code&gt;: Variable Environment
-&lt;code&gt;LE&lt;/code&gt;: Lexical Environment
-&lt;code&gt;OLE&lt;/code&gt;: Outer Lexcial Environment Reference
-&lt;code&gt;ER&lt;/code&gt;: Environment Record
-&lt;code&gt;EC&lt;/code&gt;: Execution Context
-&lt;code&gt;go&lt;/code&gt;: global object (window for browser, global for NodeJS)&lt;/p&gt;
-
-&lt;p&gt;Take following &lt;strong&gt;foo.js&lt;/strong&gt; as example, let&amp;rsquo;s dive into it line by line&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// foo.js
-var a = 1;
-function Foo(b) {
-	b = 3;
-	console.log(b); // 3
-	console.log(a); // 1
-}
-console.log(a);
-Foo(2);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Step 1: Control enters into global code
-Every javascript file is executed from global code, when the control enters into the global code (before executing the code ), a global EC will be created and push into the EC stack. &lt;code&gt;this&lt;/code&gt; is set to &lt;code&gt;go&lt;/code&gt;. &lt;code&gt;VE&lt;/code&gt; is set to &lt;code&gt;GE&lt;/code&gt; and associated with global &lt;code&gt;EC&lt;/code&gt;. &lt;code&gt;LE&lt;/code&gt; is set to &lt;code&gt;GE&lt;/code&gt; and associated with global &lt;code&gt;EC&lt;/code&gt;. &lt;code&gt;GE&lt;/code&gt; is a javascript internal object which contains &lt;code&gt;ER&lt;/code&gt;(bind with &lt;code&gt;go&lt;/code&gt;) and &lt;code&gt;OLE&lt;/code&gt;(initialized to null). So at this stage, the global &lt;code&gt;EC&lt;/code&gt; looks like:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// step 1
-GlobalEC: {
-	VE: { 
-		ER: { window: go }
-		OLE: null
-	},
-	LE: {
-		ER: { window: go }
-		OLE: null
-	}
-	this: window
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Step 2: Declaration Binding Instantiation for global EC
-After the execution context is created, control will scan the code (not execution) and bind each function declaration and variable declaration. At this stage, &lt;code&gt;VE&lt;/code&gt; and &lt;code&gt;LE&lt;/code&gt; will be augmented the same way, ie. &lt;code&gt;VE&lt;/code&gt; is same as &lt;code&gt;LE&lt;/code&gt;.  So the global EC looks like:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// step 2
-GlobalEC: {
-	VE: { 
-		ER: { window: go, a: undefined, Foo: foo }
-		OLE: null
-	},
-	LE: {
-		ER: { window: go, a: undefined, Foo: foo }
-		OLE: null
-	}
-	this: window
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The tricky part is when control scans to &lt;code&gt;Foo&lt;/code&gt;&amp;rsquo;s function declaration, it will create a new function object &lt;code&gt;foo&lt;/code&gt; and associate it with &lt;code&gt;Foo&lt;/code&gt;. The common internal properties and special internal properties for function will be assigned to &lt;code&gt;foo&lt;/code&gt;. One of these internal properties is &lt;code&gt;[[scope]]&lt;/code&gt;, from here the scope chain mechanism starts. &lt;code&gt;foo.[[scope]]&lt;/code&gt; is set to current &lt;code&gt;EC.LE&lt;/code&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Step 3: Executing the global code
-After the control finishes scanning the code in step 2, it starts to run the code line by line. During the execution, &lt;code&gt;LE&lt;/code&gt; will be updated with the value bound to the variable in &lt;code&gt;ER&lt;/code&gt;, but &lt;code&gt;VE&lt;/code&gt; remains unchanged. And remember &lt;code&gt;foo.[[scope]]&lt;/code&gt; is set to &lt;code&gt;LE&lt;/code&gt; by reference, so it will be updated accordingly. So before the control enters &lt;code&gt;Foo&lt;/code&gt;&amp;rsquo;s code by calling &lt;code&gt;Foo()&lt;/code&gt;, the &lt;code&gt;GlobalEC&lt;/code&gt; looks like:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// step 3
-GlobalEC: {
-	VE: { 
-		ER: { window: go, a: undefined, Foo: foo }
-		OLE: null
-	},
-	LE: {
-		ER: { window: go, a: 1, Foo: foo }
-		OLE: null
-	}
-	this: window
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Step 4: Control enters into Foo&amp;rsquo;s code
-By calling &lt;code&gt;Foo()&lt;/code&gt;, the control enters Foo&amp;rsquo;s code. Much like the control enters into global code, it will create a &lt;code&gt;EC&lt;/code&gt; for &lt;code&gt;Foo&lt;/code&gt; and push it into the EC stack on the top of global EC. Then it will create &lt;code&gt;VE&lt;/code&gt; and &lt;code&gt;LE&lt;/code&gt; with a null &lt;code&gt;ER&lt;/code&gt; associated. The tricky difference is &lt;code&gt;OLE&lt;/code&gt; is set to &lt;code&gt;foo.[[scope]]&lt;/code&gt; which is global &lt;code&gt;EC.LE&lt;/code&gt;. The scope chain is established right from here. At this stage, &lt;code&gt;FooEC&lt;/code&gt; looks like:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// step 4
-FooEC: {
-	VE: { 
-		ER: null
-		OLE: foo.[[scope]] // GlobalEC.LE
-	},
-	LE: {
-		ER: null
-		OLE: foo.[[scope]] // GlobalEC.LE
-	}
-	this: window
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Step 5: Declaration Binding Instantiation for Foo EC
-Like it does in global code, the control will scan the function body before executing it, to bind the function declaration and variable declaration into &lt;code&gt;ER&lt;/code&gt;. Additionally for function code, the formal parameters will be bound to &lt;code&gt;ER&lt;/code&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// step 5
-FooEC: {
-	VE: { 
-		ER: {b: 2}
-		OLE: foo.[[scope]] // GlobalEC.LE
-	},
-	LE: {
-		ER: {b: 2}
-		OLE: foo.[[scope]] // GlobalEC.LE
-	}
-	this: window
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Step 6: Executing the Foo code
-After scanning the function code, the control starts to execute the function line by line. During this stage, &lt;code&gt;LE&lt;/code&gt; is likely to be updated while &lt;code&gt;VE&lt;/code&gt; remains unchanged.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// step 5
-FooEC: {
-	VE: { 
-		ER: {b: 2}
-		OLE: foo.[[scope]] // GlobalEC.LE
-	},
-	LE: {
-		ER: {b: 3}
-		OLE: foo.[[scope]] // GlobalEC.LE
-	}
-	this: window
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;When control comes to &lt;code&gt;console.log(b)&lt;/code&gt;, it will first find the variable &lt;code&gt;b&lt;/code&gt; in &lt;code&gt;LE.ER&lt;/code&gt; and value 3 is retrieved. When control comes to &lt;code&gt;console.log(a)&lt;/code&gt;, it will first try to find the variable &lt;code&gt;a&lt;/code&gt; in &lt;code&gt;LE.ER&lt;/code&gt;. Unluckily , this time there is no &lt;code&gt;a&lt;/code&gt; to be found, the control keeps finding &lt;code&gt;a&lt;/code&gt; in &lt;code&gt;LE.OLE&lt;/code&gt; which is &lt;code&gt;GlobalEC.LE&lt;/code&gt;, finally &lt;code&gt;a&lt;/code&gt; is found in &lt;code&gt;GlobalEC.LE.ER&lt;/code&gt; with value bound to 1.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://www.ecma-international.org/ecma-262/5.1/#sec-13.2&#34;&gt;ecma-262 5.1 sec-13.2&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://www.ecma-international.org/ecma-262/5.1/#sec-10.4.3&#34;&gt;ecma-262 5.1 sec-10.4.3&lt;/a&gt;&lt;/p&gt;
-</description>
+Firstly, for easy literal, let&amp;rsquo;s agree on the following abbreviation: GE: Global Environment VE: Variable Environment LE: Lexical Environment OLE: Outer Lexcial Environment Reference ER: Environment Record EC: Execution Context go: global object (window for browser, global for NodeJS)</description>
     </item>
     
     <item>
@@ -172,55 +28,7 @@ FooEC: {
       <pubDate>Thu, 01 Jan 2015 01:55:22 +0800</pubDate>
       
       <guid>https://blog.hujiale.me/post/hoisting-what-happen-behind-it/</guid>
-      <description>&lt;p&gt;We always see the word &lt;strong&gt;hoisting&lt;/strong&gt; in some javascript books and technical blogs. Hoisting is grabbed to explain the phenomenon that we can use a variable before we declare it. That&amp;rsquo;s sound incredible in compiling languages, but in javascript it&amp;rsquo;s really there. Some people might think that the interpretor do a magic to restructure the code and put all variable/function declaration statements at the top of the function body. Thinking like that way might help to write or read the program, but that&amp;rsquo;s not the things truely happen behind. The post is to walk through the mechanism behind hoisting.&lt;/p&gt;
-
-&lt;p&gt;&lt;span class=&#34;more&#34;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function foo(x) {
-	console.log(x); // x
-	console.log(y); // undefined
-	console.log(z); // [function: z]
-
-	z(); // z
-
-	var y = &#39;y&#39;;
-	var z = &#39;z&#39;;
-
-	function z() { // overwrite var z
-		console.log(&#39;z&#39;);
-	}
-}
-
-foo(&#39;x&#39;);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;There are 3 kinds of scopes in javascript - &lt;code&gt;global scope&lt;/code&gt;, &lt;code&gt;function scope&lt;/code&gt;, &lt;code&gt;eval scope&lt;/code&gt;. We only discuss function scope here. Whenever a function is invoked, the execution context is put on the top of the stack, and before executing the function code step-by-step, there is a pre-stage called &lt;code&gt;Declaration Binding Instantiation&lt;/code&gt;. In this declaration binding stage, an &lt;code&gt;VariableEnvironment&lt;/code&gt;(VE) (in old ECMA-262, it&amp;rsquo;s refered as variable object) is created. Run-time function will refer to this &lt;code&gt;VariableEnvironment&lt;/code&gt; (actually it should be &lt;code&gt;LexicalEnvironment&lt;/code&gt; which is initialized the same as &lt;code&gt;VariableEnvironment&lt;/code&gt;) to identify the variables. So below is what the declaration binding stage do in sequence&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Formal parameters are bound to VE&lt;/li&gt;
-&lt;li&gt;Function declaration is bound to VE. If the function name is already existing, it will overwrite it.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Arguments&lt;/code&gt; is bound to VE.&lt;/li&gt;
-&lt;li&gt;Variable declaration is bound to VE. If the variable name is already existing, it will do nothing.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;VE for &lt;code&gt;foo&lt;/code&gt; should look like:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;/*
-VE = {
-    x: &#39;x&#39;, // formal parameter x
-    z: [function z], // reference to function z
-    arguments:
-    y: undefined
-};
-*/
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;So before the execution of the function, all variables/functions are bound to VE already to be later referenced. Now you know the magic behind hoisting.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://www.ecma-international.org/ecma-262/5.1/#sec-10.5&#34;&gt;http://www.ecma-international.org/ecma-262/5.1/#sec-10.5&lt;/a&gt;&lt;/p&gt;
-</description>
+      <description>We always see the word hoisting in some javascript books and technical blogs. Hoisting is grabbed to explain the phenomenon that we can use a variable before we declare it. That&amp;rsquo;s sound incredible in compiling languages, but in javascript it&amp;rsquo;s really there. Some people might think that the interpretor do a magic to restructure the code and put all variable/function declaration statements at the top of the function body. Thinking like that way might help to write or read the program, but that&amp;rsquo;s not the things truely happen behind.</description>
     </item>
     
     <item>
@@ -229,70 +37,9 @@ VE = {
       <pubDate>Thu, 04 Dec 2014 01:14:12 +0800</pubDate>
       
       <guid>https://blog.hujiale.me/post/function-overload-in-javascript/</guid>
-      <description>&lt;p&gt;As we know, Javscript has no function overload in nature. If you try to declare the same function with different signature, the previous one will be overwritten rather than overloaded. As function overload in most OO programming languages are by means of parameters, it operates on different logic according to the passed in parameters. So there is still a way to do function overload in JS.&lt;/p&gt;
+      <description>As we know, Javscript has no function overload in nature. If you try to declare the same function with different signature, the previous one will be overwritten rather than overloaded. As function overload in most OO programming languages are by means of parameters, it operates on different logic according to the passed in parameters. So there is still a way to do function overload in JS.
 
-&lt;p&gt;&lt;span class=&#34;more&#34;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var foo = {
-    bar: function () {
-        switch (arguments.length) {
-            case 0:
-                console.log(0);
-                break;
-            case 1:
-                console.log(arguments[0]);
-                break;
-            case 2:
-                console.log(arguments[0] + arguments[1]);
-                break;
-        }
-    }
-}
-
-foo.bar(); // 0
-foo.bar(1); // 1
-foo.bar(1, 2); // 3
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This approach is workable but not tidy and flexiable. With more and more overloads, the switch block becomes longer and longer scaring away developers.&lt;/p&gt;
-
-&lt;p&gt;With &lt;code&gt;function.length&lt;/code&gt; and &lt;code&gt;closure&lt;/code&gt;, we could implement the same in a neat and ninja way.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var foo = {
-    overloadMethod: function (name, fn) {
-        var baseFn = this[name];
-        this[name] = function () {
-            if (fn.length === arguments.length) {
-                return fn.apply(this, arguments);
-            } else if (typeof baseFn === &#39;function&#39;) {
-                return baseFn.apply(this, arguments); // baseFn is in a closure
-            }
-        };
-    }
-};
-
-foo.overloadMethod(&#39;bar&#39;, function() {
-    console.log(0);
-})
-foo.overloadMethod(&#39;bar&#39;, function(x) {
-    console.log(x);
-})
-foo.overloadMethod(&#39;bar&#39;, function(x, y) {
-    console.log(x + y);
-})
-
-
-foo.bar(); // 0
-foo.bar(1); // 1
-foo.bar(1, 2); // 3
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;So everytime you want to overload the method, just call &lt;code&gt;foo.overloadMethod&lt;/code&gt; with the method name and anonymous function passed in. It looks like &lt;code&gt;foo.bar&lt;/code&gt; is overwritten again and again, but actually every single version of &lt;code&gt;foo.bar&lt;/code&gt; is completely kept in closure to be referenced.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Reference book: &lt;a href=&#34;http://www.amazon.com/Secrets-JavaScript-Ninja-John-Resig/dp/193398869X/ref=sr_1_1?ie=UTF8&amp;amp;qid=1417626477&amp;amp;sr=8-1&amp;amp;keywords=secrets+of+javascript+ninja&#34;&gt;Secrets of the JavaScript Ninja&lt;/a&gt;, &lt;a href=&#34;http://ejohn.org/&#34;&gt;John Resig&lt;/a&gt;&lt;/p&gt;
-</description>
+var foo = { bar: function () { switch (arguments.</description>
     </item>
     
     <item>
@@ -301,193 +48,10 @@ foo.bar(1, 2); // 3
       <pubDate>Mon, 01 Dec 2014 05:13:52 +0800</pubDate>
       
       <guid>https://blog.hujiale.me/post/javascript-prototype-and-inheritance/</guid>
-      <description>
+      <description>Inheritance in JS is quite different from class based inheritance which is popular for being used in C++ and Java. In class based inheritance language, we have to abstract a class which is not a real world subject. While in prototype based inheritance, we can implement inheritance on objects directly.
 
-&lt;p&gt;Inheritance in JS is quite different from class based inheritance which is popular for being used in C++ and Java. In class based inheritance language, we have to abstract a class which is not a real world subject. While in prototype based inheritance, we can implement inheritance on objects directly.&lt;/p&gt;
-
-&lt;p&gt;&lt;span class=&#34;more&#34;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;The post walks you through how to do inheritance in JS.&lt;/p&gt;
-
-&lt;h3 id=&#34;simple-object-inheritance&#34;&gt;Simple object inheritance&lt;/h3&gt;
-
-&lt;p&gt;As every object has an internal property &lt;code&gt;[[prototype]]&lt;/code&gt; which points to it&amp;rsquo;s prototype, we can directly assign a super object to it. [[prototype]] could be implemented in different ways in different browsers. In Chrome and Firefox, it can be refered as &lt;code&gt;__proto__&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var sup = {x: &#39;x&#39;, y: &#39;y&#39;};
-var sub = {a: &#39;a&#39;};
-console.log(sub.x); // undefined
-
-sub.__proto__ = sup;
-console.log(sub.x); // x
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;inheritance-by-prototype-chaining&#34;&gt;Inheritance by prototype chaining&lt;/h3&gt;
-
-&lt;p&gt;In most of the time, especially in OO style, we would like to have a constructor and then create objects from it. In JS, constructor is not a class and not different from any regular function except that you can &lt;code&gt;new&lt;/code&gt; it. Usually a constructor does not explicitly return anything, it&amp;rsquo;s side effect is to assign all the &lt;code&gt;this&lt;/code&gt; properties you defined in the constructor body to the object and return it. A constructor function has a &lt;code&gt;prototype&lt;/code&gt; property which points to the prototype object of the constructor. The object created by the constructor has it&amp;rsquo;s [[prototype]] pointing to the constructor&amp;rsquo;s prototype object. Inheritance is implemented by assigning super object to sub constructor&amp;rsquo;s prototype. Take a look at this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function Sup() {
-    this.x = &#39;x&#39;;
-    this.y = &#39;y&#39;;
-}
-
-function Sub() {
-    this.a = &#39;a&#39;;
-}
-
-Sub.prototype = new Sup();
-
-var sub = new Sub();
-console.log(sub.x); // x
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The sub object has no x itself, so it will find x in it&amp;rsquo;s prototype which is a super object. This is cool, but the problem comes when there is reference property in super object.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function Sup() {
-    this.x = &#39;x&#39;;
-    this.z = [&#39;z&#39;];
-}
-
-function Sub() {
-    this.a = &#39;a&#39;;
-}
-
-Sub.prototype = new Sup();
-
-var sub1 = new Sub();
-var sub2 = new Sub();
-sub1.z.push(&#39;zz&#39;);
-console.log(sub1.z); // [&#39;z&#39;, &#39;zz&#39;]
-console.log(sub2.z); // [&#39;z&#39;, &#39;zz&#39;], !expected to be [&#39;z&#39;]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Both sub1.z and sub2.z are pointing to the same z in super object. Any sub object&amp;rsquo;s operation on z will have impact on all sub objects. That&amp;rsquo;s dangerous!&lt;/p&gt;
-
-&lt;h3 id=&#34;classical-inheritance-by-constructor-stealing&#34;&gt;Classical inheritance by constructor stealing&lt;/h3&gt;
-
-&lt;p&gt;Now we see the problem in prototype chaining inheritance, is there a way to solve it?&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function Sup() {
-    this.z = [&#39;z&#39;];
-}
-
-function Sub() {
-    Sup.call(this);
-    this.a = &#39;a&#39;;
-}
-
-var sub1 = new Sub();
-var sub2 = new Sub();
-sub1.z.push(&#39;zz&#39;);
-console.log(sub1.z); // [&#39;z&#39;, &#39;zz&#39;]
-console.log(sub2.z); // [&#39;z&#39;], !cool
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In sub constructor we steal super constructor and call it with &lt;code&gt;this&lt;/code&gt; reference. Now that every sub object has a copy of z and will not interfere with each other. This solves the problem in prototype chaining inheritance, but it&amp;rsquo;s downside is every property including method to be inheritted should be defined inside the super constructor. So there is no method reuse. How about we combine constructor stealing and prototype chaining together?&lt;/p&gt;
-
-&lt;h3 id=&#34;combination-inheritance-pseudoclassical-inheritance&#34;&gt;Combination inheritance (pseudoclassical inheritance)&lt;/h3&gt;
-
-&lt;p&gt;Both prototype chaining inheritance and constructor stealing inheritance have downsides, what if we combine them together?&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function Sup() {
-    this.z = [&#39;z&#39;];
-}
-Sup.prototype.mo = function () {
-    console.log(&#39;mo&#39;);
-};
-
-function Sub() {
-    Sup.call(this);
-    this.a = &#39;a&#39;;
-}
-Sub.prototype = new Sup();
-
-var sub1 = new Sub();
-var sub2 = new Sub();
-
-sub1.z.push(&#39;zz&#39;);
-console.log(sub1.z); // [&#39;z&#39;, &#39;zz&#39;]
-sub1.mo(); // mo
-console.log(sub2.z); // [&#39;z&#39;]
-sub2.mo(); // mo
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;That&amp;rsquo;s cool, we don&amp;rsquo;t need to define methods in super constructor&amp;rsquo;s body and they are reusable now. The combination inheritance addresses both downsides of prototype chaining and constructor stealing. It&amp;rsquo;s widely used in real life. It also preserves the behavior of &lt;code&gt;instanceof&lt;/code&gt; and &lt;code&gt;isPrototypeOf&lt;/code&gt; which looks like perfect now. But, yeah there is always another but :), if you look deep into the pattern, you might find that the super constructor has been called twice, &lt;code&gt;Sup.call(this)&lt;/code&gt; and &lt;code&gt;Sub.prototype = new Sup()&lt;/code&gt; which means the set of properties are duplicated in memory. This is an unavoidable ineffecient part of combination inheritance. And on another hand, combination inheritance still relies on constructor function which is kind of like class inheritance, while JS is really good at inheritance on objects. &lt;a href=&#34;http://www.crockford.com&#34;&gt;Douglas Crockford&lt;/a&gt; has introduced prototypal inheritance in 2006 based on the premise that inheritance on objects.&lt;/p&gt;
-
-&lt;h3 id=&#34;prototypal-inheritance&#34;&gt;Prototypal inheritance&lt;/h3&gt;
-
-&lt;p&gt;So how to do inheritance directly on objects without constructors?&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function create(supObj) {
-    function Empty() {};
-    Empty.prototype = supObj;
-    return new Empty();
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Crockford introduced a factory like function to create the sub object based on the passed in super object. So super constructor is not a must now. But the type of the sub object is lost. Based on this create function, Crockford introduced parasitic inheritance which is closer to real life.&lt;/p&gt;
-
-&lt;h3 id=&#34;parasitic-inheritance&#34;&gt;Parasitic inheritance&lt;/h3&gt;
-
-&lt;p&gt;Much like prototypal inheritance, parasitic inheritance just encapsulates all the properties or methods for the sub object in one function.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function createAnother(supObj) {
-    var sub = create(supObj);
-    
-    sub.a = &#39;a&#39;;
-    sub.mo = function () {
-        console.log(&#39;mo&#39;);
-    };
-    return sub;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now the sub object has all the properties of super object and it&amp;rsquo;s own property a and method mo. Parasitic inheritance addresses the duplicated properties downside in combination inheritance, but it loses object type which means &lt;code&gt;instanceof&lt;/code&gt; and &lt;code&gt;isPrototypeOf&lt;/code&gt; don&amp;rsquo;t work for sub object any more. Let&amp;rsquo;s keep improvement, finally we work out a way combining constructor stealing and parasitic inheritance.&lt;/p&gt;
-
-&lt;h3 id=&#34;parasitic-combination-inheritance&#34;&gt;Parasitic combination inheritance&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function create(supObj) {
-    function Empty() {};
-    Empty.prototype = supObj;
-    return new Empty();
-}
-
-function inheritPrototype(Sub, Sup) {
-    var subPrototype = create(Sup.prototype);
-    subPrototype.constructor = Sub; // link constructor back to Sub
-    Sub.prototype = subPrototype;
-}
-
-function Sup() {
-    this.x = &#39;x&#39;;
-    this.z = [&#39;z&#39;];
-}
-
-Sup.prototype.mo = function () {
-    console.log(&#39;mo&#39;);
-};
-
-function Sub() {
-    Sup.call(this);
-    this.a = &#39;a&#39;;
-}
-
-inheritPrototype(Sub, Sup);
-
-var sub1 = new Sub();
-var sub2 = new Sub();
-sub1.z.push(&#39;zz&#39;);
-sub1.mo(); // mo
-cnosole.log(sub1.z); // [&#39;z&#39;, &#39;zz&#39;]
-sub2.mo(); // mo
-console.log(sub2.z); // [&#39;z&#39;]
-
-console.log(sub1 instanceof Sub); // true
-console.log(Sub.prototype.isPrototypeOf(sub2)); //true
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now both the downside in combination inheritance - duplicated properties and the downside in parasitic inheritance - object type lost are addressed. We are kind of having a perfect inheritance machenism now. BUT&amp;hellip;personally I will not suggest to use inheritance heavily unless you want to mess yourself up.&lt;/p&gt;
-</description>
+The post walks you through how to do inheritance in JS.
+Simple object inheritance As every object has an internal property [[prototype]] which points to it&amp;rsquo;s prototype, we can directly assign a super object to it.</description>
     </item>
     
   </channel>

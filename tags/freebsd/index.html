@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en-us">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta content="" name="keywords">
-<meta content="Vertical align an unknown size image - {be stateless}" property="og:title">
-<title>Vertical align an unknown size image | {be stateless}</title>
+<meta content="Freebsd - {be stateless}" property="og:title">
+<title>Freebsd | {be stateless}</title>
 <link rel="stylesheet" href="https://blog.hujiale.me//css/style.css">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
@@ -53,46 +52,65 @@
 
 <section class="section">
   <div class="container">
-    <h2 class="subtitle is-6">March 27, 2016</h2>
-    <h1 class="title">Vertical align an unknown size image</h1>
     
-      <div class="tags">
+    <article>
+      <h2 class="subtitle is-6">September 12, 2017</h2>
+      <h1 class="title"><a href="https://blog.hujiale.me/post/get-ready-for-freebsd/">Get ready for FreeBSD</a></h1>
+      
+        <div class="tags">
     
-        <a class="button is-link" href="/tags/css">css</a>
+        <a class="button is-link" href="/tags/freebsd">freebsd</a>
     
 </div>
 
+      
+      <div class="content">
+        I would like to install both FreeBSD and Win10 onto my old workstation. FreeBSD offical manual is quite straight forward and smooth for beginner to complete installation. It just misses some pieces for dual boot with old BIOS, here it is.
+I am installing version 11.1 and still using ufs with old BIOS, most parts should be compatible to the previous versions.
+Now when you come to Partitioning step, choose Manual, you might probably see a divice like ada0 with MBR label followed by ada0s1 and ada0s2 with NTFS label.
+        
+        ...<a class="button is-link" href="https://blog.hujiale.me/post/get-ready-for-freebsd/" style="height:28px">
+          Read more
+          <span class="icon is-small">
+            <i class="fa fa-angle-double-right"></i>
+          </span>
+        </a>
+        
+      </div>
+    </article>
     
-    <div class="content">
-      <p>Some ways to vertiacl align an image in a div, the image&rsquo;s width and height are unknown</p>
-
-<ul>
-<li>Use a helper incline-block div to vertica the image. The helper&rsquo;s width is 0</li>
-<li>Use a tricky way top, right, bottom, left all 0 and margin auto</li>
-<li>Use css transform translateY</li>
-</ul>
-
-<p><a href="http://codepen.io/elaijuh/pen/pygbBy">demo</a></p>
-
-    </div>
   </div>
 </section>
-
 <section class="section">
   <div class="container">
-    <aside><div id="disqus_thread"></div></aside>
-    <script type="text/javascript">
-      var disqus_shortname = 'hujiale';
-      (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    <nav class="level is-mobile">
+      <div class="level-left">
+        <div class="level-item">
+          
+          <a class="button is-disabled">
+            <span class="icon is-small is-marginless">
+              <i class="fa fa-angle-left"></i>
+            </span>
+            Newer
+          </a>
+          
+        </div>
+      </div>
+      <div class="level-right is-marginless">
+        <div class="level-item">
+          
+          <a class="button is-disabled">
+            Older
+            <span class="icon is-small is-marginless">
+              <i class="fa fa-angle-right"></i>
+            </span>
+          </a>
+          
+        </div>
+      </div>
+    </nav>
   </div>
 </section>
-
 
 <section class="section">
   <div class="container has-text-centered">

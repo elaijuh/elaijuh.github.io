@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Https on moo...</title>
-    <link>https://blog.hujiale.me/tags/https/index.xml</link>
-    <description>Recent content in Https on moo...</description>
+    <title>Https on {be stateless}</title>
+    <link>https://blog.hujiale.me/tags/https/</link>
+    <description>Recent content in Https on {be stateless}</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="https://blog.hujiale.me/tags/https/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 18 Nov 2016 00:59:57 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.hujiale.me/tags/https/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Https for everything</title>
@@ -14,51 +17,8 @@
       <pubDate>Fri, 18 Nov 2016 00:59:57 +0800</pubDate>
       
       <guid>https://blog.hujiale.me/post/https-for-everything/</guid>
-      <description>
-
-&lt;p&gt;HTTPS is highly recommended for every web site, as a web developer I am building both my personal
-and company app under https. Applying for the certificates could be a block for you to migrate/build
-your site to https as you need to pay for it and it could take quite a while. Thanks to &lt;a href=&#34;https://letsencrypt.org/&#34;&gt;letsencrypt&lt;/a&gt;
-now we can have free open certificate authorify for our sites.&lt;/p&gt;
-
-&lt;p&gt;I will list the least steps to build a site by using &lt;a href=&#34;https://certbot.eff.org/&#34;&gt;certbot&lt;/a&gt;&lt;/p&gt;
-
-&lt;h4 id=&#34;install-certbot&#34;&gt;Install certbot&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;wget https://dl.eff.org/certbot-auto
-chmod a+x ./certbot-auto
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;After that, you can run &lt;code&gt;./certbot-auto --help&lt;/code&gt; to check if it&amp;rsquo;s installed successfully.&lt;/p&gt;
-
-&lt;h4 id=&#34;use-certbot-to-generate-certificates&#34;&gt;Use certbot to generate certificates&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;./certbot-auto certonly --standalone -d www.yourdomain.com -d sub.yourdomain.com
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Make sure &lt;code&gt;www.yourdomain.com&lt;/code&gt; and &lt;code&gt;sub.yourdomain.com&lt;/code&gt; is online at &lt;code&gt;80&lt;/code&gt; port as this command will
-check the validation. You can ignore &lt;code&gt;--standalone&lt;/code&gt; at the moment, it&amp;rsquo;s just a plugin
-for certbot to generated software independent certificates. After running the command, there will be 4 files generated
-at &lt;code&gt;/etc/letsencrypt&lt;/code&gt;. They are &lt;code&gt;privKey.pem&lt;/code&gt;, &lt;code&gt;fullchain.pem&lt;/code&gt;, &lt;code&gt;cert.pem&lt;/code&gt; and &lt;code&gt;chain.pem&lt;/code&gt;.
-Usually the web server only needs to point to the previous two for enableing https.
-I will go through you how to point to certificates ad different server (nginx, apache) has different way.
-You can google for it by yourself&lt;/p&gt;
-
-&lt;h4 id=&#34;renew-the-certificates&#34;&gt;Renew the certificates&lt;/h4&gt;
-
-&lt;p&gt;The certificates are only valid for 90 days, luckily the renew is easy.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;./certbot-auto renew
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;That&amp;rsquo;s it. If certbot check the certificates are due for renewal, it will renew them.
-I also create a daily cron task to renew it automatically.
-&lt;code&gt;0 0 * * * ~/certbot-auto renew&lt;/code&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://certbot.eff.org/docs/using.html#getting-certificates-and-choosing-plugins&#34;&gt;Reference&lt;/a&gt;&lt;/p&gt;
-</description>
+      <description>HTTPS is highly recommended for every web site, as a web developer I am building both my personal and company app under https. Applying for the certificates could be a block for you to migrate/build your site to https as you need to pay for it and it could take quite a while. Thanks to letsencrypt now we can have free open certificate authorify for our sites.
+I will list the least steps to build a site by using certbot</description>
     </item>
     
   </channel>

@@ -1,21 +1,40 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>moo...</title>
-    <link>http://elaijuh.github.io/categories/</link>
-    <description>Recent content on moo...</description>
+    <title>Categories on {be stateless}</title>
+    <link>https://blog.hujiale.me/categories/</link>
+    <description>Recent content in Categories on {be stateless}</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 16 Dec 2014 01:28:26 +0800</lastBuildDate>
-    <atom:link href="http://elaijuh.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="https://blog.hujiale.me/categories/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
-      <title>Handle HTTP request in multiple processes in NodeJS</title>
-      <link>http://elaijuh.github.io/post/handle-http-request-in-multiple-process/</link>
-      <pubDate>Tue, 16 Dec 2014 01:28:26 +0800</pubDate>
+      <title>Life</title>
+      <link>https://blog.hujiale.me/categories/life/</link>
+      <pubDate>Thu, 09 Mar 2017 22:34:12 +0800</pubDate>
       
-      <guid>http://elaijuh.github.io/post/handle-http-request-in-multiple-process/</guid>
-      <description>NodeJS is single process based which is good at frequent IO operations. But single process can&amp;rsquo;t fully utilize multi-core CPU. Luckily we have child-process module in NodeJS to spawn multiple processes. One of the practical examples is handling HTTP request, especially for a large number of concurrent requests. A common way is to use master-worker pattern, a master process working as a proxy to delegate the HTTP requests to child processes with load balance enabled.</description>
+      <guid>https://blog.hujiale.me/categories/life/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Programmatic Advertising</title>
+      <link>https://blog.hujiale.me/categories/programmatic-advertising/</link>
+      <pubDate>Wed, 29 Mar 2017 11:35:33 +0800</pubDate>
+      
+      <guid>https://blog.hujiale.me/categories/programmatic-advertising/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tech</title>
+      <link>https://blog.hujiale.me/categories/tech/</link>
+      <pubDate>Tue, 12 Sep 2017 00:21:39 +0800</pubDate>
+      
+      <guid>https://blog.hujiale.me/categories/tech/</guid>
+      <description></description>
     </item>
     
   </channel>

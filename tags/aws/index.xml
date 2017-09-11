@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Aws on moo...</title>
-    <link>https://blog.hujiale.me/tags/aws/index.xml</link>
-    <description>Recent content in Aws on moo...</description>
+    <title>Aws on {be stateless}</title>
+    <link>https://blog.hujiale.me/tags/aws/</link>
+    <description>Recent content in Aws on {be stateless}</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="https://blog.hujiale.me/tags/aws/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 21 Dec 2016 22:18:43 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.hujiale.me/tags/aws/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Provision AWS Lightsail with Ansible</title>
@@ -14,115 +17,9 @@
       <pubDate>Wed, 21 Dec 2016 22:18:43 +0800</pubDate>
       
       <guid>https://blog.hujiale.me/post/provision-lightsail-with-ansible/</guid>
-      <description>
-
-&lt;p&gt;Amazon has announced a new cloud service &lt;strong&gt;Lightsail&lt;/strong&gt; recently aiming at DigitalOcean, with exact same price and same spec of node.  As a heavy DigitalOcean user, I am more than happy to try the alternative provided by AWS. Creating the first instance is not smooth, I got successfully created the first instance by AWS SDK after 3 weeks in and out mails with the support team.&lt;/p&gt;
-
-&lt;p&gt;TL;DR&lt;/p&gt;
-
-&lt;p&gt;This post is a quick guide on provisioning the instance by Ansible.  Before that ,  some outlines:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;The default login account for Lightsail is pretty much depended on the image, while in DigitalOcean it is &lt;strong&gt;root&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;Lightsail is using key pair (.pem) for ssh login, you can either use default key pair or create a new pair. After successfully log into the instance, I added a pub ssh id by my preference.&lt;/li&gt;
-&lt;li&gt;Everything in docker, as well as ansible&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;ansible-playbook&#34;&gt;Ansible playbook&lt;/h2&gt;
-
-&lt;p&gt;provision.yml&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-yml&#34;&gt;---
-- hosts: cloud 
-  gather_facts: False
-  tasks:
-    - name: Update local known_hosts
-      local_action: shell ssh-keyscan -H {{ hostvars[item].ansible_host }} &amp;gt;&amp;gt; ~/.ssh/known_hosts
-      with_items: &amp;quot;{{ groups.cloud }}&amp;quot;
-
-    - name: Install aptitude
-      raw: test ! -e /usr/bin/aptitude &amp;amp;&amp;amp; sudo apt-get install -qq aptitude || true
-
-    - name: Install python 2.7
-      raw: test ! -e /usr/bin/python &amp;amp;&amp;amp; (sudo apt-get update -qq &amp;amp;&amp;amp; sudo apt-get install -qq python2.7) || true
-
-    - name: Install letsencrypt 
-      raw: test ! -e /usr/bin/letsencrypt &amp;amp;&amp;amp; (sudo apt-get update -qq &amp;amp;&amp;amp; sudo apt-get install -qq letsencrypt) || true
-
-- hosts: cloud 
-  roles:
-    - update-apt
-    - user
-    - swap
-
-- hosts: cloud 
-  roles:
-    # https://github.com/angstwad/docker.ubuntu
-    - role: angstwad.docker_ubuntu
-      become: yes
-      kernel_pkg_state: present
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;provision.ini&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[hosts]
-[YOUR_LIGHTSAIL_INSTANCE_NAME] ansible_host=[YOUR_IP] private_ip=[YOUR_PRIVATE_IP]
-
-[cloud:children]
-hosts
-
-[cloud:vars]
-ansible_connection=ssh
-ansible_user=ubuntu
-ansible_ssh_private_key_file=~/.ssh/id_rsa
-ansible_python_interpreter=/usr/bin/python2.7
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Looking at &lt;code&gt;provision.yml&lt;/code&gt; , the first 3 common tasks are pretty straight forward:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Adding remote instance IP to your local known_hosts&lt;/li&gt;
-&lt;li&gt;Install Python&lt;/li&gt;
-&lt;li&gt;Install letsencrypt for HTTPS&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Followed by 3 common roles:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Update and upgrade apt&lt;/li&gt;
-&lt;li&gt;Create application user in sudo group&lt;/li&gt;
-&lt;li&gt;Specify swap file (optional)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;I would like to pick user role as example&lt;/p&gt;
-
-&lt;p&gt;ansible/roles/user/tasks/main.yml&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-yml&#34;&gt;---
-- name: Ensure user exists
-  become: yes
-  user:
-    name: appuser
-    state: present
-    shell: /bin/bash
-    append: yes 
-    groups: sudo
-
-- name: Ensure authorized key exists
-  become: yes
-  authorized_key: user=appuser key=&amp;quot;{{ lookup(&#39;file&#39;, &#39;~/.ssh/id_rsa.pub&#39;) }}&amp;quot;
-
-- name: Copy sudoers
-  become: yes
-  copy: src=./sudoers dest=/etc/sudoers
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This role will create a user &lt;code&gt;appuser&lt;/code&gt; in sudo group for application deploy.  So that we don’t need to use the default user &lt;code&gt;ubuntu&lt;/code&gt; every time. Make sure you have added the id pub key into the instance’s &lt;code&gt;authorized_key&lt;/code&gt; file&lt;/p&gt;
-
-&lt;p&gt;The last role is installing docker into the instance, after that you can use any docker command like &lt;code&gt;sudo docker&lt;/code&gt; or &lt;code&gt;sudo docker-compose&lt;/code&gt; in the instance and it’s armed with docker engine now.&lt;/p&gt;
-
-&lt;p&gt;OK now we have a provisioned instance and keep lego it with any application you write. I will suggest to use Ansible docker service as well to depoly your application based on docker image.&lt;/p&gt;
-</description>
+      <description>Amazon has announced a new cloud service Lightsail recently aiming at DigitalOcean, with exact same price and same spec of node. As a heavy DigitalOcean user, I am more than happy to try the alternative provided by AWS. Creating the first instance is not smooth, I got successfully created the first instance by AWS SDK after 3 weeks in and out mails with the support team.
+TL;DR
+This post is a quick guide on provisioning the instance by Ansible.</description>
     </item>
     
   </channel>

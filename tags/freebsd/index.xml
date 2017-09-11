@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Freebsd on {be stateless}</title>
+    <link>https://blog.hujiale.me/tags/freebsd/</link>
+    <description>Recent content in Freebsd on {be stateless}</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 12 Sep 2017 00:21:39 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.hujiale.me/tags/freebsd/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Get ready for FreeBSD</title>
+      <link>https://blog.hujiale.me/post/get-ready-for-freebsd/</link>
+      <pubDate>Tue, 12 Sep 2017 00:21:39 +0800</pubDate>
+      
+      <guid>https://blog.hujiale.me/post/get-ready-for-freebsd/</guid>
+      <description>I would like to install both FreeBSD and Win10 onto my old workstation. FreeBSD offical manual is quite straight forward and smooth for beginner to complete installation. It just misses some pieces for dual boot with old BIOS, here it is.
+I am installing version 11.1 and still using ufs with old BIOS, most parts should be compatible to the previous versions.
+Now when you come to Partitioning step, choose Manual, you might probably see a divice like ada0 with MBR label followed by ada0s1 and ada0s2 with NTFS label.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Angular1 on moo...</title>
-    <link>https://blog.hujiale.me/tags/angular1/index.xml</link>
-    <description>Recent content in Angular1 on moo...</description>
+    <title>Angular1 on {be stateless}</title>
+    <link>https://blog.hujiale.me/tags/angular1/</link>
+    <description>Recent content in Angular1 on {be stateless}</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="https://blog.hujiale.me/tags/angular1/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 17 Jun 2015 01:27:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.hujiale.me/tags/angular1/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Unit test Angular directive</title>
@@ -14,88 +17,7 @@
       <pubDate>Wed, 17 Jun 2015 01:27:00 +0800</pubDate>
       
       <guid>https://blog.hujiale.me/post/unit-test-angular-directive/</guid>
-      <description>
-
-&lt;p&gt;I seldom test angular directive unless there is some DOM mutation being processed in the directive, like add/remove classes, show/hide elements or compile/destroy elements. If you have a heavy  dependencies on directives, the unit test will be a little bit clunky as for mocking the inline controller of the required directive. Stack overflow gives several alternatives to do so, I am picking two of them which I prefer to go  and demo them here. At the bottom of this post, I will attach the SO link for reference.&lt;/p&gt;
-
-&lt;p&gt;&lt;span class=&#34;more&#34;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Let say we have two directives &lt;code&gt;foo&lt;/code&gt; and &lt;code&gt;bar&lt;/code&gt; here and bar is requiring foo for it&amp;rsquo;s controller. We want to test directive &lt;code&gt;bar&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// index.html
-// &amp;lt;foo&amp;gt;&amp;lt;bar&amp;gt;{{bar}}&amp;lt;/bar&amp;gt;&amp;lt;/foo&amp;gt;
-
-// app.js
-app
-  .directive(&#39;foo&#39;, function () {
-    return {
-      restrict: &#39;EA&#39;,
-      controller: function () {
-        this.getFoo = function () {
-          return &#39;foo&#39;;
-        };
-      },
-      link: angular.noop
-    }
-  })
-  .directive(&#39;bar&#39;, function () {
-    return {
-      restrict: &#39;EA&#39;,
-      require: &#39;^foo&#39;,
-      link: function (scope, elm, attrs, controller) {
-        var fooCtrl = controller;
-        scope.bar = fooCtrl.getFoo() + &#39;bar&#39;;
-      }
-    };
-  });
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;bind-controller-to-element-data&#34;&gt;Bind controller to element.data&lt;/h3&gt;
-
-&lt;p&gt;Fundamentally Angular will bind directive&amp;rsquo;s inline controller object to it&amp;rsquo;s DOM through data property. When child directive is requiring parent directive, it will finally find the controller object in element.data. Based on this mechanism, we can mock parent directive controller by element.data.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// speca.js
-
-var $scope, element;
-beforeEach(inject(function($rootScope, $compile) {
-  $scope = $rootScope.$new();
-  element = angular.element(&#39;&amp;lt;bar&amp;gt;&amp;lt;/bar&amp;gt;&#39;);
-  // bind the controller to element.data
-  element.data(&#39;$fooController&#39;, {
-    getFoo: function () { return &#39;foo&#39;; }
-  });
-  $compile(element)($scope);
-}));
-
-it(&#39;should bind bar to scope&#39;, function() {
-  expect($scope.bar).toEqual(&#39;foobar&#39;);
-}); 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;inject-the-directive&#34;&gt;Inject the directive&lt;/h3&gt;
-
-&lt;p&gt;Another way is to inject the parent directive and mock it&amp;rsquo;s controller property directly. This is also a straightforward way. But you might need to compile from parent directive even if you only want to test the child directive. See the example below:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var $scope, element;
-beforeEach(inject(function($rootScope, $compile, _fooDirective_) {
-  var fooDirective = _fooDirective_[0];
-  fooDirective.controller = function () {
-    this.getFoo = function () { return &#39;foo&#39;; };
-  };
-    
-  $scope = $rootScope.$new();
-  // compile from parent directive foo
-  element = angular.element(&#39;&amp;lt;foo&amp;gt;&amp;lt;bar&amp;gt;&amp;lt;/bar&amp;gt;&amp;lt;/foo&amp;gt;&#39;);
-  $compile(element)($scope);
-}));
-
-it(&#39;should bind bar to scope&#39;, function() {
-  expect($scope.bar).toEqual(&#39;foobar&#39;);
-});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;I have  a &lt;a href=&#34;http://plnkr.co/edit/CUvQi8LQQ13fwHdgzgpw?p=preview&#34;&gt;plunker&lt;/a&gt; here to demo both ways of unit testing. And all that shedding light on me is this &lt;a href=&#34;http://stackoverflow.com/questions/19227036/testing-directives-that-require-controllers&#34;&gt;SO&lt;/a&gt; post.&lt;/p&gt;
-</description>
+      <description>I seldom test angular directive unless there is some DOM mutation being processed in the directive, like add/remove classes, show/hide elements or compile/destroy elements. If you have a heavy dependencies on directives, the unit test will be a little bit clunky as for mocking the inline controller of the required directive. Stack overflow gives several alternatives to do so, I am picking two of them which I prefer to go and demo them here.</description>
     </item>
     
     <item>
@@ -104,51 +26,7 @@ it(&#39;should bind bar to scope&#39;, function() {
       <pubDate>Thu, 11 Dec 2014 22:56:24 +0800</pubDate>
       
       <guid>https://blog.hujiale.me/post/angularjs-decorator/</guid>
-      <description>&lt;p&gt;If you are using Angular, you can&amp;rsquo;t avoid depending on third-party modules. Sometimes you find it not that perfect API the module provides, so that you hack into the source code and about to pull request. But the author&amp;rsquo;s comments on your pull request, usually for popular repo, &amp;lsquo;sorry-that&amp;rsquo;s not our priority&amp;rsquo; turns you down totally. Either you work around it or turns to another third-party module. Here is the third option, if you want to share the private data in service closure and provide some API for your specific need, you might find &lt;code&gt;$provide.decorator&lt;/code&gt; helpful. Let&amp;rsquo;s look at this:&lt;/p&gt;
-
-&lt;p&gt;&lt;span class=&#34;more&#34;&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;angular
-    .module(&#39;sortModule&#39;, [])
-    .factory(&#39;sortService&#39;, function () {
-        var list = [1, 3, 10, 2];
-        var service = {
-            doSort: doSort
-        }
-        return service;
-        ////////////////
-        function doSort() {
-            return list.sort().slice(); // [1, 10, 2, 3] default sort method compared by string
-        }
-    });
-
-var myApp = angular.module(&#39;myApp&#39;, [&#39;sortModule&#39;]);
-myApp.config(function ($provide) {
-    $provide.decorator(&#39;sortService&#39;, function ($delegate) {
-        $delegate.doCustSort = function (fn) {
-            return list.sort(fn).slice(); // [1, 2, 3, 10] compared by number
-        };
-        
-        return $delegate;
-    });
-});
-
-myApp.controller(&#39;MyCtrl&#39;, function($scope, sortService) {
-    console.log(sortService.doSort()); // [1, 10, 2, 3]
-    var compare = function (a, b) {
-        if (a &amp;lt; b) return -1;
-        if (a &amp;gt; b) return 1;
-        return 0;
-    };
-    // we tweaked sortService with doCustSort method
-    console.log(sortService.doCustSort(compare)); // [1, 2, 3, 10]
-});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Here we add a customized sort method &lt;code&gt;doCustSort&lt;/code&gt; to &lt;code&gt;$delegate&lt;/code&gt; which references to the service itself. So that we can share the private &lt;code&gt;list&lt;/code&gt; and do some specific logic on our need. And basically you can tweak most components in Angular as long as it&amp;rsquo;s a &lt;code&gt;$provide&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://plnkr.co/edit/etgYtx?p=preview&#34;&gt;Plnkr demo&lt;/a&gt;&lt;/p&gt;
-</description>
+      <description>If you are using Angular, you can&amp;rsquo;t avoid depending on third-party modules. Sometimes you find it not that perfect API the module provides, so that you hack into the source code and about to pull request. But the author&amp;rsquo;s comments on your pull request, usually for popular repo, &amp;lsquo;sorry-that&amp;rsquo;s not our priority&amp;rsquo; turns you down totally. Either you work around it or turns to another third-party module. Here is the third option, if you want to share the private data in service closure and provide some API for your specific need, you might find $provide.</description>
     </item>
     
   </channel>
