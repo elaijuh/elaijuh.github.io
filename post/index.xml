@@ -6,10 +6,21 @@
     <description>Recent content in Posts on {be stateless}</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 12 Sep 2017 00:21:39 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 30 Sep 2017 14:51:31 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.hujiale.me/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Cron need root password to be set</title>
+      <link>https://blog.hujiale.me/post/cron-need-root-password-to-be-set/</link>
+      <pubDate>Sat, 30 Sep 2017 14:51:31 +0800</pubDate>
+      
+      <guid>https://blog.hujiale.me/post/cron-need-root-password-to-be-set/</guid>
+      <description>I am using Digital Ocean with password login disabled. I provision new machine using ansible userdata, so that every team member can login by ssh. Everything works fine until one day I find cron job doesn&amp;rsquo;t work correctly under root.
+The error log is pam_unix(cron:account): expired password for user root (root enforced)
+The tricky part is, when creating a new droplet, Digital Ocean needs you to login by initial password and reset it immediately.</description>
+    </item>
     
     <item>
       <title>Get ready for FreeBSD</title>

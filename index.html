@@ -54,6 +54,32 @@
   <div class="container">
     
     <article>
+      <h2 class="subtitle is-6">September 30, 2017</h2>
+      <h1 class="title"><a href="https://blog.hujiale.me/post/cron-need-root-password-to-be-set/">Cron need root password to be set</a></h1>
+      
+        <div class="tags">
+    
+        <a class="button is-link" href="/tags/unix-cron">unix, cron</a>
+    
+</div>
+
+      
+      <div class="content">
+        I am using Digital Ocean with password login disabled. I provision new machine using ansible userdata, so that every team member can login by ssh. Everything works fine until one day I find cron job doesn&rsquo;t work correctly under root.
+The error log is pam_unix(cron:account): expired password for user root (root enforced)
+The tricky part is, when creating a new droplet, Digital Ocean needs you to login by initial password and reset it immediately.
+        
+        ...<a class="button is-link" href="https://blog.hujiale.me/post/cron-need-root-password-to-be-set/" style="height:28px">
+          Read more
+          <span class="icon is-small">
+            <i class="fa fa-angle-double-right"></i>
+          </span>
+        </a>
+        
+      </div>
+    </article>
+    
+    <article>
       <h2 class="subtitle is-6">September 12, 2017</h2>
       <h1 class="title"><a href="https://blog.hujiale.me/post/get-ready-for-freebsd/">Get ready for FreeBSD</a></h1>
       
@@ -254,30 +280,6 @@ After some exploring, I find a way to solve the problem. These are the dependenc
       <div class="content">
         Some ways to vertiacl align an image in a div, the image&rsquo;s width and height are unknown
  Use a helper incline-block div to vertica the image. The helper&rsquo;s width is 0 Use a tricky way top, right, bottom, left all 0 and margin auto Use css transform translateY  demo
-        
-      </div>
-    </article>
-    
-    <article>
-      <h2 class="subtitle is-6">June 17, 2015</h2>
-      <h1 class="title"><a href="https://blog.hujiale.me/post/unit-test-angular-directive/">Unit test Angular directive</a></h1>
-      
-        <div class="tags">
-    
-        <a class="button is-link" href="/tags/angular1">angular1</a>
-    
-</div>
-
-      
-      <div class="content">
-        I seldom test angular directive unless there is some DOM mutation being processed in the directive, like add/remove classes, show/hide elements or compile/destroy elements. If you have a heavy dependencies on directives, the unit test will be a little bit clunky as for mocking the inline controller of the required directive. Stack overflow gives several alternatives to do so, I am picking two of them which I prefer to go and demo them here.
-        
-        ...<a class="button is-link" href="https://blog.hujiale.me/post/unit-test-angular-directive/" style="height:28px">
-          Read more
-          <span class="icon is-small">
-            <i class="fa fa-angle-double-right"></i>
-          </span>
-        </a>
         
       </div>
     </article>

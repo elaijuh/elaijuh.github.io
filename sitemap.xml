@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://blog.hujiale.me/post/cron-need-root-password-to-be-set/</loc>
+    <lastmod>2017-09-30T14:51:31+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.hujiale.me/post/get-ready-for-freebsd/</loc>
     <lastmod>2017-09-12T00:21:39+08:00</lastmod>
   </url>
@@ -172,7 +177,7 @@
   
   <url>
     <loc>https://blog.hujiale.me/post/</loc>
-    <lastmod>2017-09-12T00:21:39+08:00</lastmod>
+    <lastmod>2017-09-30T14:51:31+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -202,13 +207,19 @@
   
   <url>
     <loc>https://blog.hujiale.me/categories/tech/</loc>
-    <lastmod>2017-09-12T00:21:39+08:00</lastmod>
+    <lastmod>2017-09-30T14:51:31+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.hujiale.me/tags/unix-cron/</loc>
+    <lastmod>2017-09-30T14:51:31+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.hujiale.me/</loc>
-    <lastmod>2017-09-12T00:21:39+08:00</lastmod>
+    <lastmod>2017-09-30T14:51:31+08:00</lastmod>
     <priority>0</priority>
   </url>
   
