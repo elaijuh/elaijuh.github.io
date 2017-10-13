@@ -54,6 +54,34 @@
   <div class="container">
     
     <article>
+      <h2 class="subtitle is-6">October 13, 2017</h2>
+      <h1 class="title"><a href="https://blog.hujiale.me/post/install-ycm-with-pathogen-in-neovim/">Install Youcompleteme with pathogen in neovim</a></h1>
+      
+        <div class="tags">
+    
+        <a class="button is-link" href="/tags/vim">vim</a>
+    
+        <a class="button is-link" href="/tags/neovim">neovim</a>
+    
+</div>
+
+      
+      <div class="content">
+        Notes for installing YCM with pathogen, Mac environment.
+Prerequisites:
+ brew cmake python3/python2 (here i use python3)  # 1. Install neovim brew install neovim # 2. Install neovim python provider # https://neovim.io/doc/user/provider.html#provider-python pip3 install --upgrade neovim # 3. Install YouCompleteMe cd ~/.vim/bundle git clone https://github.com/Valloric/YouCompleteMe.git &amp;&amp; cd $_ git submodule update --init --recursive # here i use system clang rather than downloading, and i only need c family, golang, javascript, rust completer python3 install.
+        
+        ...<a class="button is-link" href="https://blog.hujiale.me/post/install-ycm-with-pathogen-in-neovim/" style="height:28px">
+          Read more
+          <span class="icon is-small">
+            <i class="fa fa-angle-double-right"></i>
+          </span>
+        </a>
+        
+      </div>
+    </article>
+    
+    <article>
       <h2 class="subtitle is-6">September 30, 2017</h2>
       <h1 class="title"><a href="https://blog.hujiale.me/post/cron-need-root-password-to-be-set/">Cron need root password to be set</a></h1>
       
@@ -262,24 +290,6 @@ After some exploring, I find a way to solve the problem. These are the dependenc
       
       <div class="content">
         Yeah. Go
-        
-      </div>
-    </article>
-    
-    <article>
-      <h2 class="subtitle is-6">March 27, 2016</h2>
-      <h1 class="title"><a href="https://blog.hujiale.me/post/vertical-align-an-image/">Vertical align an unknown size image</a></h1>
-      
-        <div class="tags">
-    
-        <a class="button is-link" href="/tags/css">css</a>
-    
-</div>
-
-      
-      <div class="content">
-        Some ways to vertiacl align an image in a div, the image&rsquo;s width and height are unknown
- Use a helper incline-block div to vertica the image. The helper&rsquo;s width is 0 Use a tricky way top, right, bottom, left all 0 and margin auto Use css transform translateY  demo
         
       </div>
     </article>

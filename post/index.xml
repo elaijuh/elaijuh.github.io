@@ -6,10 +6,21 @@
     <description>Recent content in Posts on {be stateless}</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 30 Sep 2017 14:51:31 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 13 Oct 2017 17:20:40 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.hujiale.me/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Install Youcompleteme with pathogen in neovim</title>
+      <link>https://blog.hujiale.me/post/install-ycm-with-pathogen-in-neovim/</link>
+      <pubDate>Fri, 13 Oct 2017 17:20:40 +0800</pubDate>
+      
+      <guid>https://blog.hujiale.me/post/install-ycm-with-pathogen-in-neovim/</guid>
+      <description>Notes for installing YCM with pathogen, Mac environment.
+Prerequisites:
+ brew cmake python3/python2 (here i use python3)  # 1. Install neovim brew install neovim # 2. Install neovim python provider # https://neovim.io/doc/user/provider.html#provider-python pip3 install --upgrade neovim # 3. Install YouCompleteMe cd ~/.vim/bundle git clone https://github.com/Valloric/YouCompleteMe.git &amp;amp;&amp;amp; cd $_ git submodule update --init --recursive # here i use system clang rather than downloading, and i only need c family, golang, javascript, rust completer python3 install.</description>
+    </item>
     
     <item>
       <title>Cron need root password to be set</title>
