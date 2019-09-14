@@ -1,202 +1,136 @@
-
 <!DOCTYPE html>
-<html lang="en-us">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta content="" name="keywords">
-<meta content="Unit test Angular directive - {be stateless}" property="og:title">
-<title>Unit test Angular directive | {be stateless}</title>
-<link rel="stylesheet" href="https://blog.hujiale.me//css/style.css">
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<html><head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="栖云楼主" />
+    <meta name="description" content="" />
+    <link rel="shortcut icon" href="https://hujiale.me/images/favicon.ico" type="image/x-icon"/>
+    <link rel="canonical" href="https://hujiale.me/post/unit-test-angular-directive/" />
+    <link href="" rel="alternate"
+        type="application/rss+xml" title="栖云楼">
+    <link rel="stylesheet" href="https://hujiale.me/css/default.css" />
+</head>
+<body><header>
+<h3>栖云楼 </h3>
+<nav class="site-nav">
+  <a href="https://hujiale.me/me">[我]</a>
+  <a href="https://hujiale.me/post/">[文]</a>
 
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css">
+  
 
+  
 
-<section class="section">
-  <div class="container">
-    <nav class="nav">
-      <div class="nav-left">
-        <a class="nav-item" href="https://blog.hujiale.me/"><h1 class="title is-4">{be stateless}</h1></a>
-      </div>
-      <div class="nav-right">
-        <nav class="nav-item level is-mobile">
-          
-          <a class="level-item" href="https://github.com/elaijuh">
-            <span class="icon">
-              <i class="fa fa-github"></i>
-            </span>
-          </a>
-          
-          <a class="level-item" href="https://twitter.com/hjiale">
-            <span class="icon">
-              <i class="fa fa-twitter"></i>
-            </span>
-          </a>
-          
-          <a class="level-item" href="https://www.linkedin.com/in/jiale-hu-22106632/">
-            <span class="icon">
-              <i class="fa fa-linkedin"></i>
-            </span>
-          </a>
-          
-          <a class="level-item" href="/index.xml">
-            <span class="icon">
-              <i class="fa fa-rss"></i>
-            </span>
-          </a>
-          
-        </nav>
-      </div>
-    </nav>
-  </div>
-</section>
+  
 
-<section class="section">
-  <div class="container">
-    <h2 class="subtitle is-6">June 17, 2015</h2>
-    <h1 class="title">Unit test Angular directive</h1>
+  
+</nav>
+<hr>
+
+</header>
+<div id="content">
+<article>
+    <h4>Unit test Angular directive</h4>
+    <span>2015-06-17</span>
+    <div style="margin-top: 1rem;">
     
-      <div class="tags">
-    
-        <a class="button is-link" href="/tags/angular1">angular1</a>
-    
-</div>
-
-    
-    <div class="content">
-      
 
 <p>I seldom test angular directive unless there is some DOM mutation being processed in the directive, like add/remove classes, show/hide elements or compile/destroy elements. If you have a heavy  dependencies on directives, the unit test will be a little bit clunky as for mocking the inline controller of the required directive. Stack overflow gives several alternatives to do so, I am picking two of them which I prefer to go  and demo them here. At the bottom of this post, I will attach the SO link for reference.</p>
 
 <p><span class="more"></span></p>
 
 <p>Let say we have two directives <code>foo</code> and <code>bar</code> here and bar is requiring foo for it&rsquo;s controller. We want to test directive <code>bar</code>.</p>
-
-<pre><code class="language-javascript">// index.html
-// &lt;foo&gt;&lt;bar&gt;{{bar}}&lt;/bar&gt;&lt;/foo&gt;
-
-// app.js
-app
-  .directive('foo', function () {
-    return {
-      restrict: 'EA',
-      controller: function () {
-        this.getFoo = function () {
-          return 'foo';
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#080;font-style:italic">// index.html
+</span><span style="color:#080;font-style:italic">// &lt;foo&gt;&lt;bar&gt;{{bar}}&lt;/bar&gt;&lt;/foo&gt;
+</span><span style="color:#080;font-style:italic"></span>
+<span style="color:#080;font-style:italic">// app.js
+</span><span style="color:#080;font-style:italic"></span>app
+  .directive(<span style="color:#00f">&#39;foo&#39;</span>, <span style="color:#000080;font-weight:bold">function</span> () {
+    <span style="color:#000080;font-weight:bold">return</span> {
+      restrict: <span style="color:#00f">&#39;EA&#39;</span>,
+      controller: <span style="color:#000080;font-weight:bold">function</span> () {
+        <span style="color:#000080;font-weight:bold">this</span>.getFoo = <span style="color:#000080;font-weight:bold">function</span> () {
+          <span style="color:#000080;font-weight:bold">return</span> <span style="color:#00f">&#39;foo&#39;</span>;
         };
       },
       link: angular.noop
     }
   })
-  .directive('bar', function () {
-    return {
-      restrict: 'EA',
-      require: '^foo',
-      link: function (scope, elm, attrs, controller) {
-        var fooCtrl = controller;
-        scope.bar = fooCtrl.getFoo() + 'bar';
+  .directive(<span style="color:#00f">&#39;bar&#39;</span>, <span style="color:#000080;font-weight:bold">function</span> () {
+    <span style="color:#000080;font-weight:bold">return</span> {
+      restrict: <span style="color:#00f">&#39;EA&#39;</span>,
+      require: <span style="color:#00f">&#39;^foo&#39;</span>,
+      link: <span style="color:#000080;font-weight:bold">function</span> (scope, elm, attrs, controller) {
+        <span style="color:#000080;font-weight:bold">var</span> fooCtrl = controller;
+        scope.bar = fooCtrl.getFoo() + <span style="color:#00f">&#39;bar&#39;</span>;
       }
     };
   });
-</code></pre>
-
+</code></pre></div>
 <h3 id="bind-controller-to-element-data">Bind controller to element.data</h3>
 
 <p>Fundamentally Angular will bind directive&rsquo;s inline controller object to it&rsquo;s DOM through data property. When child directive is requiring parent directive, it will finally find the controller object in element.data. Based on this mechanism, we can mock parent directive controller by element.data.</p>
-
-<pre><code class="language-javascript">// speca.js
-
-var $scope, element;
-beforeEach(inject(function($rootScope, $compile) {
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#080;font-style:italic">// speca.js
+</span><span style="color:#080;font-style:italic"></span>
+<span style="color:#000080;font-weight:bold">var</span> $scope, element;
+beforeEach(inject(<span style="color:#000080;font-weight:bold">function</span>($rootScope, $compile) {
   $scope = $rootScope.$new();
-  element = angular.element('&lt;bar&gt;&lt;/bar&gt;');
-  // bind the controller to element.data
-  element.data('$fooController', {
-    getFoo: function () { return 'foo'; }
+  element = angular.element(<span style="color:#00f">&#39;&lt;bar&gt;&lt;/bar&gt;&#39;</span>);
+  <span style="color:#080;font-style:italic">// bind the controller to element.data
+</span><span style="color:#080;font-style:italic"></span>  element.data(<span style="color:#00f">&#39;$fooController&#39;</span>, {
+    getFoo: <span style="color:#000080;font-weight:bold">function</span> () { <span style="color:#000080;font-weight:bold">return</span> <span style="color:#00f">&#39;foo&#39;</span>; }
   });
   $compile(element)($scope);
 }));
 
-it('should bind bar to scope', function() {
-  expect($scope.bar).toEqual('foobar');
+it(<span style="color:#00f">&#39;should bind bar to scope&#39;</span>, <span style="color:#000080;font-weight:bold">function</span>() {
+  expect($scope.bar).toEqual(<span style="color:#00f">&#39;foobar&#39;</span>);
 }); 
-</code></pre>
-
+</code></pre></div>
 <h3 id="inject-the-directive">Inject the directive</h3>
 
 <p>Another way is to inject the parent directive and mock it&rsquo;s controller property directly. This is also a straightforward way. But you might need to compile from parent directive even if you only want to test the child directive. See the example below:</p>
-
-<pre><code class="language-javascript">var $scope, element;
-beforeEach(inject(function($rootScope, $compile, _fooDirective_) {
-  var fooDirective = _fooDirective_[0];
-  fooDirective.controller = function () {
-    this.getFoo = function () { return 'foo'; };
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#000080;font-weight:bold">var</span> $scope, element;
+beforeEach(inject(<span style="color:#000080;font-weight:bold">function</span>($rootScope, $compile, _fooDirective_) {
+  <span style="color:#000080;font-weight:bold">var</span> fooDirective = _fooDirective_[<span style="color:#00f">0</span>];
+  fooDirective.controller = <span style="color:#000080;font-weight:bold">function</span> () {
+    <span style="color:#000080;font-weight:bold">this</span>.getFoo = <span style="color:#000080;font-weight:bold">function</span> () { <span style="color:#000080;font-weight:bold">return</span> <span style="color:#00f">&#39;foo&#39;</span>; };
   };
     
   $scope = $rootScope.$new();
-  // compile from parent directive foo
-  element = angular.element('&lt;foo&gt;&lt;bar&gt;&lt;/bar&gt;&lt;/foo&gt;');
+  <span style="color:#080;font-style:italic">// compile from parent directive foo
+</span><span style="color:#080;font-style:italic"></span>  element = angular.element(<span style="color:#00f">&#39;&lt;foo&gt;&lt;bar&gt;&lt;/bar&gt;&lt;/foo&gt;&#39;</span>);
   $compile(element)($scope);
 }));
 
-it('should bind bar to scope', function() {
-  expect($scope.bar).toEqual('foobar');
+it(<span style="color:#00f">&#39;should bind bar to scope&#39;</span>, <span style="color:#000080;font-weight:bold">function</span>() {
+  expect($scope.bar).toEqual(<span style="color:#00f">&#39;foobar&#39;</span>);
 });
-</code></pre>
-
+</code></pre></div>
 <p>I have  a <a href="http://plnkr.co/edit/CUvQi8LQQ13fwHdgzgpw?p=preview">plunker</a> here to demo both ways of unit testing. And all that shedding light on me is this <a href="http://stackoverflow.com/questions/19227036/testing-directives-that-require-controllers">SO</a> post.</p>
 
     </div>
-  </div>
-</section>
+</article>
 
-<section class="section">
-  <div class="container">
-    <aside><div id="disqus_thread"></div></aside>
-    <script type="text/javascript">
-      var disqus_shortname = 'hujiale';
-      (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
+        </div><footer class="site-footer">
+    <span class="owner">©2019 栖云楼主</span>
+  
+    
 
-
-<section class="section">
-  <div class="container has-text-centered">
-    <p></p>
-  </div>
-</section>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/typescript.min.js"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/go.min.js"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/dockerfile.min.js"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/yaml.min.js"></script>
-
-<script>hljs.initHighlightingOnLoad();</script>
-
-
-<script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-57201547-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-57201547-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-  (adsbygoogle = window.adsbygoogle || []).push({
-    google_ad_client: "ca-pub-7398440027548350",
-    enable_page_level_ads: true
-  });
-</script>
 
+  
+  </footer>
+</body>
+</html>

@@ -1,72 +1,39 @@
-
 <!DOCTYPE html>
-<html lang="en-us">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta content="" name="keywords">
-<meta content="Provision AWS Lightsail with Ansible - {be stateless}" property="og:title">
-<title>Provision AWS Lightsail with Ansible | {be stateless}</title>
-<link rel="stylesheet" href="https://blog.hujiale.me//css/style.css">
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<html><head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="栖云楼主" />
+    <meta name="description" content="" />
+    <link rel="shortcut icon" href="https://hujiale.me/images/favicon.ico" type="image/x-icon"/>
+    <link rel="canonical" href="https://hujiale.me/post/provision-lightsail-with-ansible/" />
+    <link href="" rel="alternate"
+        type="application/rss+xml" title="栖云楼">
+    <link rel="stylesheet" href="https://hujiale.me/css/default.css" />
+</head>
+<body><header>
+<h3>栖云楼 </h3>
+<nav class="site-nav">
+  <a href="https://hujiale.me/me">[我]</a>
+  <a href="https://hujiale.me/post/">[文]</a>
 
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css">
+  
 
+  
 
-<section class="section">
-  <div class="container">
-    <nav class="nav">
-      <div class="nav-left">
-        <a class="nav-item" href="https://blog.hujiale.me/"><h1 class="title is-4">{be stateless}</h1></a>
-      </div>
-      <div class="nav-right">
-        <nav class="nav-item level is-mobile">
-          
-          <a class="level-item" href="https://github.com/elaijuh">
-            <span class="icon">
-              <i class="fa fa-github"></i>
-            </span>
-          </a>
-          
-          <a class="level-item" href="https://twitter.com/hjiale">
-            <span class="icon">
-              <i class="fa fa-twitter"></i>
-            </span>
-          </a>
-          
-          <a class="level-item" href="https://www.linkedin.com/in/jiale-hu-22106632/">
-            <span class="icon">
-              <i class="fa fa-linkedin"></i>
-            </span>
-          </a>
-          
-          <a class="level-item" href="/index.xml">
-            <span class="icon">
-              <i class="fa fa-rss"></i>
-            </span>
-          </a>
-          
-        </nav>
-      </div>
-    </nav>
-  </div>
-</section>
+  
 
-<section class="section">
-  <div class="container">
-    <h2 class="subtitle is-6">December 21, 2016</h2>
-    <h1 class="title">Provision AWS Lightsail with Ansible</h1>
-    
-      <div class="tags">
-    
-        <a class="button is-link" href="/tags/aws">aws</a>
-    
-        <a class="button is-link" href="/tags/ansible">ansible</a>
-    
-</div>
+  
+</nav>
+<hr>
 
+</header>
+<div id="content">
+<article>
+    <h4>Provision AWS Lightsail with Ansible</h4>
+    <span>2016-12-21</span>
+    <div style="margin-top: 1rem;">
     
-    <div class="content">
-      
 
 <p>Amazon has announced a new cloud service <strong>Lightsail</strong> recently aiming at DigitalOcean, with exact same price and same spec of node.  As a heavy DigitalOcean user, I am more than happy to try the alternative provided by AWS. Creating the first instance is not smooth, I got successfully created the first instance by AWS SDK after 3 weeks in and out mails with the support team.</p>
 
@@ -83,53 +50,47 @@
 <h2 id="ansible-playbook">Ansible playbook</h2>
 
 <p>provision.yml</p>
-
-<pre><code class="language-yml">---
-- hosts: cloud 
-  gather_facts: False
-  tasks:
-    - name: Update local known_hosts
-      local_action: shell ssh-keyscan -H {{ hostvars[item].ansible_host }} &gt;&gt; ~/.ssh/known_hosts
-      with_items: &quot;{{ groups.cloud }}&quot;
-
-    - name: Install aptitude
-      raw: test ! -e /usr/bin/aptitude &amp;&amp; sudo apt-get install -qq aptitude || true
-
-    - name: Install python 2.7
-      raw: test ! -e /usr/bin/python &amp;&amp; (sudo apt-get update -qq &amp;&amp; sudo apt-get install -qq python2.7) || true
-
-    - name: Install letsencrypt 
-      raw: test ! -e /usr/bin/letsencrypt &amp;&amp; (sudo apt-get update -qq &amp;&amp; sudo apt-get install -qq letsencrypt) || true
-
-- hosts: cloud 
-  roles:
-    - update-apt
-    - user
-    - swap
-
-- hosts: cloud 
-  roles:
-    # https://github.com/angstwad/docker.ubuntu
-    - role: angstwad.docker_ubuntu
-      become: yes
-      kernel_pkg_state: present
-</code></pre>
-
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml">---<span style="color:#bbb">
+</span><span style="color:#bbb"></span>-<span style="color:#bbb"> </span>hosts:<span style="color:#bbb"> </span>cloud<span style="color:#bbb"> 
+</span><span style="color:#bbb">  </span>gather_facts:<span style="color:#bbb"> </span>False<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>tasks:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>-<span style="color:#bbb"> </span>name:<span style="color:#bbb"> </span>Update<span style="color:#bbb"> </span>local<span style="color:#bbb"> </span>known_hosts<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>local_action:<span style="color:#bbb"> </span>shell<span style="color:#bbb"> </span>ssh-keyscan<span style="color:#bbb"> </span>-H<span style="color:#bbb"> </span>{{<span style="color:#bbb"> </span>hostvars[item].ansible_host<span style="color:#bbb"> </span>}}<span style="color:#bbb"> </span>&gt;&gt;<span style="color:#bbb"> </span>~/.ssh/known_hosts<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>with_items:<span style="color:#bbb"> </span><span style="color:#00f">&#34;{{ groups.cloud }}&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span>-<span style="color:#bbb"> </span>name:<span style="color:#bbb"> </span>Install<span style="color:#bbb"> </span>aptitude<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>raw:<span style="color:#bbb"> </span>test<span style="color:#bbb"> </span>!<span style="color:#bbb"> </span>-e<span style="color:#bbb"> </span>/usr/bin/aptitude<span style="color:#bbb"> </span><span style="color:#008080">&amp;&amp;</span><span style="color:#bbb"> </span>sudo<span style="color:#bbb"> </span>apt-get<span style="color:#bbb"> </span>install<span style="color:#bbb"> </span>-qq<span style="color:#bbb"> </span>aptitude<span style="color:#bbb"> </span>||<span style="color:#bbb"> </span><span style="color:#000080;font-weight:bold">true</span><span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span>-<span style="color:#bbb"> </span>name:<span style="color:#bbb"> </span>Install<span style="color:#bbb"> </span>python<span style="color:#bbb"> </span><span style="color:#00f">2.7</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span>raw:<span style="color:#bbb"> </span>test<span style="color:#bbb"> </span>!<span style="color:#bbb"> </span>-e<span style="color:#bbb"> </span>/usr/bin/python<span style="color:#bbb"> </span><span style="color:#008080">&amp;&amp;</span><span style="color:#bbb"> </span>(sudo<span style="color:#bbb"> </span>apt-get<span style="color:#bbb"> </span>update<span style="color:#bbb"> </span>-qq<span style="color:#bbb"> </span><span style="color:#008080">&amp;&amp;</span><span style="color:#bbb"> </span>sudo<span style="color:#bbb"> </span>apt-get<span style="color:#bbb"> </span>install<span style="color:#bbb"> </span>-qq<span style="color:#bbb"> </span>python2<span style="color:#00f">.7</span>)<span style="color:#bbb"> </span>||<span style="color:#bbb"> </span><span style="color:#000080;font-weight:bold">true</span><span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span>-<span style="color:#bbb"> </span>name:<span style="color:#bbb"> </span>Install<span style="color:#bbb"> </span>letsencrypt<span style="color:#bbb"> 
+</span><span style="color:#bbb">      </span>raw:<span style="color:#bbb"> </span>test<span style="color:#bbb"> </span>!<span style="color:#bbb"> </span>-e<span style="color:#bbb"> </span>/usr/bin/letsencrypt<span style="color:#bbb"> </span><span style="color:#008080">&amp;&amp;</span><span style="color:#bbb"> </span>(sudo<span style="color:#bbb"> </span>apt-get<span style="color:#bbb"> </span>update<span style="color:#bbb"> </span>-qq<span style="color:#bbb"> </span><span style="color:#008080">&amp;&amp;</span><span style="color:#bbb"> </span>sudo<span style="color:#bbb"> </span>apt-get<span style="color:#bbb"> </span>install<span style="color:#bbb"> </span>-qq<span style="color:#bbb"> </span>letsencrypt)<span style="color:#bbb"> </span>||<span style="color:#bbb"> </span><span style="color:#000080;font-weight:bold">true</span><span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>-<span style="color:#bbb"> </span>hosts:<span style="color:#bbb"> </span>cloud<span style="color:#bbb"> 
+</span><span style="color:#bbb">  </span>roles:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>-<span style="color:#bbb"> </span>update-apt<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>-<span style="color:#bbb"> </span>user<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>-<span style="color:#bbb"> </span>swap<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>-<span style="color:#bbb"> </span>hosts:<span style="color:#bbb"> </span>cloud<span style="color:#bbb"> 
+</span><span style="color:#bbb">  </span>roles:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic"># https://github.com/angstwad/docker.ubuntu</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span>-<span style="color:#bbb"> </span>role:<span style="color:#bbb"> </span>angstwad.docker_ubuntu<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>become:<span style="color:#bbb"> </span>yes<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>kernel_pkg_state:<span style="color:#bbb"> </span>present</code></pre></div>
 <p>provision.ini</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#000080;font-weight:bold">[hosts]</span>
+<span style="color:#000080;font-weight:bold">[YOUR_LIGHTSAIL_INSTANCE_NAME] ansible_host=[YOUR_IP] private_ip=[YOUR_PRIVATE_IP]</span>
 
-<pre><code class="language-ini">[hosts]
-[YOUR_LIGHTSAIL_INSTANCE_NAME] ansible_host=[YOUR_IP] private_ip=[YOUR_PRIVATE_IP]
+<span style="color:#000080;font-weight:bold">[cloud:children]</span>
+<span style="color:#f00">hosts</span>
 
-[cloud:children]
-hosts
-
-[cloud:vars]
-ansible_connection=ssh
-ansible_user=ubuntu
-ansible_ssh_private_key_file=~/.ssh/id_rsa
-ansible_python_interpreter=/usr/bin/python2.7
-</code></pre>
-
+<span style="color:#000080;font-weight:bold">[cloud:vars]</span>
+<span style="color:#f00">ansible_connection</span>=<span style="color:#00f">ssh</span>
+<span style="color:#f00">ansible_user</span>=<span style="color:#00f">ubuntu</span>
+<span style="color:#f00">ansible_ssh_private_key_file</span>=<span style="color:#00f">~/.ssh/id_rsa</span>
+<span style="color:#f00">ansible_python_interpreter</span>=<span style="color:#00f">/usr/bin/python2.7</span></code></pre></div>
 <p>Looking at <code>provision.yml</code> , the first 3 common tasks are pretty straight forward:</p>
 
 <ul>
@@ -149,26 +110,23 @@ ansible_python_interpreter=/usr/bin/python2.7
 <p>I would like to pick user role as example</p>
 
 <p>ansible/roles/user/tasks/main.yml</p>
-
-<pre><code class="language-yml">---
-- name: Ensure user exists
-  become: yes
-  user:
-    name: appuser
-    state: present
-    shell: /bin/bash
-    append: yes 
-    groups: sudo
-
-- name: Ensure authorized key exists
-  become: yes
-  authorized_key: user=appuser key=&quot;{{ lookup('file', '~/.ssh/id_rsa.pub') }}&quot;
-
-- name: Copy sudoers
-  become: yes
-  copy: src=./sudoers dest=/etc/sudoers
-</code></pre>
-
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml">---<span style="color:#bbb">
+</span><span style="color:#bbb"></span>-<span style="color:#bbb"> </span>name:<span style="color:#bbb"> </span>Ensure<span style="color:#bbb"> </span>user<span style="color:#bbb"> </span>exists<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>become:<span style="color:#bbb"> </span>yes<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>user:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>name:<span style="color:#bbb"> </span>appuser<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>state:<span style="color:#bbb"> </span>present<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>shell:<span style="color:#bbb"> </span>/bin/bash<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>append:<span style="color:#bbb"> </span>yes<span style="color:#bbb"> 
+</span><span style="color:#bbb">    </span>groups:<span style="color:#bbb"> </span>sudo<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>-<span style="color:#bbb"> </span>name:<span style="color:#bbb"> </span>Ensure<span style="color:#bbb"> </span>authorized<span style="color:#bbb"> </span>key<span style="color:#bbb"> </span>exists<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>become:<span style="color:#bbb"> </span>yes<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>authorized_key:<span style="color:#bbb"> </span>user=appuser<span style="color:#bbb"> </span>key=<span style="color:#00f">&#34;{{ lookup(&#39;file&#39;, &#39;~/.ssh/id_rsa.pub&#39;) }}&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>-<span style="color:#bbb"> </span>name:<span style="color:#bbb"> </span>Copy<span style="color:#bbb"> </span>sudoers<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>become:<span style="color:#bbb"> </span>yes<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>copy:<span style="color:#bbb"> </span>src=./sudoers<span style="color:#bbb"> </span>dest=/etc/sudoers</code></pre></div>
 <p>This role will create a user <code>appuser</code> in sudo group for application deploy.  So that we don’t need to use the default user <code>ubuntu</code> every time. Make sure you have added the id pub key into the instance’s <code>authorized_key</code> file</p>
 
 <p>The last role is installing docker into the instance, after that you can use any docker command like <code>sudo docker</code> or <code>sudo docker-compose</code> in the instance and it’s armed with docker engine now.</p>
@@ -176,56 +134,27 @@ ansible_python_interpreter=/usr/bin/python2.7
 <p>OK now we have a provisioned instance and keep lego it with any application you write. I will suggest to use Ansible docker service as well to depoly your application based on docker image.</p>
 
     </div>
-  </div>
-</section>
+</article>
 
-<section class="section">
-  <div class="container">
-    <aside><div id="disqus_thread"></div></aside>
-    <script type="text/javascript">
-      var disqus_shortname = 'hujiale';
-      (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
+        </div><footer class="site-footer">
+    <span class="owner">©2019 栖云楼主</span>
+  
+    
 
-
-<section class="section">
-  <div class="container has-text-centered">
-    <p></p>
-  </div>
-</section>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/typescript.min.js"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/go.min.js"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/dockerfile.min.js"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/yaml.min.js"></script>
-
-<script>hljs.initHighlightingOnLoad();</script>
-
-
-<script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-57201547-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-57201547-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-  (adsbygoogle = window.adsbygoogle || []).push({
-    google_ad_client: "ca-pub-7398440027548350",
-    enable_page_level_ads: true
-  });
-</script>
 
+  
+  </footer>
+</body>
+</html>

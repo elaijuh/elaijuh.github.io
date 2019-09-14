@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Angular1 on {be stateless}</title>
-    <link>https://blog.hujiale.me/tags/angular1/</link>
-    <description>Recent content in Angular1 on {be stateless}</description>
+    <title>angular1 on 栖云楼</title>
+    <link>https://hujiale.me/tags/angular1/</link>
+    <description>Recent content in angular1 on 栖云楼</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 17 Jun 2015 01:27:00 +0800</lastBuildDate>
     
-	<atom:link href="https://blog.hujiale.me/tags/angular1/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://hujiale.me/tags/angular1/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Unit test Angular directive</title>
-      <link>https://blog.hujiale.me/post/unit-test-angular-directive/</link>
+      <link>https://hujiale.me/post/unit-test-angular-directive/</link>
       <pubDate>Wed, 17 Jun 2015 01:27:00 +0800</pubDate>
       
-      <guid>https://blog.hujiale.me/post/unit-test-angular-directive/</guid>
+      <guid>https://hujiale.me/post/unit-test-angular-directive/</guid>
       <description>I seldom test angular directive unless there is some DOM mutation being processed in the directive, like add/remove classes, show/hide elements or compile/destroy elements. If you have a heavy dependencies on directives, the unit test will be a little bit clunky as for mocking the inline controller of the required directive. Stack overflow gives several alternatives to do so, I am picking two of them which I prefer to go and demo them here.</description>
     </item>
     
     <item>
       <title> $provide.decorator - tweak Angular servicer</title>
-      <link>https://blog.hujiale.me/post/angularjs-decorator/</link>
+      <link>https://hujiale.me/post/angularjs-decorator/</link>
       <pubDate>Thu, 11 Dec 2014 22:56:24 +0800</pubDate>
       
-      <guid>https://blog.hujiale.me/post/angularjs-decorator/</guid>
+      <guid>https://hujiale.me/post/angularjs-decorator/</guid>
       <description>If you are using Angular, you can&amp;rsquo;t avoid depending on third-party modules. Sometimes you find it not that perfect API the module provides, so that you hack into the source code and about to pull request. But the author&amp;rsquo;s comments on your pull request, usually for popular repo, &amp;lsquo;sorry-that&amp;rsquo;s not our priority&amp;rsquo; turns you down totally. Either you work around it or turns to another third-party module. Here is the third option, if you want to share the private data in service closure and provide some API for your specific need, you might find $provide.</description>
     </item>
     

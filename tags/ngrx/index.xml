@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Ngrx on {be stateless}</title>
-    <link>https://blog.hujiale.me/tags/ngrx/</link>
-    <description>Recent content in Ngrx on {be stateless}</description>
+    <title>ngrx on 栖云楼</title>
+    <link>https://hujiale.me/tags/ngrx/</link>
+    <description>Recent content in ngrx on 栖云楼</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 11 Sep 2016 03:26:53 +0800</lastBuildDate>
     
-	<atom:link href="https://blog.hujiale.me/tags/ngrx/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://hujiale.me/tags/ngrx/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>How to make ngrx/store work with HMR</title>
-      <link>https://blog.hujiale.me/post/how-to-make-ngrx-store-work-with-hmr/</link>
+      <link>https://hujiale.me/post/how-to-make-ngrx-store-work-with-hmr/</link>
       <pubDate>Sun, 11 Sep 2016 03:26:53 +0800</pubDate>
       
-      <guid>https://blog.hujiale.me/post/how-to-make-ngrx-store-work-with-hmr/</guid>
+      <guid>https://hujiale.me/post/how-to-make-ngrx-store-work-with-hmr/</guid>
       <description>In my previous post, I talked of a way to develop angular 2 app with HMR. The vendors I use are @angularclass/hmr and @angularclass/hmr-loader Later on, I thought I might need a data flow tool like redux to manage my app state and I found ngrx/store
 @angularclass/hmr injects some hmr prefix life cycles into the main module to let you to restore the data. But app state management is optional and you can choose your own way to implement it, so I will walk you through how I implement HMR with ngrx/store</description>
     </item>

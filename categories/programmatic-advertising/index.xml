@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Programmatic Advertising on {be stateless}</title>
-    <link>https://blog.hujiale.me/categories/programmatic-advertising/</link>
-    <description>Recent content in Programmatic Advertising on {be stateless}</description>
+    <title>programmatic advertising on 栖云楼</title>
+    <link>https://hujiale.me/categories/programmatic-advertising/</link>
+    <description>Recent content in programmatic advertising on 栖云楼</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 29 Mar 2017 11:35:33 +0800</lastBuildDate>
     
-	<atom:link href="https://blog.hujiale.me/categories/programmatic-advertising/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://hujiale.me/categories/programmatic-advertising/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Cookie sync in programmatic advertising</title>
-      <link>https://blog.hujiale.me/post/cookie-sync/</link>
+      <link>https://hujiale.me/post/cookie-sync/</link>
       <pubDate>Wed, 29 Mar 2017 11:35:33 +0800</pubDate>
       
-      <guid>https://blog.hujiale.me/post/cookie-sync/</guid>
+      <guid>https://hujiale.me/post/cookie-sync/</guid>
       <description>Cookie is a browser mechanism to store small piece of information in client’s browser. Now days, cookie is widely used in:
 - Sign in. Store session in cookie for server side authentication. - User preference. It stores user preference and load them when open the site which makes the UI user friendly. - eCommerce. Remember the good in your shopping cart. - Tracking behavior. It records the user behavior for better targeting.</description>
     </item>

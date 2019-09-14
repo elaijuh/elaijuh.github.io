@@ -1,70 +1,39 @@
-
 <!DOCTYPE html>
-<html lang="en-us">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta content="" name="keywords">
-<meta content="Scope, the most important thing in JavaScript - {be stateless}" property="og:title">
-<title>Scope, the most important thing in JavaScript | {be stateless}</title>
-<link rel="stylesheet" href="https://blog.hujiale.me//css/style.css">
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<html><head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="栖云楼主" />
+    <meta name="description" content="" />
+    <link rel="shortcut icon" href="https://hujiale.me/images/favicon.ico" type="image/x-icon"/>
+    <link rel="canonical" href="https://hujiale.me/post/scope-the-most-important-thing-in-javascript/" />
+    <link href="" rel="alternate"
+        type="application/rss+xml" title="栖云楼">
+    <link rel="stylesheet" href="https://hujiale.me/css/default.css" />
+</head>
+<body><header>
+<h3>栖云楼 </h3>
+<nav class="site-nav">
+  <a href="https://hujiale.me/me">[我]</a>
+  <a href="https://hujiale.me/post/">[文]</a>
 
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css">
+  
 
+  
 
-<section class="section">
-  <div class="container">
-    <nav class="nav">
-      <div class="nav-left">
-        <a class="nav-item" href="https://blog.hujiale.me/"><h1 class="title is-4">{be stateless}</h1></a>
-      </div>
-      <div class="nav-right">
-        <nav class="nav-item level is-mobile">
-          
-          <a class="level-item" href="https://github.com/elaijuh">
-            <span class="icon">
-              <i class="fa fa-github"></i>
-            </span>
-          </a>
-          
-          <a class="level-item" href="https://twitter.com/hjiale">
-            <span class="icon">
-              <i class="fa fa-twitter"></i>
-            </span>
-          </a>
-          
-          <a class="level-item" href="https://www.linkedin.com/in/jiale-hu-22106632/">
-            <span class="icon">
-              <i class="fa fa-linkedin"></i>
-            </span>
-          </a>
-          
-          <a class="level-item" href="/index.xml">
-            <span class="icon">
-              <i class="fa fa-rss"></i>
-            </span>
-          </a>
-          
-        </nav>
-      </div>
-    </nav>
-  </div>
-</section>
+  
 
-<section class="section">
-  <div class="container">
-    <h2 class="subtitle is-6">January 31, 2015</h2>
-    <h1 class="title">Scope, the most important thing in JavaScript</h1>
-    
-      <div class="tags">
-    
-        <a class="button is-link" href="/tags/javascript">javascript</a>
-    
-</div>
+  
+</nav>
+<hr>
 
-    
-    <div class="content">
-      <p>cope and scope chain, the most important mechanism in JavaScript, are barely clearly explained though specified in ECMA-262 version 5.1. Without scope mechanism, there wouldn&rsquo;t be closure and functional programming. This post is aim to elaborate what happens behind from the very beginning when control enters the global code to execution end.</p>
+</header>
+<div id="content">
+<article>
+    <h4>Scope, the most important thing in JavaScript</h4>
+    <span>2015-01-31</span>
+    <div style="margin-top: 1rem;">
+    <p>cope and scope chain, the most important mechanism in JavaScript, are barely clearly explained though specified in ECMA-262 version 5.1. Without scope mechanism, there wouldn&rsquo;t be closure and functional programming. This post is aim to elaborate what happens behind from the very beginning when control enters the global code to execution end.</p>
 
 <p><span class="more"></span></p>
 
@@ -78,133 +47,117 @@
 <code>go</code>: global object (window for browser, global for NodeJS)</p>
 
 <p>Take following <strong>foo.js</strong> as example, let&rsquo;s dive into it line by line</p>
-
-<pre><code class="language-javascript">// foo.js
-var a = 1;
-function Foo(b) {
-	b = 3;
-	console.log(b); // 3
-	console.log(a); // 1
-}
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#080;font-style:italic">// foo.js
+</span><span style="color:#080;font-style:italic"></span><span style="color:#000080;font-weight:bold">var</span> a = <span style="color:#00f">1</span>;
+<span style="color:#000080;font-weight:bold">function</span> Foo(b) {
+	b = <span style="color:#00f">3</span>;
+	console.log(b); <span style="color:#080;font-style:italic">// 3
+</span><span style="color:#080;font-style:italic"></span>	console.log(a); <span style="color:#080;font-style:italic">// 1
+</span><span style="color:#080;font-style:italic"></span>}
 console.log(a);
-Foo(2);
-</code></pre>
-
+Foo(<span style="color:#00f">2</span>);
+</code></pre></div>
 <ul>
-<li>Step 1: Control enters into global code
-Every javascript file is executed from global code, when the control enters into the global code (before executing the code ), a global EC will be created and push into the EC stack. <code>this</code> is set to <code>go</code>. <code>VE</code> is set to <code>GE</code> and associated with global <code>EC</code>. <code>LE</code> is set to <code>GE</code> and associated with global <code>EC</code>. <code>GE</code> is a javascript internal object which contains <code>ER</code>(bind with <code>go</code>) and <code>OLE</code>(initialized to null). So at this stage, the global <code>EC</code> looks like:</li>
-</ul>
-
-<pre><code class="language-javascript">// step 1
-GlobalEC: {
+<li><p>Step 1: Control enters into global code
+Every javascript file is executed from global code, when the control enters into the global code (before executing the code ), a global EC will be created and push into the EC stack. <code>this</code> is set to <code>go</code>. <code>VE</code> is set to <code>GE</code> and associated with global <code>EC</code>. <code>LE</code> is set to <code>GE</code> and associated with global <code>EC</code>. <code>GE</code> is a javascript internal object which contains <code>ER</code>(bind with <code>go</code>) and <code>OLE</code>(initialized to null). So at this stage, the global <code>EC</code> looks like:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#080;font-style:italic">// step 1
+</span><span style="color:#080;font-style:italic"></span>GlobalEC: {
 	VE: { 
 		ER: { window: go }
-		OLE: null
+		OLE: <span style="color:#000080;font-weight:bold">null</span>
 	},
 	LE: {
 		ER: { window: go }
-		OLE: null
+		OLE: <span style="color:#000080;font-weight:bold">null</span>
 	}
-	this: window
+	<span style="color:#000080;font-weight:bold">this</span>: window
 }
-</code></pre>
+</code></pre></div></li>
 
-<ul>
-<li>Step 2: Declaration Binding Instantiation for global EC
-After the execution context is created, control will scan the code (not execution) and bind each function declaration and variable declaration. At this stage, <code>VE</code> and <code>LE</code> will be augmented the same way, ie. <code>VE</code> is same as <code>LE</code>.  So the global EC looks like:</li>
-</ul>
-
-<pre><code class="language-javascript">// step 2
-GlobalEC: {
+<li><p>Step 2: Declaration Binding Instantiation for global EC
+After the execution context is created, control will scan the code (not execution) and bind each function declaration and variable declaration. At this stage, <code>VE</code> and <code>LE</code> will be augmented the same way, ie. <code>VE</code> is same as <code>LE</code>.  So the global EC looks like:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#080;font-style:italic">// step 2
+</span><span style="color:#080;font-style:italic"></span>GlobalEC: {
 	VE: { 
-		ER: { window: go, a: undefined, Foo: foo }
-		OLE: null
+		ER: { window: go, a: <span style="color:#000080;font-weight:bold">undefined</span>, Foo: foo }
+		OLE: <span style="color:#000080;font-weight:bold">null</span>
 	},
 	LE: {
-		ER: { window: go, a: undefined, Foo: foo }
-		OLE: null
+		ER: { window: go, a: <span style="color:#000080;font-weight:bold">undefined</span>, Foo: foo }
+		OLE: <span style="color:#000080;font-weight:bold">null</span>
 	}
-	this: window
+	<span style="color:#000080;font-weight:bold">this</span>: window
 }
-</code></pre>
+</code></pre></div></li>
+</ul>
 
 <p>The tricky part is when control scans to <code>Foo</code>&rsquo;s function declaration, it will create a new function object <code>foo</code> and associate it with <code>Foo</code>. The common internal properties and special internal properties for function will be assigned to <code>foo</code>. One of these internal properties is <code>[[scope]]</code>, from here the scope chain mechanism starts. <code>foo.[[scope]]</code> is set to current <code>EC.LE</code></p>
 
 <ul>
-<li>Step 3: Executing the global code
-After the control finishes scanning the code in step 2, it starts to run the code line by line. During the execution, <code>LE</code> will be updated with the value bound to the variable in <code>ER</code>, but <code>VE</code> remains unchanged. And remember <code>foo.[[scope]]</code> is set to <code>LE</code> by reference, so it will be updated accordingly. So before the control enters <code>Foo</code>&rsquo;s code by calling <code>Foo()</code>, the <code>GlobalEC</code> looks like:</li>
-</ul>
-
-<pre><code class="language-javascript">// step 3
-GlobalEC: {
+<li><p>Step 3: Executing the global code
+After the control finishes scanning the code in step 2, it starts to run the code line by line. During the execution, <code>LE</code> will be updated with the value bound to the variable in <code>ER</code>, but <code>VE</code> remains unchanged. And remember <code>foo.[[scope]]</code> is set to <code>LE</code> by reference, so it will be updated accordingly. So before the control enters <code>Foo</code>&rsquo;s code by calling <code>Foo()</code>, the <code>GlobalEC</code> looks like:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#080;font-style:italic">// step 3
+</span><span style="color:#080;font-style:italic"></span>GlobalEC: {
 	VE: { 
-		ER: { window: go, a: undefined, Foo: foo }
-		OLE: null
+		ER: { window: go, a: <span style="color:#000080;font-weight:bold">undefined</span>, Foo: foo }
+		OLE: <span style="color:#000080;font-weight:bold">null</span>
 	},
 	LE: {
-		ER: { window: go, a: 1, Foo: foo }
-		OLE: null
+		ER: { window: go, a: <span style="color:#00f">1</span>, Foo: foo }
+		OLE: <span style="color:#000080;font-weight:bold">null</span>
 	}
-	this: window
+	<span style="color:#000080;font-weight:bold">this</span>: window
 }
-</code></pre>
+</code></pre></div></li>
 
-<ul>
-<li>Step 4: Control enters into Foo&rsquo;s code
-By calling <code>Foo()</code>, the control enters Foo&rsquo;s code. Much like the control enters into global code, it will create a <code>EC</code> for <code>Foo</code> and push it into the EC stack on the top of global EC. Then it will create <code>VE</code> and <code>LE</code> with a null <code>ER</code> associated. The tricky difference is <code>OLE</code> is set to <code>foo.[[scope]]</code> which is global <code>EC.LE</code>. The scope chain is established right from here. At this stage, <code>FooEC</code> looks like:</li>
-</ul>
-
-<pre><code class="language-javascript">// step 4
-FooEC: {
+<li><p>Step 4: Control enters into Foo&rsquo;s code
+By calling <code>Foo()</code>, the control enters Foo&rsquo;s code. Much like the control enters into global code, it will create a <code>EC</code> for <code>Foo</code> and push it into the EC stack on the top of global EC. Then it will create <code>VE</code> and <code>LE</code> with a null <code>ER</code> associated. The tricky difference is <code>OLE</code> is set to <code>foo.[[scope]]</code> which is global <code>EC.LE</code>. The scope chain is established right from here. At this stage, <code>FooEC</code> looks like:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#080;font-style:italic">// step 4
+</span><span style="color:#080;font-style:italic"></span>FooEC: {
 	VE: { 
-		ER: null
-		OLE: foo.[[scope]] // GlobalEC.LE
-	},
+		ER: <span style="color:#000080;font-weight:bold">null</span>
+		OLE: foo.[[scope]] <span style="color:#080;font-style:italic">// GlobalEC.LE
+</span><span style="color:#080;font-style:italic"></span>	},
 	LE: {
-		ER: null
-		OLE: foo.[[scope]] // GlobalEC.LE
-	}
-	this: window
+		ER: <span style="color:#000080;font-weight:bold">null</span>
+		OLE: foo.[[scope]] <span style="color:#080;font-style:italic">// GlobalEC.LE
+</span><span style="color:#080;font-style:italic"></span>	}
+	<span style="color:#000080;font-weight:bold">this</span>: window
 }
-</code></pre>
+</code></pre></div></li>
 
-<ul>
-<li>Step 5: Declaration Binding Instantiation for Foo EC
-Like it does in global code, the control will scan the function body before executing it, to bind the function declaration and variable declaration into <code>ER</code>. Additionally for function code, the formal parameters will be bound to <code>ER</code>.</li>
-</ul>
-
-<pre><code class="language-javascript">// step 5
-FooEC: {
+<li><p>Step 5: Declaration Binding Instantiation for Foo EC
+Like it does in global code, the control will scan the function body before executing it, to bind the function declaration and variable declaration into <code>ER</code>. Additionally for function code, the formal parameters will be bound to <code>ER</code>.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#080;font-style:italic">// step 5
+</span><span style="color:#080;font-style:italic"></span>FooEC: {
 	VE: { 
-		ER: {b: 2}
-		OLE: foo.[[scope]] // GlobalEC.LE
-	},
+		ER: {b: <span style="color:#00f">2</span>}
+		OLE: foo.[[scope]] <span style="color:#080;font-style:italic">// GlobalEC.LE
+</span><span style="color:#080;font-style:italic"></span>	},
 	LE: {
-		ER: {b: 2}
-		OLE: foo.[[scope]] // GlobalEC.LE
-	}
-	this: window
+		ER: {b: <span style="color:#00f">2</span>}
+		OLE: foo.[[scope]] <span style="color:#080;font-style:italic">// GlobalEC.LE
+</span><span style="color:#080;font-style:italic"></span>	}
+	<span style="color:#000080;font-weight:bold">this</span>: window
 }
-</code></pre>
+</code></pre></div></li>
 
-<ul>
-<li>Step 6: Executing the Foo code
-After scanning the function code, the control starts to execute the function line by line. During this stage, <code>LE</code> is likely to be updated while <code>VE</code> remains unchanged.</li>
-</ul>
-
-<pre><code class="language-javascript">// step 5
-FooEC: {
+<li><p>Step 6: Executing the Foo code
+After scanning the function code, the control starts to execute the function line by line. During this stage, <code>LE</code> is likely to be updated while <code>VE</code> remains unchanged.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#080;font-style:italic">// step 5
+</span><span style="color:#080;font-style:italic"></span>FooEC: {
 	VE: { 
-		ER: {b: 2}
-		OLE: foo.[[scope]] // GlobalEC.LE
-	},
+		ER: {b: <span style="color:#00f">2</span>}
+		OLE: foo.[[scope]] <span style="color:#080;font-style:italic">// GlobalEC.LE
+</span><span style="color:#080;font-style:italic"></span>	},
 	LE: {
-		ER: {b: 3}
-		OLE: foo.[[scope]] // GlobalEC.LE
-	}
-	this: window
+		ER: {b: <span style="color:#00f">3</span>}
+		OLE: foo.[[scope]] <span style="color:#080;font-style:italic">// GlobalEC.LE
+</span><span style="color:#080;font-style:italic"></span>	}
+	<span style="color:#000080;font-weight:bold">this</span>: window
 }
-</code></pre>
+</code></pre></div></li>
+</ul>
 
 <p>When control comes to <code>console.log(b)</code>, it will first find the variable <code>b</code> in <code>LE.ER</code> and value 3 is retrieved. When control comes to <code>console.log(a)</code>, it will first try to find the variable <code>a</code> in <code>LE.ER</code>. Unluckily , this time there is no <code>a</code> to be found, the control keeps finding <code>a</code> in <code>LE.OLE</code> which is <code>GlobalEC.LE</code>, finally <code>a</code> is found in <code>GlobalEC.LE.ER</code> with value bound to 1.</p>
 
@@ -215,56 +168,27 @@ FooEC: {
 <p><a href="http://www.ecma-international.org/ecma-262/5.1/#sec-10.4.3">ecma-262 5.1 sec-10.4.3</a></p>
 
     </div>
-  </div>
-</section>
+</article>
 
-<section class="section">
-  <div class="container">
-    <aside><div id="disqus_thread"></div></aside>
-    <script type="text/javascript">
-      var disqus_shortname = 'hujiale';
-      (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
+        </div><footer class="site-footer">
+    <span class="owner">©2019 栖云楼主</span>
+  
+    
 
-
-<section class="section">
-  <div class="container has-text-centered">
-    <p></p>
-  </div>
-</section>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/typescript.min.js"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/go.min.js"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/dockerfile.min.js"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/yaml.min.js"></script>
-
-<script>hljs.initHighlightingOnLoad();</script>
-
-
-<script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-57201547-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-57201547-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-  (adsbygoogle = window.adsbygoogle || []).push({
-    google_ad_client: "ca-pub-7398440027548350",
-    enable_page_level_ads: true
-  });
-</script>
 
+  
+  </footer>
+</body>
+</html>

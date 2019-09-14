@@ -1,72 +1,39 @@
-
 <!DOCTYPE html>
-<html lang="en-us">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta content="" name="keywords">
-<meta content="How to make ngrx/store work with HMR - {be stateless}" property="og:title">
-<title>How to make ngrx/store work with HMR | {be stateless}</title>
-<link rel="stylesheet" href="https://blog.hujiale.me//css/style.css">
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<html><head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="栖云楼主" />
+    <meta name="description" content="" />
+    <link rel="shortcut icon" href="https://hujiale.me/images/favicon.ico" type="image/x-icon"/>
+    <link rel="canonical" href="https://hujiale.me/post/how-to-make-ngrx-store-work-with-hmr/" />
+    <link href="" rel="alternate"
+        type="application/rss+xml" title="栖云楼">
+    <link rel="stylesheet" href="https://hujiale.me/css/default.css" />
+</head>
+<body><header>
+<h3>栖云楼 </h3>
+<nav class="site-nav">
+  <a href="https://hujiale.me/me">[我]</a>
+  <a href="https://hujiale.me/post/">[文]</a>
 
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css">
+  
 
+  
 
-<section class="section">
-  <div class="container">
-    <nav class="nav">
-      <div class="nav-left">
-        <a class="nav-item" href="https://blog.hujiale.me/"><h1 class="title is-4">{be stateless}</h1></a>
-      </div>
-      <div class="nav-right">
-        <nav class="nav-item level is-mobile">
-          
-          <a class="level-item" href="https://github.com/elaijuh">
-            <span class="icon">
-              <i class="fa fa-github"></i>
-            </span>
-          </a>
-          
-          <a class="level-item" href="https://twitter.com/hjiale">
-            <span class="icon">
-              <i class="fa fa-twitter"></i>
-            </span>
-          </a>
-          
-          <a class="level-item" href="https://www.linkedin.com/in/jiale-hu-22106632/">
-            <span class="icon">
-              <i class="fa fa-linkedin"></i>
-            </span>
-          </a>
-          
-          <a class="level-item" href="/index.xml">
-            <span class="icon">
-              <i class="fa fa-rss"></i>
-            </span>
-          </a>
-          
-        </nav>
-      </div>
-    </nav>
-  </div>
-</section>
+  
 
-<section class="section">
-  <div class="container">
-    <h2 class="subtitle is-6">September 11, 2016</h2>
-    <h1 class="title">How to make ngrx/store work with HMR</h1>
-    
-      <div class="tags">
-    
-        <a class="button is-link" href="/tags/angular2">angular2</a>
-    
-        <a class="button is-link" href="/tags/ngrx">ngrx</a>
-    
-</div>
+  
+</nav>
+<hr>
 
+</header>
+<div id="content">
+<article>
+    <h4>How to make ngrx/store work with HMR</h4>
+    <span>2016-09-11</span>
+    <div style="margin-top: 1rem;">
     
-    <div class="content">
-      
 
 <p>In my previous post, I talked of a way to develop angular 2 app with HMR.
 The vendors I use are <em>@angularclass/hmr</em> and <em>@angularclass/hmr-loader</em>
@@ -78,184 +45,149 @@ But app state management is optional and you can choose your own way to implemen
 <h3 id="retrieve-the-current-state">Retrieve the current state</h3>
 
 <p>To retrive the current app state before it&rsquo;s deposed is easy, just subscribe it:</p>
-
-<pre><code class="language-js">this._store.take(1).subscribe(s =&gt; store.rootState = s)
-</code></pre>
-
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#000080;font-weight:bold">this</span>._store.take(<span style="color:#00f">1</span>).subscribe(s =&gt; store.rootState = s)
+</code></pre></div>
 <p>That&rsquo;s it</p>
 
 <h3 id="restore-the-current-state">Restore the current state</h3>
 
 <p>This is kinda cumbesome as <code>ngrx/store</code> doesn&rsquo;t provide a way to set the root state, I need to compose a rootReducer to do this.
 With the help of <a href="https://github.com/MikeRyan52">Mike Ryan</a>, I figure out a way to do that.</p>
-
-<pre><code class="language-js">function stateSetter(reducer: ActionReducer&lt;any&gt;): ActionReducer&lt;any&gt; {
-  return function (state, action ) {
-    if (action.type === 'SET_ROOT_STATE') {
-      return action.payload
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#000080;font-weight:bold">function</span> stateSetter(reducer: ActionReducer&lt;any&gt;): ActionReducer&lt;any&gt; {
+  <span style="color:#000080;font-weight:bold">return</span> <span style="color:#000080;font-weight:bold">function</span> (state, action ) {
+    <span style="color:#000080;font-weight:bold">if</span> (action.type === <span style="color:#00f">&#39;SET_ROOT_STATE&#39;</span>) {
+      <span style="color:#000080;font-weight:bold">return</span> action.payload
     }
-    return reducer(state, action)
+    <span style="color:#000080;font-weight:bold">return</span> reducer(state, action)
   }
 }
 
-const rootReducer = compose(stateSetter, combineReducers)({
-    // your reducers here
-})
-</code></pre>
-
+<span style="color:#000080;font-weight:bold">const</span> rootReducer = compose(stateSetter, combineReducers)({
+    <span style="color:#080;font-style:italic">// your reducers here
+</span><span style="color:#080;font-style:italic"></span>})
+</code></pre></div>
 <p>Now I can dispatch a <code>SET_ROOT_STATE</code> action to reset the app state to what I have stored</p>
 
 <h3 id="get-everything-together">Get everything together</h3>
 
 <p>This is very much based on <a href="https://github.com/mgechev/angular2-seed">angular2-seed</a>, you might have your own <code>main.ts</code> though</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#000080;font-weight:bold">import</span> { platformBrowserDynamic } from <span style="color:#00f">&#39;@angular/platform-browser-dynamic&#39;</span>
+<span style="color:#000080;font-weight:bold">import</span> { BrowserModule } from <span style="color:#00f">&#39;@angular/platform-browser&#39;</span>
+<span style="color:#000080;font-weight:bold">import</span> { RouterModule } from <span style="color:#00f">&#39;@angular/router&#39;</span>
+<span style="color:#000080;font-weight:bold">import</span> { NgModule, ApplicationRef } from <span style="color:#00f">&#39;@angular/core&#39;</span>
+<span style="color:#000080;font-weight:bold">import</span> { removeNgStyles, createNewHosts, createInputTransfer, bootloader } from <span style="color:#00f">&#39;@angularclass/hmr&#39;</span>
 
-<pre><code class="language-js">import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
-import { BrowserModule } from '@angular/platform-browser'
-import { RouterModule } from '@angular/router'
-import { NgModule, ApplicationRef } from '@angular/core'
-import { removeNgStyles, createNewHosts, createInputTransfer, bootloader } from '@angularclass/hmr'
+<span style="color:#000080;font-weight:bold">import</span> { compose} from <span style="color:#00f">&#39;@ngrx/core/compose&#39;</span>
+<span style="color:#000080;font-weight:bold">import</span> { Store, StoreModule, ActionReducer, combineReducers } from <span style="color:#00f">&#39;@ngrx/store&#39;</span>
+<span style="color:#000080;font-weight:bold">import</span> { StoreDevtoolsModule } from <span style="color:#00f">&#39;@ngrx/store-devtools&#39;</span>
+<span style="color:#000080;font-weight:bold">import</span> { StoreLogMonitorModule, useLogMonitor } from <span style="color:#00f">&#39;@ngrx/store-log-monitor&#39;</span>
 
-import { compose} from '@ngrx/core/compose'
-import { Store, StoreModule, ActionReducer, combineReducers } from '@ngrx/store'
-import { StoreDevtoolsModule } from '@ngrx/store-devtools'
-import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor'
-
-import { AppModule } from './app'
-import { AppComponent } from './app/app.component'
-import { message } from './reducer'
+<span style="color:#000080;font-weight:bold">import</span> { AppModule } from <span style="color:#00f">&#39;./app&#39;</span>
+<span style="color:#000080;font-weight:bold">import</span> { AppComponent } from <span style="color:#00f">&#39;./app/app.component&#39;</span>
+<span style="color:#000080;font-weight:bold">import</span> { message } from <span style="color:#00f">&#39;./reducer&#39;</span>
 
 
-// Generate a reducer to set the root state
-function stateSetter(reducer: ActionReducer&lt;any&gt;): ActionReducer&lt;any&gt; {
-  return function (state, action ) {
-    if (action.type === 'SET_ROOT_STATE') {
-      return action.payload
+<span style="color:#080;font-style:italic">// Generate a reducer to set the root state
+</span><span style="color:#080;font-style:italic"></span><span style="color:#000080;font-weight:bold">function</span> stateSetter(reducer: ActionReducer&lt;any&gt;): ActionReducer&lt;any&gt; {
+  <span style="color:#000080;font-weight:bold">return</span> <span style="color:#000080;font-weight:bold">function</span> (state, action ) {
+    <span style="color:#000080;font-weight:bold">if</span> (action.type === <span style="color:#00f">&#39;SET_ROOT_STATE&#39;</span>) {
+      <span style="color:#000080;font-weight:bold">return</span> action.payload
     }
-    return reducer(state, action)
+    <span style="color:#000080;font-weight:bold">return</span> reducer(state, action)
   }
 }
 
-const rootReducer = compose(stateSetter, combineReducers)({
+<span style="color:#000080;font-weight:bold">const</span> rootReducer = compose(stateSetter, combineReducers)({
   message
 })
 
-let imports = [
+<span style="color:#000080;font-weight:bold">let</span> imports = [
   BrowserModule,
   RouterModule.forRoot([], {
-    useHash: true
+    useHash: <span style="color:#000080;font-weight:bold">true</span>
   }),
-  // app
-  AppModule,
-  // vendors
-  StoreModule.provideStore(rootReducer)
+  <span style="color:#080;font-style:italic">// app
+</span><span style="color:#080;font-style:italic"></span>  AppModule,
+  <span style="color:#080;font-style:italic">// vendors
+</span><span style="color:#080;font-style:italic"></span>  StoreModule.provideStore(rootReducer)
 ]
 
-// Enable HMR and ngrx/devtools in hot reload mode
-if (module.hot) imports.push(...[
+<span style="color:#080;font-style:italic">// Enable HMR and ngrx/devtools in hot reload mode
+</span><span style="color:#080;font-style:italic"></span><span style="color:#000080;font-weight:bold">if</span> (module.hot) imports.push(...[
     StoreDevtoolsModule.instrumentStore({
       monitor: useLogMonitor({
-        visible: true,
-        position: 'right'
+        visible: <span style="color:#000080;font-weight:bold">true</span>,
+        position: <span style="color:#00f">&#39;right&#39;</span>
       })
     }),
     StoreLogMonitorModule,
 ])
 
-@NgModule({
+<span style="color:#a61717;background-color:#e3d2d2">@</span>NgModule({
   bootstrap: [ AppComponent ],
   declarations: [ AppComponent ],
   imports
 })
-class MainModule {
-  constructor(public appRef: ApplicationRef, private _store: Store&lt;any&gt; ) {}
+<span style="color:#000080;font-weight:bold">class</span> MainModule {
+  constructor(<span style="color:#000080;font-weight:bold">public</span> appRef: ApplicationRef, <span style="color:#000080;font-weight:bold">private</span> _store: Store&lt;any&gt; ) {}
   hmrOnInit(store) {
-    if (!store || !store.rootState) return
+    <span style="color:#000080;font-weight:bold">if</span> (!store || !store.rootState) <span style="color:#000080;font-weight:bold">return</span>
 
-    // restore state by dispatch a SET_ROOT_STATE action
-    if (store.rootState) {
-      this._store.dispatch({
-        type: 'SET_ROOT_STATE',
+    <span style="color:#080;font-style:italic">// restore state by dispatch a SET_ROOT_STATE action
+</span><span style="color:#080;font-style:italic"></span>    <span style="color:#000080;font-weight:bold">if</span> (store.rootState) {
+      <span style="color:#000080;font-weight:bold">this</span>._store.dispatch({
+        type: <span style="color:#00f">&#39;SET_ROOT_STATE&#39;</span>,
         payload: store.rootState
       })
     }
 
-    if ('restoreInputValues' in store) { store.restoreInputValues() }
-    this.appRef.tick()
-    Object.keys(store).forEach(prop =&gt; delete store[prop])
+    <span style="color:#000080;font-weight:bold">if</span> (<span style="color:#00f">&#39;restoreInputValues&#39;</span> <span style="color:#000080;font-weight:bold">in</span> store) { store.restoreInputValues() }
+    <span style="color:#000080;font-weight:bold">this</span>.appRef.tick()
+    Object.keys(store).forEach(prop =&gt; <span style="color:#000080;font-weight:bold">delete</span> store[prop])
   }
   hmrOnDestroy(store) {
-    const cmpLocation = this.appRef.components.map(cmp =&gt; cmp.location.nativeElement)
-    this._store.take(1).subscribe(s =&gt; store.rootState = s)
+    <span style="color:#000080;font-weight:bold">const</span> cmpLocation = <span style="color:#000080;font-weight:bold">this</span>.appRef.components.map(cmp =&gt; cmp.location.nativeElement)
+    <span style="color:#000080;font-weight:bold">this</span>._store.take(<span style="color:#00f">1</span>).subscribe(s =&gt; store.rootState = s)
     store.disposeOldHosts = createNewHosts(cmpLocation)
     store.restoreInputValues  = createInputTransfer()
     removeNgStyles()
   }
   hmrAfterDestroy(store) {
     store.disposeOldHosts()
-    delete store.disposeOldHosts
+    <span style="color:#000080;font-weight:bold">delete</span> store.disposeOldHosts
   }
 }
 
-export function main() {
-  return platformBrowserDynamic().bootstrapModule(MainModule)
+<span style="color:#000080;font-weight:bold">export</span> <span style="color:#000080;font-weight:bold">function</span> main() {
+  <span style="color:#000080;font-weight:bold">return</span> platformBrowserDynamic().bootstrapModule(MainModule)
 }
 
 bootloader(main)
-</code></pre>
-
+</code></pre></div>
 <p>Now the state remains the same after you change your code with HMR on, cool right.</p>
 
     </div>
-  </div>
-</section>
+</article>
 
-<section class="section">
-  <div class="container">
-    <aside><div id="disqus_thread"></div></aside>
-    <script type="text/javascript">
-      var disqus_shortname = 'hujiale';
-      (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
+        </div><footer class="site-footer">
+    <span class="owner">©2019 栖云楼主</span>
+  
+    
 
-
-<section class="section">
-  <div class="container has-text-centered">
-    <p></p>
-  </div>
-</section>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/typescript.min.js"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/go.min.js"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/dockerfile.min.js"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/yaml.min.js"></script>
-
-<script>hljs.initHighlightingOnLoad();</script>
-
-
-<script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-57201547-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-57201547-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-  (adsbygoogle = window.adsbygoogle || []).push({
-    google_ad_client: "ca-pub-7398440027548350",
-    enable_page_level_ads: true
-  });
-</script>
 
+  
+  </footer>
+</body>
+</html>

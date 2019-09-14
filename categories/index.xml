@@ -1,39 +1,40 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on {be stateless}</title>
-    <link>https://blog.hujiale.me/categories/</link>
-    <description>Recent content in Categories on {be stateless}</description>
+    <title>Categories on 栖云楼</title>
+    <link>https://hujiale.me/categories/</link>
+    <description>Recent content in Categories on 栖云楼</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Fri, 13 Oct 2017 17:20:40 +0800</lastBuildDate>
     
-	<atom:link href="https://blog.hujiale.me/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://hujiale.me/categories/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Life</title>
-      <link>https://blog.hujiale.me/categories/life/</link>
-      <pubDate>Thu, 09 Mar 2017 22:34:12 +0800</pubDate>
-      
-      <guid>https://blog.hujiale.me/categories/life/</guid>
-      <description></description>
-    </item>
     
     <item>
-      <title>Programmatic Advertising</title>
-      <link>https://blog.hujiale.me/categories/programmatic-advertising/</link>
-      <pubDate>Wed, 29 Mar 2017 11:35:33 +0800</pubDate>
-      
-      <guid>https://blog.hujiale.me/categories/programmatic-advertising/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Tech</title>
-      <link>https://blog.hujiale.me/categories/tech/</link>
+      <title>tech</title>
+      <link>https://hujiale.me/categories/tech/</link>
       <pubDate>Fri, 13 Oct 2017 17:20:40 +0800</pubDate>
       
-      <guid>https://blog.hujiale.me/categories/tech/</guid>
+      <guid>https://hujiale.me/categories/tech/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>programmatic advertising</title>
+      <link>https://hujiale.me/categories/programmatic-advertising/</link>
+      <pubDate>Wed, 29 Mar 2017 11:35:33 +0800</pubDate>
+      
+      <guid>https://hujiale.me/categories/programmatic-advertising/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>life</title>
+      <link>https://hujiale.me/categories/life/</link>
+      <pubDate>Thu, 09 Mar 2017 22:34:12 +0800</pubDate>
+      
+      <guid>https://hujiale.me/categories/life/</guid>
       <description></description>
     </item>
     

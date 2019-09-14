@@ -1,171 +1,106 @@
-
 <!DOCTYPE html>
-<html lang="en-us">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta content="" name="keywords">
-<meta content="Handle HTTP request in multiple processes in NodeJS - {be stateless}" property="og:title">
-<title>Handle HTTP request in multiple processes in NodeJS | {be stateless}</title>
-<link rel="stylesheet" href="https://blog.hujiale.me//css/style.css">
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<html><head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="栖云楼主" />
+    <meta name="description" content="" />
+    <link rel="shortcut icon" href="https://hujiale.me/images/favicon.ico" type="image/x-icon"/>
+    <link rel="canonical" href="https://hujiale.me/post/handle-http-request-in-multiple-process/" />
+    <link href="" rel="alternate"
+        type="application/rss+xml" title="栖云楼">
+    <link rel="stylesheet" href="https://hujiale.me/css/default.css" />
+</head>
+<body><header>
+<h3>栖云楼 </h3>
+<nav class="site-nav">
+  <a href="https://hujiale.me/me">[我]</a>
+  <a href="https://hujiale.me/post/">[文]</a>
 
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css">
+  
 
+  
 
-<section class="section">
-  <div class="container">
-    <nav class="nav">
-      <div class="nav-left">
-        <a class="nav-item" href="https://blog.hujiale.me/"><h1 class="title is-4">{be stateless}</h1></a>
-      </div>
-      <div class="nav-right">
-        <nav class="nav-item level is-mobile">
-          
-          <a class="level-item" href="https://github.com/elaijuh">
-            <span class="icon">
-              <i class="fa fa-github"></i>
-            </span>
-          </a>
-          
-          <a class="level-item" href="https://twitter.com/hjiale">
-            <span class="icon">
-              <i class="fa fa-twitter"></i>
-            </span>
-          </a>
-          
-          <a class="level-item" href="https://www.linkedin.com/in/jiale-hu-22106632/">
-            <span class="icon">
-              <i class="fa fa-linkedin"></i>
-            </span>
-          </a>
-          
-          <a class="level-item" href="/index.xml">
-            <span class="icon">
-              <i class="fa fa-rss"></i>
-            </span>
-          </a>
-          
-        </nav>
-      </div>
-    </nav>
-  </div>
-</section>
+  
 
-<section class="section">
-  <div class="container">
-    <h2 class="subtitle is-6">December 16, 2014</h2>
-    <h1 class="title">Handle HTTP request in multiple processes in NodeJS</h1>
-    
-      <div class="tags">
-    
-        <a class="button is-link" href="/tags/nodejs">nodejs</a>
-    
-</div>
+  
+</nav>
+<hr>
 
-    
-    <div class="content">
-      <p>NodeJS is single process based which is good at frequent IO operations. But single process can&rsquo;t fully utilize multi-core CPU. Luckily we have <code>child-process</code> module in NodeJS to spawn multiple processes. One of the practical examples is handling HTTP request, especially for a large number of concurrent requests. A common way is to use master-worker pattern, a master process working as a proxy to delegate the HTTP requests to child processes with load balance enabled. Cons of master-worker is rapid resource consuming as each process needs to listen on a different port. Another ninja way is to make each child process listen on the same port. Let&rsquo;s have a look at how to achieve that:</p>
+</header>
+<div id="content">
+<article>
+    <h4>Handle HTTP request in multiple processes in NodeJS</h4>
+    <span>2014-12-16</span>
+    <div style="margin-top: 1rem;">
+    <p>NodeJS is single process based which is good at frequent IO operations. But single process can&rsquo;t fully utilize multi-core CPU. Luckily we have <code>child-process</code> module in NodeJS to spawn multiple processes. One of the practical examples is handling HTTP request, especially for a large number of concurrent requests. A common way is to use master-worker pattern, a master process working as a proxy to delegate the HTTP requests to child processes with load balance enabled. Cons of master-worker is rapid resource consuming as each process needs to listen on a different port. Another ninja way is to make each child process listen on the same port. Let&rsquo;s have a look at how to achieve that:</p>
 
 <p><span class="more"></span></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#080;font-style:italic">// master.js
+</span><span style="color:#080;font-style:italic"></span><span style="color:#000080;font-weight:bold">var</span> cp = require(<span style="color:#00f">&#39;child_process&#39;</span>),
+    cp1 = cp.fork(<span style="color:#00f">&#39;child-process.js&#39;</span>),
+    cp2 = cp.fork(<span style="color:#00f">&#39;child-process.js&#39;</span>),
+    net = require(<span style="color:#00f">&#39;net&#39;</span>);
 
-<pre><code class="language-javascript">// master.js
-var cp = require('child_process'),
-    cp1 = cp.fork('child-process.js'),
-    cp2 = cp.fork('child-process.js'),
-    net = require('net');
-
-var server = net.createServer(); // create a TCP server
-
-server.on('listening', function () {
-    /**
-     * this is a tricky part
-     * it's not sending the whole server object
-     * but a stringified message object with server._handle in
-     * we will have another post to discuss it later
-     */
-    cp1.send('server', server);
-    cp2.send('server', server);
+<span style="color:#000080;font-weight:bold">var</span> server = net.createServer(); <span style="color:#080;font-style:italic">// create a TCP server
+</span><span style="color:#080;font-style:italic"></span>
+server.on(<span style="color:#00f">&#39;listening&#39;</span>, <span style="color:#000080;font-weight:bold">function</span> () {
+    <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">     * this is a tricky part
+</span><span style="color:#080;font-style:italic">     * it&#39;s not sending the whole server object
+</span><span style="color:#080;font-style:italic">     * but a stringified message object with server._handle in
+</span><span style="color:#080;font-style:italic">     * we will have another post to discuss it later
+</span><span style="color:#080;font-style:italic">     */</span>
+    cp1.send(<span style="color:#00f">&#39;server&#39;</span>, server);
+    cp2.send(<span style="color:#00f">&#39;server&#39;</span>, server);
     server.close();
 });
 
-server.listen(1337);
+server.listen(<span style="color:#00f">1337</span>);
 
-// child.js
-var http = require('http');
+<span style="color:#080;font-style:italic">// child.js
+</span><span style="color:#080;font-style:italic"></span><span style="color:#000080;font-weight:bold">var</span> http = require(<span style="color:#00f">&#39;http&#39;</span>);
 
-var server = http.createServer(function (req, res) {
-   res.writeHead(200, {'Content-Type': 'text/plain'}); 
-   res.end('handled by child, pid: ' + process.pid + '\n');
+<span style="color:#000080;font-weight:bold">var</span> server = http.createServer(<span style="color:#000080;font-weight:bold">function</span> (req, res) {
+   res.writeHead(<span style="color:#00f">200</span>, {<span style="color:#00f">&#39;Content-Type&#39;</span>: <span style="color:#00f">&#39;text/plain&#39;</span>}); 
+   res.end(<span style="color:#00f">&#39;handled by child, pid: &#39;</span> + process.pid + <span style="color:#00f">&#39;\n&#39;</span>);
 });
 
-process.on('message', function (m, tcpServer) {
-   if (m === 'server') {
-      tcpServer.on('connection', function (socket) {
-          server.emit('connection', socket);
+process.on(<span style="color:#00f">&#39;message&#39;</span>, <span style="color:#000080;font-weight:bold">function</span> (m, tcpServer) {
+   <span style="color:#000080;font-weight:bold">if</span> (m === <span style="color:#00f">&#39;server&#39;</span>) {
+      tcpServer.on(<span style="color:#00f">&#39;connection&#39;</span>, <span style="color:#000080;font-weight:bold">function</span> (socket) {
+          server.emit(<span style="color:#00f">&#39;connection&#39;</span>, socket);
       });
    }
 });
-</code></pre>
-
+</code></pre></div>
 <p>In <code>master.js</code>, we create a TCP server, have it bound to port 1337, and close it immediately once delegate it to child process. In <code>child.js</code>, we create a HTTP server, not like usual, it doesn&rsquo;t listen on any port explicitly. Now we have the TCP server sent from master process (regard it to be the same TCP server instance for now, but actually not. We will discuss it in another post). Once there is connection to the TCP server, we manually emit the <code>connection</code> event on HTTP server with the TCP socket passed in. So that any HTTP reqeust to port 1337 will be handled by child process now, one process at a time. Let&rsquo;s use curl to check the result:</p>
-
-<pre><code class="language-bash">$ curl http://localhost:1337
-handled by child, pid: 18169 
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ curl http://localhost:1337
+handled by child, pid: <span style="color:#00f">18169</span> 
 $ curl http://localhost:1337
-handled by child, pid: 18168
-</code></pre>
-
+handled by child, pid: <span style="color:#00f">18168</span></code></pre></div>
     </div>
-  </div>
-</section>
+</article>
 
-<section class="section">
-  <div class="container">
-    <aside><div id="disqus_thread"></div></aside>
-    <script type="text/javascript">
-      var disqus_shortname = 'hujiale';
-      (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
+        </div><footer class="site-footer">
+    <span class="owner">©2019 栖云楼主</span>
+  
+    
 
-
-<section class="section">
-  <div class="container has-text-centered">
-    <p></p>
-  </div>
-</section>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/typescript.min.js"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/go.min.js"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/dockerfile.min.js"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/yaml.min.js"></script>
-
-<script>hljs.initHighlightingOnLoad();</script>
-
-
-<script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-57201547-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-57201547-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-  (adsbygoogle = window.adsbygoogle || []).push({
-    google_ad_client: "ca-pub-7398440027548350",
-    enable_page_level_ads: true
-  });
-</script>
 
+  
+  </footer>
+</body>
+</html>

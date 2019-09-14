@@ -1,70 +1,39 @@
-
 <!DOCTYPE html>
-<html lang="en-us">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta content="" name="keywords">
-<meta content="JavaScript prototype and inheritance - {be stateless}" property="og:title">
-<title>JavaScript prototype and inheritance | {be stateless}</title>
-<link rel="stylesheet" href="https://blog.hujiale.me//css/style.css">
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<html><head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="栖云楼主" />
+    <meta name="description" content="" />
+    <link rel="shortcut icon" href="https://hujiale.me/images/favicon.ico" type="image/x-icon"/>
+    <link rel="canonical" href="https://hujiale.me/post/javascript-prototype-and-inheritance/" />
+    <link href="" rel="alternate"
+        type="application/rss+xml" title="栖云楼">
+    <link rel="stylesheet" href="https://hujiale.me/css/default.css" />
+</head>
+<body><header>
+<h3>栖云楼 </h3>
+<nav class="site-nav">
+  <a href="https://hujiale.me/me">[我]</a>
+  <a href="https://hujiale.me/post/">[文]</a>
 
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css">
+  
 
+  
 
-<section class="section">
-  <div class="container">
-    <nav class="nav">
-      <div class="nav-left">
-        <a class="nav-item" href="https://blog.hujiale.me/"><h1 class="title is-4">{be stateless}</h1></a>
-      </div>
-      <div class="nav-right">
-        <nav class="nav-item level is-mobile">
-          
-          <a class="level-item" href="https://github.com/elaijuh">
-            <span class="icon">
-              <i class="fa fa-github"></i>
-            </span>
-          </a>
-          
-          <a class="level-item" href="https://twitter.com/hjiale">
-            <span class="icon">
-              <i class="fa fa-twitter"></i>
-            </span>
-          </a>
-          
-          <a class="level-item" href="https://www.linkedin.com/in/jiale-hu-22106632/">
-            <span class="icon">
-              <i class="fa fa-linkedin"></i>
-            </span>
-          </a>
-          
-          <a class="level-item" href="/index.xml">
-            <span class="icon">
-              <i class="fa fa-rss"></i>
-            </span>
-          </a>
-          
-        </nav>
-      </div>
-    </nav>
-  </div>
-</section>
+  
 
-<section class="section">
-  <div class="container">
-    <h2 class="subtitle is-6">December 1, 2014</h2>
-    <h1 class="title">JavaScript prototype and inheritance</h1>
+  
+</nav>
+<hr>
+
+</header>
+<div id="content">
+<article>
+    <h4>JavaScript prototype and inheritance</h4>
+    <span>2014-12-01</span>
+    <div style="margin-top: 1rem;">
     
-      <div class="tags">
-    
-        <a class="button is-link" href="/tags/javascript">javascript</a>
-    
-</div>
-
-    
-    <div class="content">
-      
 
 <p>Inheritance in JS is quite different from class based inheritance which is popular for being used in C++ and Java. In class based inheritance language, we have to abstract a class which is not a real world subject. While in prototype based inheritance, we can implement inheritance on objects directly.</p>
 
@@ -75,233 +44,187 @@
 <h3 id="simple-object-inheritance">Simple object inheritance</h3>
 
 <p>As every object has an internal property <code>[[prototype]]</code> which points to it&rsquo;s prototype, we can directly assign a super object to it. [[prototype]] could be implemented in different ways in different browsers. In Chrome and Firefox, it can be refered as <code>__proto__</code>.</p>
-
-<pre><code class="language-javascript">var sup = {x: 'x', y: 'y'};
-var sub = {a: 'a'};
-console.log(sub.x); // undefined
-
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#000080;font-weight:bold">var</span> sup = {x: <span style="color:#00f">&#39;x&#39;</span>, y: <span style="color:#00f">&#39;y&#39;</span>};
+<span style="color:#000080;font-weight:bold">var</span> sub = {a: <span style="color:#00f">&#39;a&#39;</span>};
+console.log(sub.x); <span style="color:#080;font-style:italic">// undefined
+</span><span style="color:#080;font-style:italic"></span>
 sub.__proto__ = sup;
-console.log(sub.x); // x
-</code></pre>
-
+console.log(sub.x); <span style="color:#080;font-style:italic">// x
+</span></code></pre></div>
 <h3 id="inheritance-by-prototype-chaining">Inheritance by prototype chaining</h3>
 
 <p>In most of the time, especially in OO style, we would like to have a constructor and then create objects from it. In JS, constructor is not a class and not different from any regular function except that you can <code>new</code> it. Usually a constructor does not explicitly return anything, it&rsquo;s side effect is to assign all the <code>this</code> properties you defined in the constructor body to the object and return it. A constructor function has a <code>prototype</code> property which points to the prototype object of the constructor. The object created by the constructor has it&rsquo;s [[prototype]] pointing to the constructor&rsquo;s prototype object. Inheritance is implemented by assigning super object to sub constructor&rsquo;s prototype. Take a look at this:</p>
-
-<pre><code class="language-javascript">function Sup() {
-    this.x = 'x';
-    this.y = 'y';
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#000080;font-weight:bold">function</span> Sup() {
+    <span style="color:#000080;font-weight:bold">this</span>.x = <span style="color:#00f">&#39;x&#39;</span>;
+    <span style="color:#000080;font-weight:bold">this</span>.y = <span style="color:#00f">&#39;y&#39;</span>;
 }
 
-function Sub() {
-    this.a = 'a';
+<span style="color:#000080;font-weight:bold">function</span> Sub() {
+    <span style="color:#000080;font-weight:bold">this</span>.a = <span style="color:#00f">&#39;a&#39;</span>;
 }
 
-Sub.prototype = new Sup();
+Sub.prototype = <span style="color:#000080;font-weight:bold">new</span> Sup();
 
-var sub = new Sub();
-console.log(sub.x); // x
-
-</code></pre>
-
+<span style="color:#000080;font-weight:bold">var</span> sub = <span style="color:#000080;font-weight:bold">new</span> Sub();
+console.log(sub.x); <span style="color:#080;font-style:italic">// x
+</span></code></pre></div>
 <p>The sub object has no x itself, so it will find x in it&rsquo;s prototype which is a super object. This is cool, but the problem comes when there is reference property in super object.</p>
-
-<pre><code class="language-javascript">function Sup() {
-    this.x = 'x';
-    this.z = ['z'];
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#000080;font-weight:bold">function</span> Sup() {
+    <span style="color:#000080;font-weight:bold">this</span>.x = <span style="color:#00f">&#39;x&#39;</span>;
+    <span style="color:#000080;font-weight:bold">this</span>.z = [<span style="color:#00f">&#39;z&#39;</span>];
 }
 
-function Sub() {
-    this.a = 'a';
+<span style="color:#000080;font-weight:bold">function</span> Sub() {
+    <span style="color:#000080;font-weight:bold">this</span>.a = <span style="color:#00f">&#39;a&#39;</span>;
 }
 
-Sub.prototype = new Sup();
+Sub.prototype = <span style="color:#000080;font-weight:bold">new</span> Sup();
 
-var sub1 = new Sub();
-var sub2 = new Sub();
-sub1.z.push('zz');
-console.log(sub1.z); // ['z', 'zz']
-console.log(sub2.z); // ['z', 'zz'], !expected to be ['z']
-</code></pre>
-
+<span style="color:#000080;font-weight:bold">var</span> sub1 = <span style="color:#000080;font-weight:bold">new</span> Sub();
+<span style="color:#000080;font-weight:bold">var</span> sub2 = <span style="color:#000080;font-weight:bold">new</span> Sub();
+sub1.z.push(<span style="color:#00f">&#39;zz&#39;</span>);
+console.log(sub1.z); <span style="color:#080;font-style:italic">// [&#39;z&#39;, &#39;zz&#39;]
+</span><span style="color:#080;font-style:italic"></span>console.log(sub2.z); <span style="color:#080;font-style:italic">// [&#39;z&#39;, &#39;zz&#39;], !expected to be [&#39;z&#39;]
+</span></code></pre></div>
 <p>Both sub1.z and sub2.z are pointing to the same z in super object. Any sub object&rsquo;s operation on z will have impact on all sub objects. That&rsquo;s dangerous!</p>
 
 <h3 id="classical-inheritance-by-constructor-stealing">Classical inheritance by constructor stealing</h3>
 
 <p>Now we see the problem in prototype chaining inheritance, is there a way to solve it?</p>
-
-<pre><code class="language-javascript">function Sup() {
-    this.z = ['z'];
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#000080;font-weight:bold">function</span> Sup() {
+    <span style="color:#000080;font-weight:bold">this</span>.z = [<span style="color:#00f">&#39;z&#39;</span>];
 }
 
-function Sub() {
-    Sup.call(this);
-    this.a = 'a';
+<span style="color:#000080;font-weight:bold">function</span> Sub() {
+    Sup.call(<span style="color:#000080;font-weight:bold">this</span>);
+    <span style="color:#000080;font-weight:bold">this</span>.a = <span style="color:#00f">&#39;a&#39;</span>;
 }
 
-var sub1 = new Sub();
-var sub2 = new Sub();
-sub1.z.push('zz');
-console.log(sub1.z); // ['z', 'zz']
-console.log(sub2.z); // ['z'], !cool
-</code></pre>
-
+<span style="color:#000080;font-weight:bold">var</span> sub1 = <span style="color:#000080;font-weight:bold">new</span> Sub();
+<span style="color:#000080;font-weight:bold">var</span> sub2 = <span style="color:#000080;font-weight:bold">new</span> Sub();
+sub1.z.push(<span style="color:#00f">&#39;zz&#39;</span>);
+console.log(sub1.z); <span style="color:#080;font-style:italic">// [&#39;z&#39;, &#39;zz&#39;]
+</span><span style="color:#080;font-style:italic"></span>console.log(sub2.z); <span style="color:#080;font-style:italic">// [&#39;z&#39;], !cool
+</span></code></pre></div>
 <p>In sub constructor we steal super constructor and call it with <code>this</code> reference. Now that every sub object has a copy of z and will not interfere with each other. This solves the problem in prototype chaining inheritance, but it&rsquo;s downside is every property including method to be inheritted should be defined inside the super constructor. So there is no method reuse. How about we combine constructor stealing and prototype chaining together?</p>
 
 <h3 id="combination-inheritance-pseudoclassical-inheritance">Combination inheritance (pseudoclassical inheritance)</h3>
 
 <p>Both prototype chaining inheritance and constructor stealing inheritance have downsides, what if we combine them together?</p>
-
-<pre><code class="language-javascript">function Sup() {
-    this.z = ['z'];
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#000080;font-weight:bold">function</span> Sup() {
+    <span style="color:#000080;font-weight:bold">this</span>.z = [<span style="color:#00f">&#39;z&#39;</span>];
 }
-Sup.prototype.mo = function () {
-    console.log('mo');
+Sup.prototype.mo = <span style="color:#000080;font-weight:bold">function</span> () {
+    console.log(<span style="color:#00f">&#39;mo&#39;</span>);
 };
 
-function Sub() {
-    Sup.call(this);
-    this.a = 'a';
+<span style="color:#000080;font-weight:bold">function</span> Sub() {
+    Sup.call(<span style="color:#000080;font-weight:bold">this</span>);
+    <span style="color:#000080;font-weight:bold">this</span>.a = <span style="color:#00f">&#39;a&#39;</span>;
 }
-Sub.prototype = new Sup();
+Sub.prototype = <span style="color:#000080;font-weight:bold">new</span> Sup();
 
-var sub1 = new Sub();
-var sub2 = new Sub();
+<span style="color:#000080;font-weight:bold">var</span> sub1 = <span style="color:#000080;font-weight:bold">new</span> Sub();
+<span style="color:#000080;font-weight:bold">var</span> sub2 = <span style="color:#000080;font-weight:bold">new</span> Sub();
 
-sub1.z.push('zz');
-console.log(sub1.z); // ['z', 'zz']
-sub1.mo(); // mo
-console.log(sub2.z); // ['z']
-sub2.mo(); // mo
-</code></pre>
-
+sub1.z.push(<span style="color:#00f">&#39;zz&#39;</span>);
+console.log(sub1.z); <span style="color:#080;font-style:italic">// [&#39;z&#39;, &#39;zz&#39;]
+</span><span style="color:#080;font-style:italic"></span>sub1.mo(); <span style="color:#080;font-style:italic">// mo
+</span><span style="color:#080;font-style:italic"></span>console.log(sub2.z); <span style="color:#080;font-style:italic">// [&#39;z&#39;]
+</span><span style="color:#080;font-style:italic"></span>sub2.mo(); <span style="color:#080;font-style:italic">// mo
+</span></code></pre></div>
 <p>That&rsquo;s cool, we don&rsquo;t need to define methods in super constructor&rsquo;s body and they are reusable now. The combination inheritance addresses both downsides of prototype chaining and constructor stealing. It&rsquo;s widely used in real life. It also preserves the behavior of <code>instanceof</code> and <code>isPrototypeOf</code> which looks like perfect now. But, yeah there is always another but :), if you look deep into the pattern, you might find that the super constructor has been called twice, <code>Sup.call(this)</code> and <code>Sub.prototype = new Sup()</code> which means the set of properties are duplicated in memory. This is an unavoidable ineffecient part of combination inheritance. And on another hand, combination inheritance still relies on constructor function which is kind of like class inheritance, while JS is really good at inheritance on objects. <a href="http://www.crockford.com">Douglas Crockford</a> has introduced prototypal inheritance in 2006 based on the premise that inheritance on objects.</p>
 
 <h3 id="prototypal-inheritance">Prototypal inheritance</h3>
 
 <p>So how to do inheritance directly on objects without constructors?</p>
-
-<pre><code class="language-javascript">function create(supObj) {
-    function Empty() {};
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#000080;font-weight:bold">function</span> create(supObj) {
+    <span style="color:#000080;font-weight:bold">function</span> Empty() {};
     Empty.prototype = supObj;
-    return new Empty();
+    <span style="color:#000080;font-weight:bold">return</span> <span style="color:#000080;font-weight:bold">new</span> Empty();
 }
-</code></pre>
-
+</code></pre></div>
 <p>Crockford introduced a factory like function to create the sub object based on the passed in super object. So super constructor is not a must now. But the type of the sub object is lost. Based on this create function, Crockford introduced parasitic inheritance which is closer to real life.</p>
 
 <h3 id="parasitic-inheritance">Parasitic inheritance</h3>
 
 <p>Much like prototypal inheritance, parasitic inheritance just encapsulates all the properties or methods for the sub object in one function.</p>
-
-<pre><code class="language-javascript">function createAnother(supObj) {
-    var sub = create(supObj);
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#000080;font-weight:bold">function</span> createAnother(supObj) {
+    <span style="color:#000080;font-weight:bold">var</span> sub = create(supObj);
     
-    sub.a = 'a';
-    sub.mo = function () {
-        console.log('mo');
+    sub.a = <span style="color:#00f">&#39;a&#39;</span>;
+    sub.mo = <span style="color:#000080;font-weight:bold">function</span> () {
+        console.log(<span style="color:#00f">&#39;mo&#39;</span>);
     };
-    return sub;
+    <span style="color:#000080;font-weight:bold">return</span> sub;
 }
-</code></pre>
-
+</code></pre></div>
 <p>Now the sub object has all the properties of super object and it&rsquo;s own property a and method mo. Parasitic inheritance addresses the duplicated properties downside in combination inheritance, but it loses object type which means <code>instanceof</code> and <code>isPrototypeOf</code> don&rsquo;t work for sub object any more. Let&rsquo;s keep improvement, finally we work out a way combining constructor stealing and parasitic inheritance.</p>
 
 <h3 id="parasitic-combination-inheritance">Parasitic combination inheritance</h3>
-
-<pre><code class="language-javascript">function create(supObj) {
-    function Empty() {};
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#000080;font-weight:bold">function</span> create(supObj) {
+    <span style="color:#000080;font-weight:bold">function</span> Empty() {};
     Empty.prototype = supObj;
-    return new Empty();
+    <span style="color:#000080;font-weight:bold">return</span> <span style="color:#000080;font-weight:bold">new</span> Empty();
 }
 
-function inheritPrototype(Sub, Sup) {
-    var subPrototype = create(Sup.prototype);
-    subPrototype.constructor = Sub; // link constructor back to Sub
-    Sub.prototype = subPrototype;
+<span style="color:#000080;font-weight:bold">function</span> inheritPrototype(Sub, Sup) {
+    <span style="color:#000080;font-weight:bold">var</span> subPrototype = create(Sup.prototype);
+    subPrototype.constructor = Sub; <span style="color:#080;font-style:italic">// link constructor back to Sub
+</span><span style="color:#080;font-style:italic"></span>    Sub.prototype = subPrototype;
 }
 
-function Sup() {
-    this.x = 'x';
-    this.z = ['z'];
+<span style="color:#000080;font-weight:bold">function</span> Sup() {
+    <span style="color:#000080;font-weight:bold">this</span>.x = <span style="color:#00f">&#39;x&#39;</span>;
+    <span style="color:#000080;font-weight:bold">this</span>.z = [<span style="color:#00f">&#39;z&#39;</span>];
 }
 
-Sup.prototype.mo = function () {
-    console.log('mo');
+Sup.prototype.mo = <span style="color:#000080;font-weight:bold">function</span> () {
+    console.log(<span style="color:#00f">&#39;mo&#39;</span>);
 };
 
-function Sub() {
-    Sup.call(this);
-    this.a = 'a';
+<span style="color:#000080;font-weight:bold">function</span> Sub() {
+    Sup.call(<span style="color:#000080;font-weight:bold">this</span>);
+    <span style="color:#000080;font-weight:bold">this</span>.a = <span style="color:#00f">&#39;a&#39;</span>;
 }
 
 inheritPrototype(Sub, Sup);
 
-var sub1 = new Sub();
-var sub2 = new Sub();
-sub1.z.push('zz');
-sub1.mo(); // mo
-cnosole.log(sub1.z); // ['z', 'zz']
-sub2.mo(); // mo
-console.log(sub2.z); // ['z']
-
-console.log(sub1 instanceof Sub); // true
-console.log(Sub.prototype.isPrototypeOf(sub2)); //true
-</code></pre>
-
+<span style="color:#000080;font-weight:bold">var</span> sub1 = <span style="color:#000080;font-weight:bold">new</span> Sub();
+<span style="color:#000080;font-weight:bold">var</span> sub2 = <span style="color:#000080;font-weight:bold">new</span> Sub();
+sub1.z.push(<span style="color:#00f">&#39;zz&#39;</span>);
+sub1.mo(); <span style="color:#080;font-style:italic">// mo
+</span><span style="color:#080;font-style:italic"></span>cnosole.log(sub1.z); <span style="color:#080;font-style:italic">// [&#39;z&#39;, &#39;zz&#39;]
+</span><span style="color:#080;font-style:italic"></span>sub2.mo(); <span style="color:#080;font-style:italic">// mo
+</span><span style="color:#080;font-style:italic"></span>console.log(sub2.z); <span style="color:#080;font-style:italic">// [&#39;z&#39;]
+</span><span style="color:#080;font-style:italic"></span>
+console.log(sub1 <span style="color:#000080;font-weight:bold">instanceof</span> Sub); <span style="color:#080;font-style:italic">// true
+</span><span style="color:#080;font-style:italic"></span>console.log(Sub.prototype.isPrototypeOf(sub2)); <span style="color:#080;font-style:italic">//true
+</span></code></pre></div>
 <p>Now both the downside in combination inheritance - duplicated properties and the downside in parasitic inheritance - object type lost are addressed. We are kind of having a perfect inheritance machenism now. BUT&hellip;personally I will not suggest to use inheritance heavily unless you want to mess yourself up.</p>
 
     </div>
-  </div>
-</section>
+</article>
 
-<section class="section">
-  <div class="container">
-    <aside><div id="disqus_thread"></div></aside>
-    <script type="text/javascript">
-      var disqus_shortname = 'hujiale';
-      (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
+        </div><footer class="site-footer">
+    <span class="owner">©2019 栖云楼主</span>
+  
+    
 
-
-<section class="section">
-  <div class="container has-text-centered">
-    <p></p>
-  </div>
-</section>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/typescript.min.js"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/go.min.js"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/dockerfile.min.js"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/yaml.min.js"></script>
-
-<script>hljs.initHighlightingOnLoad();</script>
-
-
-<script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-57201547-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-57201547-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-  (adsbygoogle = window.adsbygoogle || []).push({
-    google_ad_client: "ca-pub-7398440027548350",
-    enable_page_level_ads: true
-  });
-</script>
 
+  
+  </footer>
+</body>
+</html>

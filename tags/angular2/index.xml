@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Angular2 on {be stateless}</title>
-    <link>https://blog.hujiale.me/tags/angular2/</link>
-    <description>Recent content in Angular2 on {be stateless}</description>
+    <title>angular2 on 栖云楼</title>
+    <link>https://hujiale.me/tags/angular2/</link>
+    <description>Recent content in angular2 on 栖云楼</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 11 Sep 2016 03:26:53 +0800</lastBuildDate>
     
-	<atom:link href="https://blog.hujiale.me/tags/angular2/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://hujiale.me/tags/angular2/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>How to make ngrx/store work with HMR</title>
-      <link>https://blog.hujiale.me/post/how-to-make-ngrx-store-work-with-hmr/</link>
+      <link>https://hujiale.me/post/how-to-make-ngrx-store-work-with-hmr/</link>
       <pubDate>Sun, 11 Sep 2016 03:26:53 +0800</pubDate>
       
-      <guid>https://blog.hujiale.me/post/how-to-make-ngrx-store-work-with-hmr/</guid>
+      <guid>https://hujiale.me/post/how-to-make-ngrx-store-work-with-hmr/</guid>
       <description>In my previous post, I talked of a way to develop angular 2 app with HMR. The vendors I use are @angularclass/hmr and @angularclass/hmr-loader Later on, I thought I might need a data flow tool like redux to manage my app state and I found ngrx/store
 @angularclass/hmr injects some hmr prefix life cycles into the main module to let you to restore the data. But app state management is optional and you can choose your own way to implement it, so I will walk you through how I implement HMR with ngrx/store</description>
     </item>
     
     <item>
       <title>Angular2 HMR with backend server supported</title>
-      <link>https://blog.hujiale.me/post/ng2-hmr-with-backend-server/</link>
+      <link>https://hujiale.me/post/ng2-hmr-with-backend-server/</link>
       <pubDate>Sat, 03 Sep 2016 20:53:14 +0800</pubDate>
       
-      <guid>https://blog.hujiale.me/post/ng2-hmr-with-backend-server/</guid>
+      <guid>https://hujiale.me/post/ng2-hmr-with-backend-server/</guid>
       <description>Currenly I am developing a client + server side boilerplate with Angular 2 and Feathers. For server side, I am using ts-node with nodemon, so far so good. But I find it cumbesome that every time I need to bundle client side code.
 After some exploring, I find a way to solve the problem. These are the dependencies:
  angular2-hmr a bootload wrapper on bootstrapModule, it&amp;rsquo;s cleared classified how to use in github angular2-hmr-loader, a webpack loader to work with the previous one webpack-dev-middleware, just like webpack-dev-server webpack-hot-middleware, an express/feather middleware just like webpack-dev-server w/ hot  All of their READMEs clearly walk you through, it just suprises me that few information could be connected on this while it&amp;rsquo;s a quite general practice in React</description>

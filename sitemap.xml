@@ -3,241 +3,218 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://blog.hujiale.me/post/install-ycm-with-pathogen-in-neovim/</loc>
+    <loc>https://hujiale.me/categories/</loc>
     <lastmod>2017-10-13T17:20:40+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.hujiale.me/post/cron-need-root-password-to-be-set/</loc>
+    <loc>https://hujiale.me/post/install-ycm-with-pathogen-in-neovim/</loc>
+    <lastmod>2017-10-13T17:20:40+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/tags/neovim/</loc>
+    <lastmod>2017-10-13T17:20:40+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/post/</loc>
+    <lastmod>2017-10-13T17:20:40+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/tags/</loc>
+    <lastmod>2017-10-13T17:20:40+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/categories/tech/</loc>
+    <lastmod>2017-10-13T17:20:40+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/tags/vim/</loc>
+    <lastmod>2017-10-13T17:20:40+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/</loc>
+    <lastmod>2017-10-13T17:20:40+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/post/cron-need-root-password-to-be-set/</loc>
     <lastmod>2017-09-30T14:51:31+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.hujiale.me/post/get-ready-for-freebsd/</loc>
+    <loc>https://hujiale.me/tags/unix-cron/</loc>
+    <lastmod>2017-09-30T14:51:31+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/tags/freebsd/</loc>
     <lastmod>2017-09-12T00:21:39+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.hujiale.me/post/cookie-sync/</loc>
+    <loc>https://hujiale.me/post/get-ready-for-freebsd/</loc>
+    <lastmod>2017-09-12T00:21:39+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/tags/cookie/</loc>
     <lastmod>2017-03-29T11:35:33+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.hujiale.me/post/yiin-free-to-wording/</loc>
+    <loc>https://hujiale.me/post/cookie-sync/</loc>
+    <lastmod>2017-03-29T11:35:33+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/categories/programmatic-advertising/</loc>
+    <lastmod>2017-03-29T11:35:33+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/tags/rtb/</loc>
+    <lastmod>2017-03-29T11:35:33+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/tags/life/</loc>
     <lastmod>2017-03-09T22:34:12+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.hujiale.me/post/provision-lightsail-with-ansible/</loc>
+    <loc>https://hujiale.me/categories/life/</loc>
+    <lastmod>2017-03-09T22:34:12+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/post/yiin-free-to-wording/</loc>
+    <lastmod>2017-03-09T22:34:12+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/tags/ansible/</loc>
     <lastmod>2016-12-21T22:18:43+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.hujiale.me/post/https-for-everything/</loc>
+    <loc>https://hujiale.me/tags/aws/</loc>
+    <lastmod>2016-12-21T22:18:43+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/post/provision-lightsail-with-ansible/</loc>
+    <lastmod>2016-12-21T22:18:43+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/tags/https/</loc>
     <lastmod>2016-11-18T00:59:57+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.hujiale.me/post/how-to-make-ngrx-store-work-with-hmr/</loc>
+    <loc>https://hujiale.me/post/https-for-everything/</loc>
+    <lastmod>2016-11-18T00:59:57+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/tags/angular2/</loc>
     <lastmod>2016-09-11T03:26:53+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.hujiale.me/post/ng2-hmr-with-backend-server/</loc>
+    <loc>https://hujiale.me/post/how-to-make-ngrx-store-work-with-hmr/</loc>
+    <lastmod>2016-09-11T03:26:53+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/tags/ngrx/</loc>
+    <lastmod>2016-09-11T03:26:53+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/post/ng2-hmr-with-backend-server/</loc>
     <lastmod>2016-09-03T20:53:14+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.hujiale.me/post/migration-to-hugo/</loc>
+    <loc>https://hujiale.me/post/migration-to-hugo/</loc>
     <lastmod>2016-09-03T20:03:12+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.hujiale.me/post/vertical-align-an-image/</loc>
+    <loc>https://hujiale.me/tags/css/</loc>
     <lastmod>2016-03-27T01:32:00+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.hujiale.me/post/unit-test-angular-directive/</loc>
+    <loc>https://hujiale.me/post/vertical-align-an-image/</loc>
+    <lastmod>2016-03-27T01:32:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/tags/angular1/</loc>
     <lastmod>2015-06-17T01:27:00+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.hujiale.me/post/scope-the-most-important-thing-in-javascript/</loc>
+    <loc>https://hujiale.me/post/unit-test-angular-directive/</loc>
+    <lastmod>2015-06-17T01:27:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/tags/javascript/</loc>
     <lastmod>2015-01-31T23:07:59+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.hujiale.me/post/hoisting-what-happen-behind-it/</loc>
+    <loc>https://hujiale.me/post/scope-the-most-important-thing-in-javascript/</loc>
+    <lastmod>2015-01-31T23:07:59+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/post/hoisting-what-happen-behind-it/</loc>
     <lastmod>2015-01-01T01:55:22+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.hujiale.me/post/repeat-a-capturing-group/</loc>
+    <loc>https://hujiale.me/tags/regex/</loc>
     <lastmod>2014-12-23T01:41:37+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.hujiale.me/post/handle-http-request-in-multiple-process/</loc>
+    <loc>https://hujiale.me/post/repeat-a-capturing-group/</loc>
+    <lastmod>2014-12-23T01:41:37+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/post/handle-http-request-in-multiple-process/</loc>
     <lastmod>2014-12-16T01:28:26+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.hujiale.me/post/angularjs-decorator/</loc>
+    <loc>https://hujiale.me/tags/nodejs/</loc>
+    <lastmod>2014-12-16T01:28:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/post/angularjs-decorator/</loc>
     <lastmod>2014-12-11T22:56:24+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.hujiale.me/post/function-overload-in-javascript/</loc>
+    <loc>https://hujiale.me/post/function-overload-in-javascript/</loc>
     <lastmod>2014-12-04T01:14:12+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.hujiale.me/post/javascript-prototype-and-inheritance/</loc>
+    <loc>https://hujiale.me/post/javascript-prototype-and-inheritance/</loc>
     <lastmod>2014-12-01T05:13:52+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/angular1/</loc>
-    <lastmod>2015-06-17T01:27:00+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/angular2/</loc>
-    <lastmod>2016-09-11T03:26:53+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/ansible/</loc>
-    <lastmod>2016-12-21T22:18:43+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/aws/</loc>
-    <lastmod>2016-12-21T22:18:43+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/categories/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/cookie/</loc>
-    <lastmod>2017-03-29T11:35:33+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/css/</loc>
-    <lastmod>2016-03-27T01:32:00+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/freebsd/</loc>
-    <lastmod>2017-09-12T00:21:39+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/https/</loc>
-    <lastmod>2016-11-18T00:59:57+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/javascript/</loc>
-    <lastmod>2015-01-31T23:07:59+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/life/</loc>
-    <lastmod>2017-03-09T22:34:12+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/categories/life/</loc>
-    <lastmod>2017-03-09T22:34:12+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/neovim/</loc>
-    <lastmod>2017-10-13T17:20:40+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/ngrx/</loc>
-    <lastmod>2016-09-11T03:26:53+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/nodejs/</loc>
-    <lastmod>2014-12-16T01:28:26+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/post/</loc>
-    <lastmod>2017-10-13T17:20:40+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/categories/programmatic-advertising/</loc>
-    <lastmod>2017-03-29T11:35:33+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/regex/</loc>
-    <lastmod>2014-12-23T01:41:37+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/rtb/</loc>
-    <lastmod>2017-03-29T11:35:33+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/</loc>
-    <lastmod>2015-06-17T01:27:00+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/categories/tech/</loc>
-    <lastmod>2017-10-13T17:20:40+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/unix-cron/</loc>
-    <lastmod>2017-09-30T14:51:31+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/tags/vim/</loc>
-    <lastmod>2017-10-13T17:20:40+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.hujiale.me/</loc>
-    <lastmod>2017-10-13T17:20:40+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
 </urlset>
