@@ -3,8 +3,43 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://hujiale.me/me/</loc>
+    <lastmod>2019-09-14T22:19:53+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/</loc>
+    <lastmod>2019-09-14T22:19:53+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/categories/architecture/</loc>
+    <lastmod>2019-05-31T00:52:32+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://hujiale.me/categories/</loc>
-    <lastmod>2017-10-13T17:20:40+08:00</lastmod>
+    <lastmod>2019-05-31T00:52:32+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/post/</loc>
+    <lastmod>2019-05-31T00:52:32+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/tags/</loc>
+    <lastmod>2019-05-31T00:52:32+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/tags/%E5%8F%A4%E5%BB%BA/</loc>
+    <lastmod>2019-05-31T00:52:32+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hujiale.me/post/%E8%82%87%E5%BA%86%E6%A2%85%E5%BA%B5%E8%80%83%E5%AF%9F%E6%8A%A5%E5%91%8A/</loc>
+    <lastmod>2019-05-31T00:52:32+08:00</lastmod>
   </url>
   
   <url>
@@ -18,27 +53,12 @@
   </url>
   
   <url>
-    <loc>https://hujiale.me/post/</loc>
-    <lastmod>2017-10-13T17:20:40+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://hujiale.me/tags/</loc>
-    <lastmod>2017-10-13T17:20:40+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://hujiale.me/categories/tech/</loc>
     <lastmod>2017-10-13T17:20:40+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://hujiale.me/tags/vim/</loc>
-    <lastmod>2017-10-13T17:20:40+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://hujiale.me/</loc>
     <lastmod>2017-10-13T17:20:40+08:00</lastmod>
   </url>
   
